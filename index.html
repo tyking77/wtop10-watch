@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WTOP-10 Watch</title>
+<meta name="description" content="Watch WTOP-10 newscasts, weather and Laker sports on demand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    /* WTOP-10 palette, matched to the logo and the Program Guide */
+    --ground: #080e22;      /* navy-950 */
+    --surface: #0b1733;     /* navy-900 */
+    --surface-2: #16295c;   /* navy-700 */
+    --navy: #0f2050;        /* navy-800 */
+    --red: #e5322f;         /* logo red, used for actions */
+    --red-hover: #f0514e;
+    --red-deep: #a3121a;
+    --ink: #eeeef0;
+    --muted: #b7b9c2;
+    --line: #2c3e6b;
+    --live: #e5322f;
+    --gutter: max(16px, 4vw);
+    --display: "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --body: "Inter", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ground); }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 400 16px/1.5 var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  [hidden] { display: none !important; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; gap: clamp(16px, 3vw, 40px);
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--gutter) 14px;
+    background: linear-gradient(to bottom, rgba(8,14,34,.92), rgba(8,14,34,0));
+    transition: background .3s;
+  }
+  .topbar.solid { background: rgba(8,14,34,.96); box-shadow: 0 1px 0 var(--line); }
+  .wordmark { display: block; flex-shrink: 0; }
+  .wordmark img { height: clamp(28px, 3vw, 38px); width: auto; }
+  .nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav button {
+    background: none; border: 0; cursor: pointer; white-space: nowrap;
+    padding: 6px 10px; border-radius: 4px;
+    font: 600 15px/1 var(--body); color: var(--muted);
+  }
+  .nav button:hover { color: var(--ink); }
+  .nav button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--red); border-radius: 0; }
+  .live-pill {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+    background: var(--live); color: #fff; border: 0; border-radius: 3px; cursor: pointer;
+    padding: 6px 10px; font: 700 14px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .live-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    height: clamp(480px, 56.25vw, 820px);
+    background: var(--surface);
+  }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+  .slide.active { opacity: 1; }
+  .slide img, .slide video {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .slide img { transform-origin: 70% 40%; }
+  .slide.active img { animation: drift 16s ease-out forwards; }
+  @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+  .slide video { opacity: 0; transition: opacity .8s ease; }
+  .slide video.playing { opacity: 1; }
+  .slide .fallback {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 90% at 80% 20%, rgba(229,50,47,.22), transparent 60%),
+      linear-gradient(135deg, var(--surface-2), var(--ground) 75%);
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(to right, rgba(8,14,34,.92) 0%, rgba(8,14,34,.55) 38%, rgba(8,14,34,0) 68%),
+      linear-gradient(to top, var(--ground) 0%, rgba(8,14,34,0) 40%);
+  }
+  .bug {
+    position: absolute; z-index: 3; right: var(--gutter); top: calc(env(safe-area-inset-top, 0px) + 78px);
+    opacity: .6;
+  }
+  .bug img { height: 26px; width: auto; }
+  .hero-copy {
+    position: absolute; z-index: 3; left: var(--gutter); right: var(--gutter); bottom: clamp(56px, 9vw, 120px);
+    max-width: 620px;
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .hero-copy.swapping { opacity: 0; transform: translateY(8px); }
+  .kicker {
+    display: flex; align-items: center; gap: 10px;
+    font: 700 14px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--ink);
+  }
+  .kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+  .hero h1 {
+    margin: 14px 0 12px;
+    font: 700 clamp(46px, 7.4vw, 104px)/.95 var(--display);
+    text-transform: uppercase; letter-spacing: -.005em; text-wrap: balance;
+  }
+  .hero .meta { font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .hero .meta strong { color: var(--ink); font-weight: 600; }
+  .hero .tagline { margin: 8px 0 22px; font-size: clamp(16px, 1.4vw, 19px); max-width: 48ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none;
+    border: 0; border-radius: 4px; padding: 13px 22px;
+    font: 600 18px/1 var(--display); letter-spacing: .06em; text-transform: uppercase;
+  }
+  .btn-play { background: var(--red); color: #fff; }
+  .btn-play:hover { background: var(--red-hover); }
+  .btn-play svg { width: 16px; height: 16px; }
+  .btn-ghost { background: rgba(238,244,238,.14); color: var(--ink); backdrop-filter: blur(6px); }
+  .btn-ghost:hover { background: rgba(238,244,238,.24); }
+  .dots {
+    position: absolute; z-index: 3; right: var(--gutter); bottom: clamp(56px, 9vw, 120px);
+    display: flex; gap: 8px;
+  }
+  .dots button {
+    width: 34px; height: 4px; padding: 0; border: 0; border-radius: 2px; cursor: pointer;
+    background: rgba(238,244,238,.3); position: relative; overflow: hidden;
+  }
+  .dots button[aria-current="true"] { background: rgba(238,244,238,.45); }
+  .dots button[aria-current="true"]::after {
+    content: ""; position: absolute; inset: 0; background: var(--ink);
+    transform-origin: left; animation: fill var(--dur, 9s) linear forwards;
+  }
+  .dots.paused button::after { animation-play-state: paused; }
+  @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* ---------- Live banner ---------- */
+  .live-banner {
+    margin: 0 var(--gutter) 8px; position: relative; z-index: 4;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 14px 18px; border-radius: 6px;
+    background: linear-gradient(90deg, rgba(229,72,77,.22), rgba(229,72,77,.06));
+    box-shadow: inset 0 0 0 1px rgba(229,72,77,.45);
+  }
+  .live-banner p { margin: 0; font-weight: 600; }
+
+  /* ---------- Rows ---------- */
+  main { position: relative; z-index: 4; margin-top: -40px; padding-bottom: 64px; }
+  .row { margin-top: 34px; }
+  .row-head {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-inline: var(--gutter); margin-bottom: 12px;
+  }
+  .row-head h2 { margin: 0; font: 700 clamp(22px, 2vw, 28px)/1 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+  .row-head span { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .track-wrap { position: relative; }
+  .track {
+    display: grid; grid-auto-flow: column;
+    grid-auto-columns: clamp(240px, 23vw, 340px);
+    gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+    padding: 6px var(--gutter) 14px; scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track.shows { grid-auto-columns: clamp(200px, 19vw, 280px); }
+  .arrow {
+    position: absolute; top: 6px; bottom: 14px; width: calc(var(--gutter) - 4px); min-width: 40px;
+    border: 0; cursor: pointer; z-index: 2; opacity: 0; transition: opacity .2s;
+    background: rgba(8,14,34,.7); color: var(--ink); font-size: 30px;
+  }
+  .arrow.prev { left: 0; } .arrow.next { right: 0; }
+  .track-wrap:hover .arrow:not([disabled]), .arrow:focus-visible { opacity: 1; }
+  .arrow[disabled] { display: none; }
+  @media (hover: none) { .arrow { display: none; } }
+
+  .card {
+    scroll-snap-align: start; text-align: left; cursor: pointer;
+    background: none; border: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;
+  }
+  .thumb {
+    position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 6px; overflow: hidden;
+    background: var(--surface-2);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .thumb img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+  .thumb .ph {
+    position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 12px 14px;
+    background: linear-gradient(135deg, var(--surface-2), var(--navy));
+    font: 700 22px/1 var(--display); text-transform: uppercase;
+  }
+  .thumb .play-badge {
+    position: absolute; z-index: 3; left: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--red); color: #fff;
+    opacity: 0; transform: scale(.85); transition: opacity .2s, transform .2s;
+  }
+  .thumb .play-badge svg { width: 14px; height: 14px; margin-left: 2px; }
+  .card:hover .thumb, .card:focus-visible .thumb { transform: scale(1.035); box-shadow: 0 0 0 2px var(--ink), 0 14px 30px rgba(0,0,0,.5); }
+  .card:hover .play-badge, .card:focus-visible .play-badge { opacity: 1; transform: none; }
+  .card:focus-visible { outline: none; }
+  .card .show-name { font: 600 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .card .ep-title { font-weight: 600; font-size: 16px; line-height: 1.3; }
+  .card .ep-date { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .card-text { display: flex; flex-direction: column; gap: 5px; padding-inline: 2px; }
+
+  .show-tile .thumb { aspect-ratio: 4 / 5; }
+  .show-tile .thumb::after {
+    content: ""; position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(to top, rgba(8,14,34,.95), rgba(8,14,34,.1) 60%);
+  }
+  .show-tile .tile-label {
+    position: absolute; z-index: 3; left: 14px; right: 14px; bottom: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .show-tile .tile-label strong { font: 700 clamp(24px, 2.2vw, 32px)/1 var(--display); text-transform: uppercase; }
+  .show-tile .tile-label span { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .empty { padding-inline: var(--gutter); color: var(--muted); }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 28px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 28px);
+    color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+  }
+
+  /* ---------- Player ---------- */
+  dialog.player {
+    width: min(1200px, 100vw - 32px); max-width: none; padding: 0; border: 0; border-radius: 8px;
+    background: var(--surface); color: var(--ink); overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  }
+  dialog.player::backdrop { background: rgba(3,6,16,.88); backdrop-filter: blur(4px); }
+  .frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .player-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px 18px; }
+  .player-bar .txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+  .player-bar .show-name { font: 600 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .player-bar h3 { margin: 0; font: 600 22px/1.2 var(--display); letter-spacing: .01em; }
+  .player-bar a { color: var(--muted); font-size: 14px; }
+  .close {
+    position: absolute; top: 10px; right: 10px; z-index: 2; width: 40px; height: 40px; border-radius: 50%;
+    border: 0; cursor: pointer; background: rgba(8,14,34,.75); color: var(--ink); font-size: 24px; line-height: 1;
+  }
+
+  @media (max-width: 640px) {
+    .topbar { gap: 10px; }
+    .nav button { padding: 6px 6px; font-size: 14px; }
+    .bug { display: none; }
+    .hero { height: clamp(520px, 130vw, 640px); }
+    .hero::after { background: linear-gradient(to top, var(--ground) 10%, rgba(8,14,34,.82) 50%, rgba(8,14,34,.15) 80%); }
+    .dots { left: var(--gutter); right: auto; bottom: 22px; }
+    .hero-copy { bottom: 52px; }
+    .track { grid-auto-columns: 74vw; }
+    .track.shows { grid-auto-columns: 46vw; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <a class="wordmark" href="./"><img src="assets/wtop10-logo.png" alt="WTOP-10 home"></a>
+  <nav class="nav" id="nav" aria-label="Browse by category"></nav>
+  <button class="live-pill" id="livePill" hidden>Live</button>
+</header>
+
+<section class="hero" id="hero" aria-roledescription="carousel" aria-label="Featured shows">
+  <div id="slides"></div>
+  <div class="bug" aria-hidden="true"><img src="assets/wtop10-logo.png" alt=""></div>
+  <div class="hero-copy" id="heroCopy">
+    <div class="kicker" id="heroKicker"></div>
+    <h1 id="heroTitle"></h1>
+    <div class="meta" id="heroMeta"></div>
+    <p class="tagline" id="heroTagline"></p>
+    <div class="actions">
+      <button class="btn btn-play" id="heroPlay">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3 1.5v13l11-6.5z"/></svg>
+        Play latest
+      </button>
+      <button class="btn btn-ghost" id="heroMore">All episodes</button>
+    </div>
+  </div>
+  <div class="dots" id="dots" role="tablist" aria-label="Choose featured show"></div>
+</section>
+
+<main id="main">
+  <div class="live-banner" id="liveBanner" hidden>
+    <span class="live-pill" style="margin:0;cursor:default">Live</span>
+    <p id="liveText"></p>
+    <button class="btn btn-play" id="liveWatch" style="margin-left:auto">Watch live</button>
+  </div>
+  <div id="rows"></div>
+</main>
+
+<footer>
+  <span>WTOP-10 · SUNY Oswego's student television station</span>
+  <span>Video hosted on Panopto</span>
+</footer>
+
+<dialog class="player" id="player" aria-label="Video player">
+  <button class="close" id="closePlayer" aria-label="Close player">&times;</button>
+  <div class="frame"><iframe id="playerFrame" title="Panopto video player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="player-bar">
+    <div class="txt">
+      <span class="show-name" id="playerShow"></span>
+      <h3 id="playerTitle"></h3>
+    </div>
+    <a id="playerLink" href="#" target="_blank" rel="noopener">Open in Panopto</a>
+  </div>
+</dialog>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  "use strict";
+  var D = window.WTOP;
+  if (!D) { document.getElementById("rows").innerHTML = '<p class="empty">Could not load data.js. Check that it sits in the same folder as this page.</p>'; return; }
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var HOST = (D.panoptoHost || "").replace(/\/$/, "");
+  var PLAY_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3 1.5v13l11-6.5z"/></svg>';
+
+  /* ---------- data prep ---------- */
+  var shows = D.shows || [];
+  var showById = {};
+  shows.forEach(function (s) { showById[s.id] = s; });
+  var episodes = (D.episodes || [])
+    .filter(function (e) { return e.panoptoId && showById[e.show]; })
+    .sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  episodes.forEach(function (e) { e.showObj = showById[e.show]; });
+
+  function epsFor(showId) { return episodes.filter(function (e) { return e.show === showId; }); }
+  function latestFor(showId) { return epsFor(showId)[0]; }
+  function stillFor(show) { var l = latestFor(show.id); return show.still || (l && l.thumb) || ""; }
+  function thumbFor(ep) { return ep.thumb || ep.showObj.still || ""; }
+  function fmtDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso + "T12:00:00");
+    return isNaN(d) ? iso : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+  function epTitle(ep) { return ep.title || fmtDate(ep.date); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  var categories = [];
+  shows.forEach(function (s) { if (s.category && categories.indexOf(s.category) < 0 && epsFor(s.id).length) categories.push(s.category); });
+
+  /* ---------- filter state ---------- */
+  var filter = { type: "all", value: null };
+  function showMatches(s) {
+    if (filter.type === "all") return true;
+    if (filter.type === "category") return s.category === filter.value;
+    return s.id === filter.value;
+  }
+
+  /* ---------- nav ---------- */
+  var nav = document.getElementById("nav");
+  function renderNav() {
+    var items = [{ label: "Home", type: "all" }].concat(categories.map(function (c) { return { label: c, type: "category", value: c }; }));
+    nav.innerHTML = "";
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.textContent = it.label;
+      var on = filter.type === it.type && (it.type === "all" || filter.value === it.value);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.addEventListener("click", function () { setFilter(it.type, it.value); });
+      nav.appendChild(b);
+    });
+  }
+  function setFilter(type, value) {
+    filter = { type: type, value: value || null };
+    renderNav(); buildHero(); renderRows();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  }
+
+  /* ---------- hero ---------- */
+  var slidesEl = document.getElementById("slides");
+  var dotsEl = document.getElementById("dots");
+  var copyEl = document.getElementById("heroCopy");
+  var heroShows = [], current = -1, timer = null, STILL_MS = 9000;
+
+  function buildHero() {
+    clearTimeout(timer);
+    heroShows = shows.filter(function (s) { return latestFor(s.id) && showMatches(s) && (filter.type !== "all" || s.featured !== false); });
+    if (!heroShows.length) heroShows = shows.filter(function (s) { return latestFor(s.id); });
+    slidesEl.innerHTML = ""; dotsEl.innerHTML = ""; current = -1;
+
+    heroShows.forEach(function (s, i) {
+      var slide = document.createElement("div");
+      slide.className = "slide";
+      var still = stillFor(s);
+      slide.innerHTML = '<div class="fallback"></div>' + (still ? '<img alt="" src="' + esc(still) + '"' + (i ? ' loading="lazy"' : "") + ">" : "");
+      var img = slide.querySelector("img");
+      if (img) img.addEventListener("error", function () { img.remove(); });
+      if (s.trailer && !reduceMotion) {
+        var v = document.createElement("video");
+        v.muted = true; v.defaultMuted = true; v.playsInline = true;
+        v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+        v.preload = "none";
+        v.dataset.src = s.trailer;
+        v.loop = heroShows.length === 1;
+        slide.appendChild(v);
+      }
+      slidesEl.appendChild(slide);
+
+      if (heroShows.length > 1) {
+        var d = document.createElement("button");
+        d.setAttribute("role", "tab");
+        d.setAttribute("aria-label", s.title);
+        d.addEventListener("click", function () { go(i, true); });
+        dotsEl.appendChild(d);
+      }
+    });
+    go(0, false);
+  }
+
+  function go(i, fromUser) {
+    clearTimeout(timer);
+    var slides = slidesEl.children;
+    if (!slides.length) return;
+    if (current >= 0 && slides[current]) {
+      slides[current].classList.remove("active");
+      var oldV = slides[current].querySelector("video");
+      if (oldV) { oldV.pause(); oldV.classList.remove("playing"); try { oldV.currentTime = 0; } catch (e) {} }
+    }
+    current = (i + slides.length) % slides.length;
+    var slide = slides[current];
+    // restart the drift animation on the still
+    var img = slide.querySelector("img");
+    if (img) { img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; }
+    slide.classList.add("active");
+    setCopy(heroShows[current], fromUser);
+
+    Array.prototype.forEach.call(dotsEl.children, function (d, k) {
+      d.setAttribute("aria-current", k === current ? "true" : "false");
+      d.setAttribute("aria-selected", k === current ? "true" : "false");
+    });
+
+    var v = slide.querySelector("video");
+    if (v) {
+      if (!v.getAttribute("src")) v.src = v.dataset.src;   // only load the trailer on screen
+      v.onplaying = function () {
+        v.classList.add("playing");
+        clearTimeout(timer);                               // trailer is running: advance when it ends
+        if (isFinite(v.duration)) setDotDuration(v.duration * 1000);
+      };
+      v.onended = function () { if (heroShows.length > 1) go(current + 1); };
+      v.onerror = function () { v.remove(); };             // bad file: the still stays up
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});           // autoplay blocked: the still stays up
+    }
+    setDotDuration(STILL_MS);
+    if (heroShows.length > 1) timer = setTimeout(function () { go(current + 1); }, STILL_MS);
+  }
+
+  function setDotDuration(ms) {
+    var d = dotsEl.children[current];
+    if (!d) return;
+    d.style.setProperty("--dur", ms + "ms");
+    d.setAttribute("aria-current", "false"); void d.offsetWidth; d.setAttribute("aria-current", "true");
+  }
+
+  function setCopy(s, animate) {
+    var ep = latestFor(s.id);
+    function fill() {
+      document.getElementById("heroKicker").textContent = s.category || "WTOP-10";
+      document.getElementById("heroTitle").textContent = s.title;
+      document.getElementById("heroMeta").innerHTML = "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (ep.title ? " · " + esc(fmtDate(ep.date)) : "");
+      document.getElementById("heroTagline").textContent = s.tagline || "";
+      document.getElementById("heroPlay").onclick = function () { openPlayer(ep); };
+      document.getElementById("heroMore").onclick = function () { setFilter("show", s.id); };
+      copyEl.classList.remove("swapping");
+    }
+    if (reduceMotion || current < 0 || !copyEl.textContent.trim()) { fill(); return; }
+    copyEl.classList.add("swapping");
+    setTimeout(fill, 350);
+  }
+
+  // Pause the rotation while the viewer is using the hero buttons or the tab is hidden
+  var hero = document.getElementById("hero");
+  hero.addEventListener("focusin", function () { clearTimeout(timer); dotsEl.classList.add("paused"); });
+  hero.addEventListener("focusout", function () {
+    dotsEl.classList.remove("paused");
+    var v = slidesEl.children[current] && slidesEl.children[current].querySelector("video.playing");
+    if (!v && heroShows.length > 1) timer = setTimeout(function () { go(current + 1); }, STILL_MS);
+  });
+  document.addEventListener("visibilitychange", function () {
+    var v = slidesEl.children[current] && slidesEl.children[current].querySelector("video");
+    if (document.hidden) { clearTimeout(timer); if (v) v.pause(); }
+    else go(current);
+  });
+
+  /* ---------- rows ---------- */
+  var rowsEl = document.getElementById("rows");
+
+  function episodeCard(ep, withShowName) {
+    var b = document.createElement("button");
+    b.className = "card";
+    b.setAttribute("aria-label", "Play " + ep.showObj.title + ", " + epTitle(ep));
+    var t = thumbFor(ep);
+    b.innerHTML =
+      '<div class="thumb">' +
+        '<div class="ph">' + esc(ep.showObj.title) + "</div>" +
+        (t ? '<img alt="" loading="lazy" src="' + esc(t) + '">' : "") +
+        '<span class="play-badge">' + PLAY_SVG + "</span>" +
+      "</div>" +
+      '<div class="card-text">' +
+        (withShowName ? '<span class="show-name">' + esc(ep.showObj.title) + "</span>" : "") +
+        '<span class="ep-title">' + esc(epTitle(ep)) + "</span>" +
+        (ep.title ? '<span class="ep-date">' + esc(fmtDate(ep.date)) + "</span>" : "") +
+      "</div>";
+    var img = b.querySelector("img");
+    if (img) img.addEventListener("error", function () { img.remove(); });
+    b.addEventListener("click", function () { openPlayer(ep); });
+    return b;
+  }
+
+  function showTile(s) {
+    var b = document.createElement("button");
+    b.className = "card show-tile";
+    var n = epsFor(s.id).length;
+    var still = stillFor(s);
+    b.innerHTML =
+      '<div class="thumb">' +
+        '<div class="ph"></div>' +
+        (still ? '<img alt="" loading="lazy" src="' + esc(still) + '">' : "") +
+        '<div class="tile-label"><strong>' + esc(s.title) + "</strong><span>" + esc(s.category) + " · " + n + (n === 1 ? " episode" : " episodes") + "</span></div>" +
+      "</div>";
+    var img = b.querySelector("img");
+    if (img) img.addEventListener("error", function () { img.remove(); });
+    b.addEventListener("click", function () { setFilter("show", s.id); });
+    return b;
+  }
+
+  function addRow(title, items, extraClass) {
+    if (!items.length) return;
+    var sec = document.createElement("section");
+    sec.className = "row";
+    sec.innerHTML = '<div class="row-head"><h2>' + esc(title) + "</h2></div>" +
+      '<div class="track-wrap"><button class="arrow prev" aria-label="Scroll left">‹</button>' +
+      '<div class="track' + (extraClass ? " " + extraClass : "") + '"></div>' +
+      '<button class="arrow next" aria-label="Scroll right">›</button></div>';
+    var track = sec.querySelector(".track");
+    items.forEach(function (el) { track.appendChild(el); });
+    var prev = sec.querySelector(".prev"), next = sec.querySelector(".next");
+    function upd() {
+      prev.disabled = track.scrollLeft < 8;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 8;
+    }
+    prev.addEventListener("click", function () { track.scrollBy({ left: -track.clientWidth * 0.85, behavior: "smooth" }); });
+    next.addEventListener("click", function () { track.scrollBy({ left: track.clientWidth * 0.85, behavior: "smooth" }); });
+    track.addEventListener("scroll", upd, { passive: true });
+    window.addEventListener("resize", upd);
+    rowsEl.appendChild(sec);
+    requestAnimationFrame(upd);
+  }
+
+  function renderRows() {
+    rowsEl.innerHTML = "";
+    var visibleShows = shows.filter(function (s) { return showMatches(s) && epsFor(s.id).length; });
+    var visibleEps = episodes.filter(function (e) { return showMatches(e.showObj); });
+
+    if (filter.type === "show") {
+      var s = showById[filter.value];
+      addRow(s.title + ": all episodes", visibleEps.map(function (e) { return episodeCard(e, false); }));
+      addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
+      return;
+    }
+
+    addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
+    addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
+    // A show gets its own row once it has at least two episodes
+    visibleShows.forEach(function (s) {
+      var list = epsFor(s.id);
+      if (list.length >= 2) addRow(s.title, list.map(function (e) { return episodeCard(e, false); }));
+    });
+    if (!visibleEps.length) rowsEl.innerHTML = '<p class="empty">No episodes here yet.</p>';
+  }
+
+  /* ---------- player ---------- */
+  var dlg = document.getElementById("player");
+  var frame = document.getElementById("playerFrame");
+  function embedUrl(id) {
+    return HOST + "/Panopto/Pages/Embed.aspx?id=" + encodeURIComponent(id) +
+      "&autoplay=true&offerviewer=false&showtitle=false&showbrand=false&captions=false&interactivity=none";
+  }
+  function openPlayer(ep, skipHistory) {
+    document.getElementById("playerShow").textContent = ep.showObj ? ep.showObj.title : "Live";
+    document.getElementById("playerTitle").textContent = ep.showObj ? epTitle(ep) : ep.title;
+    document.getElementById("playerLink").href = HOST + "/Panopto/Pages/Viewer.aspx?id=" + encodeURIComponent(ep.panoptoId);
+    frame.src = embedUrl(ep.panoptoId);
+    var v = slidesEl.children[current] && slidesEl.children[current].querySelector("video");
+    if (v) v.pause();
+    clearTimeout(timer);
+    if (!dlg.open) dlg.showModal();
+    if (!skipHistory) {
+      try { history.replaceState(null, "", "?v=" + encodeURIComponent(ep.panoptoId)); } catch (e) {}
+    }
+  }
+  function closePlayer() { if (dlg.open) dlg.close(); }
+  dlg.addEventListener("close", function () {
+    frame.src = "about:blank";
+    try { history.replaceState(null, "", location.pathname); } catch (e) {}
+    go(current);
+  });
+  document.getElementById("closePlayer").addEventListener("click", closePlayer);
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) closePlayer(); });
+
+  /* ---------- live ---------- */
+  if (D.live && D.live.on && D.live.panoptoId) {
+    var liveEp = { panoptoId: D.live.panoptoId, title: D.live.title || "WTOP-10 Live" };
+    var pill = document.getElementById("livePill");
+    pill.hidden = false;
+    pill.addEventListener("click", function () { openPlayer(liveEp); });
+    document.getElementById("liveBanner").hidden = false;
+    document.getElementById("liveText").textContent = "On now: " + liveEp.title;
+    document.getElementById("liveWatch").addEventListener("click", function () { openPlayer(liveEp); });
+  }
+
+  /* ---------- top bar ---------- */
+  var topbar = document.getElementById("topbar");
+  window.addEventListener("scroll", function () { topbar.classList.toggle("solid", window.scrollY > 40); }, { passive: true });
+
+  /* ---------- start ---------- */
+  renderNav(); buildHero(); renderRows();
+
+  // Shareable links: watch/?v=PANOPTO-ID opens that episode
+  var linked = new URLSearchParams(location.search).get("v");
+  if (linked) {
+    var hit = episodes.filter(function (e) { return e.panoptoId === linked; })[0];
+    if (hit) openPlayer(hit, true);
+  }
+})();
+</script>
+</body>
+</html>
