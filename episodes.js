@@ -3,6 +3,16 @@
 window.WTOP_EPISODES = [
   {
     "show": "nightly-news",
+    "date": "2026-09-24",
+    "title": "September 24th, 2026",
+    "panoptoId": "c0635feb-4925-4908-a8fc-b4d00028b39d",
+    "thumb": "",
+    "duration": 1800,
+    "season": "Fall 2026",
+    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
+  },
+  {
+    "show": "nightly-news",
     "date": "2026-09-23",
     "title": "",
     "panoptoId": "33937c68-6e2e-4cad-9876-b4d0000472d6",
