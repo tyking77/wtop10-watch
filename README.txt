@@ -21,23 +21,27 @@ PUTTING IT ON BLUEHOST
 ADDING AN EPISODE
   Upload the video to the show's semester folder in Panopto. That's all.
   Every 30 minutes the site checks the folders and adds new videos.
-  Name it with the show and the air date, e.g. "Nightly News 9-24-26".
+  Name it with the show and the air date, e.g. "Nightly News 9-24-26",
+  or the show and episode number, e.g. "S5 Ep.1 Entertainment Breach".
+  Numbered episodes show as "Episode 1" and run in order within a season.
   The page uses the air date from the title, and it cuts the show name,
   the date and any job number ("4309-1-") from the title. Anything left
   over becomes the episode title, e.g. "Senior Week Nightly News 5-5-26"
   shows as "Senior Week". No date in the title? It uses the upload date.
   The folder has to be public so the site can read it.
 
-NEW SEMESTER (SEASON)
-  1. Make the new folder in Panopto and make it public. Put the season in
-     its name, e.g. "NEWS Spring 2027".
+NEW SEMESTER OR SEASON
+  1. Make the new folder in Panopto and make it public. Put the semester
+     or season in its name, e.g. "NEWS Spring 2027" or
+     "Laker Showdown: Season 5".
   2. Copy the folder's link from the address bar.
   3. Paste it at the top of panoptoFolders in data.js.
   Each folder becomes a season. A show's page opens on its newest season,
   and viewers pick older ones from the dropdown.
 
 ADDING A SHOW
-  Copy a show block in data.js and fill it in. "match" lists words from
+  Copy a show block in data.js and fill it in. "category" is the menu tab:
+  "News", "Sports" or "Entertainment". "match" lists words from
   the Panopto titles that mean this show, e.g. match: ["Sports Desk"].
   If its videos are in a folder that isn't listed yet, add the folder too.
 

@@ -25,9 +25,10 @@ Hard rule: the page must keep working when `index.html` is double-clicked from d
 
 ## Data model (data.js)
 
-- `panoptoFolders[]`: public Panopto folder links, one per semester. Each folder is a season on the page; the season name comes from the folder name ("NEWS Fall 2026" gives "Fall 2026").
+- `panoptoFolders[]`: public Panopto folder links. Each folder is a season on the page; the season name comes from the folder name ("NEWS Fall 2026" gives "Fall 2026", "Laker Showdown: Season 4" gives "Season 4"). News folders are per semester and hold several shows; entertainment and sports folders are per show per season.
+- Categories (menu tabs): News, Sports, Entertainment. Tabs appear in show order and only when a show in them has episodes. Weather was folded into News.
 - `shows[]`: `id`, `title`, `category` (drives the top menu), `tagline`, `still`, `trailer`, `featured` (in hero rotation), `match` (title phrases that assign a Panopto video to this show; longest match wins), `thumbAt` (seconds into each episode for its auto thumbnail, default 45), `useStill` (always use `still` instead of episode thumbnails).
-- `episodes[]`: `show` (a show id), `date` (YYYY-MM-DD, sorted newest first), `title` (optional; the date is used if empty), `panoptoId`, `thumb`. Generated episodes also carry `duration` (seconds), `season` and `folder`. Hand-entered episodes get a season from their date (Jan–May Spring, Jun–Jul Summer, Aug–Dec Fall).
+- `episodes[]`: `show` (a show id), `date` (YYYY-MM-DD, sorted newest first), `title` (optional; the date is used if empty), `panoptoId`, `thumb`. Generated episodes also carry `duration` (seconds), `season`, `folder`, and when relevant `episode` (number parsed from "S5 Ep.1", "Episode 3") and `undated: true` (no air date in the title, so `date` is only the upload date and is never shown). Numbered episodes display as "Episode N", run 1, 2, 3 within a season (specials after), and "Play latest" picks the highest number. Numbered seasons sort by number. In "Latest" rows an undated episode sorts by its season's newest upload date, then episode number descending. Hand-entered episodes get a season from their date (Jan–May Spring, Jun–Jul Summer, Aug–Dec Fall).
 - `overrides`: keyed by panoptoId; `hide`, `title`, `thumb`, `date`.
 - `live`: `{ on, title, panoptoId }`. When on, a red LIVE pill and banner appear.
 
@@ -39,7 +40,7 @@ Auto thumbnails: the build gets each episode's MP4 from `/Panopto/Pages/Viewer/D
 
 ## Panopto source
 
-Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. Panopto's own frame grabber ignores timestamp parameters, which is why the build uses ffmpeg on the MP4.
+Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. When every folder loads, frames in `thumbs/` that no episode uses are deleted. A video being renamed or reprocessed can vanish from the folder listing for a few minutes (seen with Sept 24, 2026); it comes back on the next run with the same ID. Panopto's own frame grabber ignores timestamp parameters, which is why the build uses ffmpeg on the MP4.
 
 ## Behavior to preserve
 

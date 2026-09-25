@@ -381,11 +381,22 @@
     if (o) Object.keys(o).forEach(function (k) { e[k] = o[k]; });
     return e;
   })
-    .filter(function (e) { return !e.hide && showById[e.show]; })
-    .sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+    .filter(function (e) { return !e.hide && showById[e.show]; });
   episodes.forEach(function (e) {
     e.showObj = showById[e.show];
     if (!e.season) e.season = seasonFromDate(e.date);
+  });
+  // Newest first. Episodes with only an upload date (whole seasons often go
+  // up on one day, in any order) take their season's latest upload date and
+  // then run highest episode number first.
+  var seasonTop = {};
+  episodes.forEach(function (e) {
+    var k = e.show + "|" + e.season;
+    if (e.undated && (!seasonTop[k] || e.date > seasonTop[k])) seasonTop[k] = e.date;
+  });
+  function sortDate(e) { return (e.undated && seasonTop[e.show + "|" + e.season]) || e.date || ""; }
+  episodes.sort(function (a, b) {
+    return sortDate(b).localeCompare(sortDate(a)) || (b.episode || 0) - (a.episode || 0) || (b.date || "").localeCompare(a.date || "");
   });
 
   // Hand-entered episodes have no Panopto folder, so place them by air date
@@ -395,15 +406,34 @@
     var mo = +m[2];
     return (mo <= 5 ? "Spring " : mo <= 7 ? "Summer " : "Fall ") + m[1];
   }
-  // A show's seasons, newest first (ordered by their latest episode)
+  // A show's seasons, newest first. Semesters ("Fall 2026") go by their
+  // latest episode; numbered seasons ("Season 5") by number.
+  function seasonNum(name) { var m = /season\s*(\d+)/i.exec(name || ""); return m ? +m[1] : null; }
   function seasonsFor(showId) {
     var list = [];
     epsFor(showId).forEach(function (e) { if (e.season && list.indexOf(e.season) < 0) list.push(e.season); });
-    return list;
+    return list.map(function (name, i) { return { name: name, i: i, n: seasonNum(name) }; })
+      .sort(function (a, b) { return a.n != null && b.n != null ? b.n - a.n : a.i - b.i; })
+      .map(function (x) { return x.name; });
+  }
+  // One season of a show. Numbered episodes run 1, 2, 3 (specials after);
+  // otherwise newest first.
+  function seasonEps(showId, name) {
+    var list = epsFor(showId).filter(function (e) { return e.season === name; });
+    if (!list.some(function (e) { return e.episode; })) return list;
+    return list.slice().sort(function (a, b) {
+      return (a.episode || 1e9) - (b.episode || 1e9) || (a.date || "").localeCompare(b.date || "");
+    });
   }
 
   function epsFor(showId) { return episodes.filter(function (e) { return e.show === showId; }); }
-  function latestFor(showId) { return epsFor(showId)[0]; }
+  // Newest episode: for numbered seasons, the highest episode number
+  function latestFor(showId) {
+    var newest = seasonsFor(showId)[0];
+    var list = newest ? seasonEps(showId, newest) : epsFor(showId);
+    var numbered = list.filter(function (e) { return e.episode; });
+    return numbered.length ? numbered[numbered.length - 1] : list[0] || epsFor(showId)[0];
+  }
   function stillFor(show) {
     if (show.still || show.useStill) return show.still || "";
     var withThumb = epsFor(show.id).filter(function (e) { return e.thumb; })[0];
@@ -420,7 +450,11 @@
     var d = new Date(iso + "T12:00:00");
     return isNaN(d) ? iso : d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   }
-  function epTitle(ep) { return ep.title || fmtDate(ep.date); }
+  // Title shown on a card: its own title, else "Episode 3", else the air date
+  function epTitle(ep) { return ep.title || (ep.episode ? "Episode " + ep.episode : fmtDate(ep.date)); }
+  // Air date for the line under the title. Hidden when the title already is
+  // the date, or when the date is only the upload date (ep.undated).
+  function subDate(ep) { return (ep.title || ep.episode) && !ep.undated ? fmtDate(ep.date) : ""; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   var categories = [];
@@ -548,7 +582,7 @@
     function fill() {
       document.getElementById("heroKicker").textContent = s.category || "WTOP-10";
       document.getElementById("heroTitle").textContent = s.title;
-      document.getElementById("heroMeta").innerHTML = "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (ep.title ? " · " + esc(fmtDate(ep.date)) : "");
+      document.getElementById("heroMeta").innerHTML = "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (subDate(ep) ? " · " + esc(subDate(ep)) : "");
       document.getElementById("heroTagline").textContent = s.tagline || "";
       document.getElementById("heroPlay").onclick = function () { openPlayer(ep); };
       document.getElementById("heroMore").onclick = function () { setFilter("show", s.id); };
@@ -581,10 +615,11 @@
     b.className = "card";
     b.setAttribute("aria-label", "Play " + ep.showObj.title + ", " + epTitle(ep));
     var t = thumbFor(ep);
-    var meta = [ep.title ? fmtDate(ep.date) : "", fmtRuntime(ep.duration)].filter(Boolean).join(" · ");
+    var meta = [subDate(ep), fmtRuntime(ep.duration)].filter(Boolean).join(" · ");
+    var phBig = ep.episode ? "Ep " + ep.episode : ep.date && !ep.undated ? fmtShort(ep.date) : "";
     b.innerHTML =
       '<div class="thumb">' +
-        '<div class="ph">' + (ep.date ? '<span class="ph-date">' + esc(fmtShort(ep.date)) + "</span>" : "") +
+        '<div class="ph">' + (phBig ? '<span class="ph-date">' + esc(phBig) + "</span>" : "") +
           '<span class="ph-show">' + esc(ep.showObj.title) + "</span></div>" +
         (t ? '<img alt="" loading="lazy" src="' + esc(t) + '">' : "") +
         '<span class="play-badge">' + PLAY_SVG + "</span>" +
@@ -666,7 +701,7 @@
         head = document.createElement("span");
         head.textContent = pick;
       }
-      addRow(s.title, visibleEps.filter(function (e) { return !pick || e.season === pick; }).map(function (e) { return episodeCard(e, false); }), "", head);
+      addRow(s.title, (pick ? seasonEps(s.id, pick) : visibleEps).map(function (e) { return episodeCard(e, false); }), "", head);
       addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
       return;
     }
@@ -676,7 +711,7 @@
     // A show gets its own row (its newest season) once that has two episodes
     visibleShows.forEach(function (s) {
       var newest = seasonsFor(s.id)[0];
-      var list = epsFor(s.id).filter(function (e) { return e.season === newest; });
+      var list = seasonEps(s.id, newest);
       if (list.length < 2) return;
       var tag = document.createElement("span");
       tag.textContent = newest;

@@ -12,7 +12,7 @@
 // skipping dark frames. Without ffmpeg it falls back to Panopto's own
 // first-frame thumbnail.
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, rmSync, readdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -135,10 +135,20 @@ async function grabFrame(row, show, rel) {
   return existsSync(out);
 }
 
-// "Fall 2026" from a folder named "NEWS Fall 2026"
+// "Fall 2026" from a folder named "NEWS Fall 2026", or "Season 5" from
+// "Entertainment Breach: Season 5"
 function seasonOf(folderName) {
-  const m = String(folderName || "").match(/\b(winter|spring|summer|fall)\s+(\d{4})\b/i);
-  return m ? m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2] : folderName || "";
+  const f = String(folderName || "");
+  let m = f.match(/\b(winter|spring|summer|fall)\s+(\d{4})\b/i);
+  if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2];
+  m = f.match(/\bseason\s*(\d+)\b/i);
+  return m ? "Season " + m[1] : f;
+}
+
+// Episode number from "S5 Ep.1", "S5E1", "Ep 3" or "Episode 3"
+function episodeOf(t) {
+  const m = t.match(/\bS\d+\s*E(?:p|pisode)?\.?\s*(\d+)\b/i) || t.match(/\bEp(?:isode)?\.?\s*(\d+)\b/i);
+  return m ? { n: +m[1], text: m[0] } : null;
 }
 
 // Air date from the title. Handles "September 23, 2026", "Sept. 24th 2026",
@@ -173,9 +183,9 @@ function showFor(title) {
 }
 
 // Strip the job number, the date, the show name and the station name
-function cleanTitle(raw, show, dateText) {
+function cleanTitle(raw, show, cut) {
   let t = raw.replace(/^\s*\d+-\d+-\s*/, "");
-  if (dateText) t = t.replace(dateText, " ");
+  for (const c of cut) if (c) t = t.replace(c, " ");
   const phrases = [show.title].concat(show.match || [], ["WTOP-10TV", "WTOP-10", "WTOP 10", "WTOP"])
     .map((p) => words(p)).filter(Boolean).sort((a, b) => b.length - a.length);
   for (const p of phrases) {
@@ -211,18 +221,23 @@ for (const folder of folders) {
       continue;
     }
     const d = dateFromTitle(row.SessionName);
+    const num = episodeOf(row.SessionName);
     const ep = {
       show: show.id,
       date: d ? d.iso : uploadDate(row),
-      title: cleanTitle(row.SessionName, show, d && d.text),
+      title: cleanTitle(row.SessionName, show, [d && d.text, num && num.text]),
       panoptoId: row.DeliveryID,
       thumb: await thumbFor(row, show),
       duration: Math.round(row.Duration || 0),
       season: seasonOf(row.FolderName),
       folder
     };
+    // No air date in the title: the date is only the upload date, which is
+    // fine for ordering but misleading to show
+    if (!d) ep.undated = true;
+    if (num) ep.episode = num.n;
     episodes.push(ep);
-    report.push([row.SessionName, show.title, ep.title || "(date only)", ep.date + (d ? "" : " (upload date)")]);
+    report.push([row.SessionName, show.title, ep.title || (num ? "Episode " + num.n : "(date only)"), ep.season, ep.date + (d ? "" : " (upload date)")]);
   }
 }
 
@@ -252,7 +267,19 @@ writeFileSync(OUT,
   "window.WTOP_EPISODES = " + JSON.stringify(out, null, 2) + ";\n");
 console.log(`Wrote ${out.length} episodes to episodes.js`);
 
+// Remove frames for videos that left the folders (deleted or re-uploaded).
+// Only when every folder loaded, so an outage never deletes anything.
+if (!failures && existsSync(join(ROOT, THUMBS))) {
+  const used = new Set(out.map((e) => e.thumb));
+  for (const f of readdirSync(join(ROOT, THUMBS))) {
+    if (/\.jpg$/.test(f) && !used.has(THUMBS + "/" + f)) {
+      rmSync(join(ROOT, THUMBS, f));
+      console.log(`  removed unused ${THUMBS}/${f}`);
+    }
+  }
+}
+
 if (REPORT) {
-  console.log("\nRaw title | Show | Clean title | Date");
+  console.log("\nRaw title | Show | Shown as | Season | Date");
   for (const r of report) console.log(r.join(" | "));
 }

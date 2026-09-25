@@ -25,10 +25,15 @@ window.WTOP = {
 
   /* ---------- PANOPTO FOLDERS ----------
      Public Panopto folders to pull episodes from. Paste the folder's link
-     from the address bar. Newest semester at the top.                    */
+     from the address bar. Each folder is one season: name it with the
+     semester ("NEWS Fall 2026") or the season ("Laker Showdown: Season 4").
+     Order doesn't matter.                                                 */
   panoptoFolders: [
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=e07377de-feb9-4d66-8296-b4ac012d34b8", // News Fall 2026
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=2615918c-73fc-4e9d-b9a1-b48e0004ad09"  // News Spring 2026
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=2615918c-73fc-4e9d-b9a1-b48e0004ad09", // News Spring 2026
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=86493e33-edad-416d-8a2e-b48e000748e6", // Entertainment Breach: Season 5
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=46a1e32c-8723-45dc-8e04-b48e001b838d", // Be Kind and Rewind: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=48ca2c81-3f79-4488-b14a-b48e00160917"  // Laker Showdown: Season 4
   ],
 
   /* Flip "on" to true when a live broadcast is running. */
@@ -39,7 +44,8 @@ window.WTOP = {
   },
 
   /* ---------- SHOWS ----------
-     category: used for the top menu (News, Weather, Sports, etc.)
+     category: the top menu tab: "News", "Sports" or "Entertainment".
+               Tabs appear in the order shows are listed here.
      still:    wide image for the hero (1920x1080 JPG works best)
      trailer:  optional MP4 for the hero, e.g. "trailers/morning-news.mp4"
      featured: true puts the show in the rotating hero
@@ -73,7 +79,7 @@ window.WTOP = {
     {
       id: "storm-team-10",
       title: "Storm Team 10 Live",
-      category: "Weather",
+      category: "News",
       tagline: "Forecasts and weather coverage from the WTOP-10 Storm Team.",
       /* Panopto's thumbnail for this show is a black first frame, so it
          uses its own still. Save a frame grab as stills/storm-team-10.jpg.
@@ -93,6 +99,36 @@ window.WTOP = {
       trailer: "",
       featured: true,
       match: ["Hockey"]
+    },
+    {
+      id: "laker-showdown",
+      title: "Laker Showdown",
+      category: "Sports",
+      tagline: "DRAFT: replace with a one-line description of the show.",
+      still: "",
+      trailer: "",
+      featured: false,
+      match: ["Laker Showdown"]
+    },
+    {
+      id: "entertainment-breach",
+      title: "Entertainment Breach",
+      category: "Entertainment",
+      tagline: "DRAFT: replace with a one-line description of the show.",
+      still: "",
+      trailer: "",
+      featured: false,
+      match: ["Entertainment Breach"]
+    },
+    {
+      id: "be-kind-and-rewind",
+      title: "Be Kind and Rewind",
+      category: "Entertainment",
+      tagline: "DRAFT: replace with a one-line description of the show.",
+      still: "",
+      trailer: "",
+      featured: false,
+      match: ["Be Kind and Rewind", "Be Kind Rewind"]
     }
   ],
 
