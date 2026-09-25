@@ -1380,6 +1380,26 @@ window.WTOP_EPISODES = [
     "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
   },
   {
+    "show": "mens-basketball",
+    "date": "2026-01-16",
+    "title": "vs. Canton",
+    "panoptoId": "49a03c52-0d52-48f7-86b0-b4960160d312",
+    "thumb": "thumbs/49a03c52-0d52-48f7-86b0-b4960160d312.jpg",
+    "duration": 6340,
+    "season": "2025–26",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "womens-basketball",
+    "date": "2026-01-16",
+    "title": "vs. Canton",
+    "panoptoId": "cfb5e834-9464-4449-a1ea-b4970153dffc",
+    "thumb": "thumbs/cfb5e834-9464-4449-a1ea-b4970153dffc.jpg",
+    "duration": 7140,
+    "season": "2025–26",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
     "show": "womens-basketball",
     "date": "2026-01-10",
     "title": "vs. Plattsburgh",
@@ -1438,25 +1458,5 @@ window.WTOP_EPISODES = [
     "duration": 9455,
     "season": "2025–26",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
-  },
-  {
-    "show": "mens-basketball",
-    "date": "2025-01-16",
-    "title": "vs. Canton",
-    "panoptoId": "49a03c52-0d52-48f7-86b0-b4960160d312",
-    "thumb": "thumbs/49a03c52-0d52-48f7-86b0-b4960160d312.jpg",
-    "duration": 6340,
-    "season": "2025–26",
-    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
-  },
-  {
-    "show": "womens-basketball",
-    "date": "2025-01-16",
-    "title": "vs. Canton",
-    "panoptoId": "cfb5e834-9464-4449-a1ea-b4970153dffc",
-    "thumb": "thumbs/cfb5e834-9464-4449-a1ea-b4970153dffc.jpg",
-    "duration": 7140,
-    "season": "2025–26",
-    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
   }
 ];
