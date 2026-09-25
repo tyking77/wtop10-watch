@@ -1,14 +1,18 @@
 /* ==========================================================================
    WTOP-10 WATCH PAGE: CONTENT FILE
-   This is the only file students need to edit to add shows and episodes.
+   This is the only file students need to edit.
 
    ADDING AN EPISODE
-   1. In Panopto, set the video to "Public (unlisted)".
-   2. Copy the ID from its link: ...Viewer.aspx?id=THIS-PART
-   3. Copy an episode block below, paste it at the top of the episodes
-      list, and change the details. Keep the commas between blocks.
-   Thumbnails: leave "thumb" empty and the card shows the show's still.
-   To use Panopto's thumbnail, paste its image address (see README).
+   Upload it to the show's Panopto folder. That's it. The page checks
+   the folders below every 30 minutes and adds new videos by itself.
+   Put the air date in the Panopto title (e.g. "Nightly News 9-24-26").
+
+   NEW SEMESTER
+   Make the new public folder in Panopto, then paste its link at the top
+   of panoptoFolders below. Each folder becomes a season on the page.
+
+   FIXING AN EPISODE
+   Use "overrides" at the bottom of this file (hide it, retitle it, etc.).
 
    ADDING A HERO TRAILER
    Upload a short MP4 (15-30 sec, 1080p, H.264, no audio, under ~8 MB)
@@ -18,6 +22,14 @@
 
 window.WTOP = {
   panoptoHost: "https://oswego.hosted.panopto.com",
+
+  /* ---------- PANOPTO FOLDERS ----------
+     Public Panopto folders to pull episodes from. Paste the folder's link
+     from the address bar. Newest semester at the top.                    */
+  panoptoFolders: [
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=e07377de-feb9-4d66-8296-b4ac012d34b8", // News Fall 2026
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=2615918c-73fc-4e9d-b9a1-b48e0004ad09"  // News Spring 2026
+  ],
 
   /* Flip "on" to true when a live broadcast is running. */
   live: {
@@ -30,8 +42,22 @@ window.WTOP = {
      category: used for the top menu (News, Weather, Sports, etc.)
      still:    wide image for the hero (1920x1080 JPG works best)
      trailer:  optional MP4 for the hero, e.g. "trailers/morning-news.mp4"
-     featured: true puts the show in the rotating hero                      */
+     featured: true puts the show in the rotating hero
+     match:    words in a Panopto title that mean "this show". When two
+               shows match, the longer phrase wins.
+     useStill: true always uses "still" instead of Panopto's thumbnails
+               (for shows whose videos open on a black frame)             */
   shows: [
+    {
+      id: "nightly-news",
+      title: "Nightly News",
+      category: "News",
+      tagline: "The day's news from campus and Oswego, weeknights on WTOP-10.",
+      still: "",
+      trailer: "",
+      featured: true,
+      match: ["Nightly News", "WTOP News", "WTOP-10 News"]
+    },
     {
       id: "morning-news",
       title: "Morning News",
@@ -39,7 +65,8 @@ window.WTOP = {
       tagline: "Campus and Oswego news from the WTOP-10 newsroom.",
       still: "",
       trailer: "",
-      featured: true
+      featured: true,
+      match: ["Morning News"]
     },
     {
       id: "storm-team-10",
@@ -51,7 +78,9 @@ window.WTOP = {
          Until that file exists, a navy title card shows instead. */
       still: "stills/storm-team-10.jpg",
       trailer: "",
-      featured: true
+      featured: true,
+      useStill: true,
+      match: ["Storm Team"]
     },
     {
       id: "hockey-night",
@@ -60,22 +89,19 @@ window.WTOP = {
       tagline: "Laker men's hockey, home and away, live on WTOP-10.",
       still: "",
       trailer: "",
-      featured: true
+      featured: true,
+      match: ["Hockey"]
     }
   ],
 
   /* ---------- EPISODES ----------
+     Episodes from the Panopto folders appear on their own. Only list one
+     here if it lives outside those folders. An episode listed here wins
+     over the automatic copy of the same video.
      show:      must match a show "id" above
      date:      YYYY-MM-DD (newest episodes show first automatically)
      title:     optional; leave empty to use the date                     */
   episodes: [
-    {
-      show: "morning-news",
-      title: "",
-      date: "2026-09-18",
-      panoptoId: "efbe645c-4f4f-4be9-b993-b4ca01655f60",
-      thumb: "https://d2y36twrtb17ty.cloudfront.net/sessions/e932120c-89f2-4560-b7e8-b4ca01655f56/52e46cdd-daa0-4fe5-98b9-b4ca017fef9f_et/thumbs/slide12599839.jpg"
-    },
     {
       show: "storm-team-10",
       title: "",
@@ -90,5 +116,17 @@ window.WTOP = {
       panoptoId: "cc9f3eb6-0d9b-4a98-b66e-b499005ee56b",
       thumb: "https://d2y36twrtb17ty.cloudfront.net/sessions/75cf486e-845d-455d-8bcd-b499005ee55b/6af8c514-8a14-4f26-a156-b499007630f5_et/thumbs/slide0.jpg"
     }
-  ]
+  ],
+
+  /* ---------- OVERRIDES ----------
+     Fix an episode without touching Panopto. Key it by the Panopto ID
+     (from ...Viewer.aspx?id=THIS-PART). Use any of:
+       hide: true        take it off the page
+       title: "..."      replace the title
+       thumb: "..."      replace the thumbnail (image address)
+       date: "YYYY-MM-DD" fix the air date
+     Example:
+       "33937c68-6e2e-4cad-9876-b4d0000472d6": { title: "Election Night" },  */
+  overrides: {
+  }
 };

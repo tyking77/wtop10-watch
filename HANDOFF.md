@@ -1,5 +1,7 @@
 # Handoff: automatic episodes from Panopto folders
 
+**Status (2026-09-24): done.** Panopto had retired folder RSS, so the build reads the folder page's JSON endpoint instead; see "Panopto source" in CLAUDE.md. Folders turned out to be per semester and shared by several shows, so `data.js` has one `panoptoFolders` list, and each show has `match` words instead of its own `panoptoFolder`. Semesters show as seasons with a dropdown. The original brief is kept below for reference.
+
 Paste the prompt below into a new Claude Code session opened in `D:\Claude Code\WTOP Website`. Read CLAUDE.md first. It covers the project, the data model and the design rules.
 
 ---

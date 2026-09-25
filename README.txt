@@ -2,7 +2,9 @@ WTOP-10 WATCH PAGE
 
 FILES
   index.html   The page itself. Nobody needs to edit this for day-to-day updates.
-  data.js      Shows and episodes. This is the file students edit.
+  data.js      Shows, Panopto folders and fixes. This is the file students edit.
+  episodes.js  Episodes pulled from Panopto. Made automatically; don't edit.
+  scripts/     The program that builds episodes.js.
   assets/      The WTOP-10 logo.
   trailers/    Hero trailer MP4s go here.
   stills/      Hero still images go here.
@@ -10,27 +12,55 @@ FILES
 PUTTING IT ON BLUEHOST
   1. In Bluehost, open File Manager and go to public_html.
   2. Create a folder called "watch".
-  3. Upload everything in this folder (index.html, data.js and the assets,
-     trailers and stills folders) into public_html/watch.
+  3. Upload everything in this folder (index.html, data.js, episodes.js
+     and the assets, trailers and stills folders) into public_html/watch.
   4. The page is now live at yoursite.com/watch/
   WordPress ignores real folders, so this won't affect the rest of the site.
   Add a "Watch" link to your WordPress menu that points to /watch/.
 
 ADDING AN EPISODE
-  1. In Panopto, set the video to "Public (unlisted)".
-  2. Copy the ID from the video's link: ...Viewer.aspx?id=THIS-PART
-  3. In data.js, copy an existing episode block, paste it at the top of
-     the episodes list, and change show, date, title and panoptoId.
-  4. Save and re-upload data.js.
+  Upload the video to the show's semester folder in Panopto. That's all.
+  Every 30 minutes the site checks the folders and adds new videos.
+  Name it with the show and the air date, e.g. "Nightly News 9-24-26".
+  The page uses the air date from the title, and it cuts the show name,
+  the date and any job number ("4309-1-") from the title. Anything left
+  over becomes the episode title, e.g. "Senior Week Nightly News 5-5-26"
+  shows as "Senior Week". No date in the title? It uses the upload date.
+  The folder has to be public so the site can read it.
+
+NEW SEMESTER (SEASON)
+  1. Make the new folder in Panopto and make it public. Put the season in
+     its name, e.g. "NEWS Spring 2027".
+  2. Copy the folder's link from the address bar.
+  3. Paste it at the top of panoptoFolders in data.js.
+  Each folder becomes a season. A show's page opens on its newest season,
+  and viewers pick older ones from the dropdown.
+
+ADDING A SHOW
+  Copy a show block in data.js and fill it in. "match" lists words from
+  the Panopto titles that mean this show, e.g. match: ["Sports Desk"].
+  If its videos are in a folder that isn't listed yet, add the folder too.
+
+FIXING AN EPISODE
+  In data.js, add a line to "overrides" using the video's Panopto ID
+  (from its link: ...Viewer.aspx?id=THIS-PART):
+    "PANOPTO-ID": { hide: true },
+    "PANOPTO-ID": { title: "Election Night", date: "2026-11-03" },
+    "PANOPTO-ID": { thumb: "stills/election-night.jpg" },
+  Fixing the title in Panopto works too.
+
+VIDEOS OUTSIDE THE FOLDERS
+  A video that isn't in a listed folder can still go in the episodes list
+  in data.js by hand: copy an episode block and change show, date, title
+  and panoptoId. A hand-entered episode wins over the automatic copy.
 
 THUMBNAILS
-  Leave "thumb" empty and the card uses the show's still image.
-  To use Panopto's own thumbnail: open the Panopto link, right-click the
-  preview image, copy the image address, and paste it into "thumb".
+  Cards use Panopto's thumbnail, which is the video's first frame. If
+  that frame is black, the card uses the show's still instead (or a navy
+  card with the show name if there's no still). To make every episode of
+  a show use its still, set useStill: true on the show.
   Panopto's thumbnails are small, so for the hero use a proper 1920x1080
   still saved in the stills/ folder, e.g. still: "stills/morning-news.jpg"
-  Panopto makes its thumbnail from the first frame, so a show that opens
-  on black (like Storm Team 10 Live) needs its own still.
 
 HERO TRAILERS
   Length 15-30 seconds, 1920x1080 (1280x720 is fine), H.264 MP4, audio
