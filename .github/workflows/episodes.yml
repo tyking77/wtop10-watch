@@ -4,7 +4,12 @@ name: Update episodes
 
 on:
   schedule:
+    # Every 30 minutes, all day
     - cron: "*/30 * * * *"
+    # Weeknights around the 9 PM newscast: adds :15 and :45 so it checks
+    # every 15 minutes. Cron runs in UTC; 01:00-05:59 UTC Tue-Sat is
+    # 9 PM-2 AM Eastern in summer time and 8 PM-1 AM in winter, Mon-Fri.
+    - cron: "15,45 1-5 * * 2-6"
   workflow_dispatch:
   push:
     branches: [main]
