@@ -2,6 +2,10 @@
    WTOP-10 WATCH PAGE: INFORMATION PAGES
    The Donate and About Us pages. Edit the text between the backticks.
 
+   MENU
+   A group can also hold a link to another site, which opens in a new tab:
+     { label: "Member Resources", url: "https://wtop10.web.app" }
+
    FORMATTING (inside body)
      ## Heading            ### Smaller heading      > Big callout line
      - List item           **bold**            [link text](https://...)
@@ -11,13 +15,17 @@
    Links on buttons: { label: "...", url: "https://..." } for another site,
    or { label: "...", page: "contact" } for one of these pages ("live" for
    the Live tab).
+
+   A video: video: { heading: "...", src: "assets/pages/file.mp4",
+   poster: "assets/pages/file.jpg" }. Use H.264 MP4 so it plays on phones.
    ========================================================================== */
 
 window.WTOP_PAGES = {
   /* Menu items after the show tabs. A group becomes a dropdown. */
   menu: [
     { page: "donate" },
-    { label: "About Us", pages: ["about", "constitution", "contact"] }
+    { label: "About Us", pages: ["about", "constitution", "contact",
+      { label: "Member Resources", url: "https://wtop10.web.app" }] }
   ],
 
   pages: {
@@ -42,7 +50,12 @@ Every contribution, large or small, helps keep our station growing.
         { title: "Equipment", items: ["Cameras", "Microphones", "Tripods", "Lighting"] },
         { title: "Student development", items: ["Hands-on experience", "Training", "Workshops"] },
         { title: "Community coverage", items: ["Campus events", "Athletics", "Special programming"] }
-      ]
+      ],
+      video: {
+        heading: "Step-by-step instructions",
+        src: "assets/pages/donate-steps.mp4",
+        poster: "assets/pages/donate-steps.jpg"
+      }
     },
 
     about: {

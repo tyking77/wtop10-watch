@@ -168,11 +168,14 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     box-shadow: 0 16px 40px rgba(0,0,0,.5);
   }
-  .nav-menu button {
+  .nav-menu button, .nav-menu a {
     display: block; width: 100%; text-align: left; background: none; border: 0; border-radius: 5px; cursor: pointer;
-    padding: 10px 12px; font: 600 15px/1.2 var(--body); color: var(--ink);
+    padding: 10px 12px; font: 600 15px/1.2 var(--body); color: var(--ink); text-decoration: none;
   }
-  .nav-menu button:hover, .nav-menu button:focus-visible { background: var(--surface-2); outline: none; }
+  .nav-menu button:hover, .nav-menu button:focus-visible, .nav-menu a:hover, .nav-menu a:focus-visible { background: var(--surface-2); outline: none; }
+  .nav-menu a { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--line); border-radius: 0 0 5px 5px; }
+  .nav-menu .ext { color: var(--muted); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .nav-menu button[aria-current="page"] { box-shadow: inset 3px 0 0 var(--red); }
 
   /* ---------- Information pages ---------- */
@@ -218,6 +221,9 @@
   .toc ol { margin: 0; padding: 0; list-style: none; }
   .toc button { display: block; width: 100%; text-align: left; padding: 6px 0; background: none; border: 0; cursor: pointer; color: var(--muted); font: 500 14px/1.3 var(--body); }
   .toc button:hover { color: var(--ink); }
+  .page-video { max-width: 960px; margin: 6px 0 30px; }
+  .page-video h2 { margin: 0 0 14px; font: 700 clamp(24px, 2.4vw, 32px)/1.1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+  .page-video video { display: block; width: 100%; aspect-ratio: 1806 / 1080; background: #000; border-radius: 8px; }
   .contact-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; }
   .contact-side { display: flex; flex-direction: column; gap: 14px; }
   .map { position: relative; margin-top: 16px; aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; background: var(--surface-2); }
@@ -1369,6 +1375,11 @@
         (c.items || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
     }).join("");
     var body = p.body ? '<div class="prose">' + markdown(p.body) + "</div>" : "";
+    var video = p.video && p.video.src
+      ? '<section class="page-video">' + (p.video.heading ? '<h2 id="' + slug(p.video.heading) + '">' + esc(p.video.heading) + "</h2>" : "") +
+        '<video controls playsinline preload="metadata" controlslist="nodownload"' + (p.video.poster ? ' poster="' + esc(p.video.poster) + '"' : "") + ">" +
+        '<source src="' + esc(p.video.src) + '" type="video/mp4"></video></section>'
+      : "";
 
     var contact = "";
     if (p.contact) {
@@ -1393,7 +1404,7 @@
     }
 
     wrap.innerHTML = html + '<div class="page-body' + (toc ? " with-toc" : "") + '">' + toc +
-      '<div class="page-main">' + body + (cards ? '<div class="page-cards">' + cards + "</div>" : "") + contact + "</div></div>";
+      '<div class="page-main">' + body + (cards ? '<div class="page-cards">' + cards + "</div>" : "") + video + contact + "</div></div>";
 
     Array.prototype.forEach.call(wrap.querySelectorAll("[data-go]"), function (b) {
       b.addEventListener("click", function () {
@@ -1429,13 +1440,21 @@
     el.className = "nav-menu";
     el.setAttribute("role", "menu");
     group.pages.forEach(function (id) {
-      if (!PAGES[id]) return;
-      var it = document.createElement("button");
-      it.type = "button";
+      var it;
+      if (id && id.url) {
+        // A link to another site (Member Resources): opens in a new tab
+        it = document.createElement("a");
+        it.href = id.url; it.target = "_blank"; it.rel = "noopener";
+        it.innerHTML = esc(id.label) + ' <span class="ext" aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span>';
+        it.addEventListener("click", closeMenu);
+      } else if (PAGES[id]) {
+        it = document.createElement("button");
+        it.type = "button";
+        it.textContent = PAGES[id].title;
+        if (filter.type === "page" && filter.value === id) it.setAttribute("aria-current", "page");
+        it.addEventListener("click", function () { closeMenu(); setFilter("page", id); });
+      } else return;
       it.setAttribute("role", "menuitem");
-      it.textContent = PAGES[id].title;
-      if (filter.type === "page" && filter.value === id) it.setAttribute("aria-current", "page");
-      it.addEventListener("click", function () { closeMenu(); setFilter("page", id); });
       el.appendChild(it);
     });
     document.body.appendChild(el);
@@ -1444,7 +1463,7 @@
     el.style.left = Math.round(Math.max(8, Math.min(r.left, window.innerWidth - el.offsetWidth - 8))) + "px";
     btn.setAttribute("aria-expanded", "true");
     openMenu = { btn: btn, el: el };
-    el.querySelector("button").focus();
+    el.querySelector("button, a").focus();
   }
   document.addEventListener("click", function (e) {
     if (openMenu && !openMenu.el.contains(e.target) && !openMenu.btn.contains(e.target)) closeMenu();

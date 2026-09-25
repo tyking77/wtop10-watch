@@ -147,7 +147,9 @@ DONATE AND ABOUT US PAGES
   "menu" at the top of pages.js sets the menu: a single page, or a group
   that becomes a dropdown. To add a page, copy one, give it a new name,
   and add that name to the menu.
-  Photos for these pages go in assets/pages/.
+  Photos and videos for these pages go in assets/pages/ (videos as
+  H.264 MP4). A dropdown can also hold a link to another site, like
+  Member Resources (the member app at wtop10.web.app).
 
 LINKS AND THE BACK BUTTON
   Every view has its own address, so the browser's Back button works and
