@@ -330,6 +330,17 @@
   .hero .meta .airs { display: block; margin-top: 4px; color: var(--ink); }
 
   .empty { padding-inline: var(--gutter); color: var(--muted); }
+  .upcoming { padding-inline: var(--gutter); }
+  .upcoming ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .upcoming button {
+    width: 100%; height: 100%; display: flex; flex-direction: column; gap: 5px; text-align: left; cursor: pointer;
+    padding: 12px 14px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+  }
+  .upcoming button:hover, .upcoming button:focus-visible { border-color: var(--ink); }
+  .upcoming .w { font: 600 13px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+  .upcoming .n { font-weight: 600; }
+  .upcoming .a { font-size: 13px; color: var(--muted); }
+  .upcoming .a.new { color: var(--ink); }
 
   footer {
     border-top: 1px solid var(--line); padding: 28px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 28px);
@@ -641,7 +652,7 @@
     var tab = (p.get("tab") || "").toLowerCase();
     var cat = categories.filter(function (c) { return c.toLowerCase() === tab; })[0];
     if (p.has("live") || location.hash === "#live") u.type = "live";
-    else if (showById[p.get("show")] && epsFor(p.get("show")).length) { u.type = "show"; u.value = p.get("show"); }
+    else if (showById[p.get("show")]) { u.type = "show"; u.value = p.get("show"); }
     else if (cat) { u.type = "category"; u.value = cat; }
     return u;
   }
@@ -696,7 +707,7 @@
     }
     heroShows = filter.type === "all" ? heroRecent(heroFromList())
       : filter.type === "category" ? heroRecent([])
-      : shows.filter(function (s) { return latestFor(s.id) && showMatches(s); });
+      : [showById[filter.value]];
     if (!heroShows.length) heroShows = shows.filter(function (s) { return latestFor(s.id); }).slice(0, 5);
     slidesEl.innerHTML = ""; dotsEl.innerHTML = ""; current = -1;
 
@@ -781,11 +792,16 @@
     function fill() {
       document.getElementById("heroKicker").textContent = s.category || "WTOP-10";
       document.getElementById("heroTitle").textContent = s.title;
-      document.getElementById("heroMeta").innerHTML = "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (subDate(ep) ? " · " + esc(subDate(ep)) : "") +
+      document.getElementById("heroMeta").innerHTML =
+        (ep ? "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (subDate(ep) ? " · " + esc(subDate(ep)) : "") : "No episodes online yet") +
         (airsText(s) ? '<span class="airs">' + esc(airsText(s)) + (nextAir(s) ? " · next " + esc(nextAir(s)) : "") + "</span>" : "");
       document.getElementById("heroTagline").textContent = s.tagline || "";
-      document.getElementById("heroPlay").onclick = function () { openPlayer(ep); };
-      document.getElementById("heroMore").onclick = function () { setFilter("show", s.id); };
+      // A show with no episodes online yet: offer the live channel instead
+      var play = document.getElementById("heroPlay"), more = document.getElementById("heroMore");
+      play.innerHTML = PLAY_SVG + (ep ? " Play latest" : " Watch live");
+      play.onclick = function () { if (ep) openPlayer(ep); else setFilter("live"); };
+      more.hidden = !ep || filter.type === "show";
+      more.onclick = function () { setFilter("show", s.id); };
       copyEl.classList.remove("swapping");
     }
     if (reduceMotion || current < 0 || !copyEl.textContent.trim()) { fill(); return; }
@@ -890,6 +906,7 @@
         seasons.forEach(function (name) {
           addRow(name, seasonEps(s.id, name).map(function (e) { return episodeCard(e, false); }));
         });
+        addUpcoming(s);
         addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
         return;
       }
@@ -910,7 +927,8 @@
         head = document.createElement("span");
         head.textContent = pick;
       }
-      addRow(s.title, (pick ? seasonEps(s.id, pick) : visibleEps).map(function (e) { return episodeCard(e, false); }), "", head);
+      if (pick) addRow(s.title, seasonEps(s.id, pick).map(function (e) { return episodeCard(e, false); }), "", head);
+      addUpcoming(s);
       addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
       return;
     }
@@ -929,6 +947,30 @@
       addRow(s.title, list.map(function (e) { return episodeCard(e, false); }), "", tag);
     });
     if (!visibleEps.length) rowsEl.innerHTML = '<p class="empty">No episodes here yet.</p>';
+  }
+
+  // "Upcoming on WTOP-10": a show's next airings on the 24/7 channel
+  function addUpcoming(s) {
+    if (!G) return;
+    var nk = G.nowKey();
+    var list = SCHED.filter(function (p) { return p.endKey > nk && showForListing(p, false) === s; }).slice(0, 6);
+    if (!list.length && epsFor(s.id).length) return;
+    var sec = document.createElement("section");
+    sec.className = "row";
+    sec.innerHTML = '<div class="row-head"><h2>Upcoming on WTOP-10</h2></div>' +
+      '<div class="upcoming">' + (list.length ? "<ol>" + list.map(function (p) {
+        var d = G.isoToParts(p.date);
+        var day = p.date === G.todayIso() ? "Today" : G.DAY_NAMES_SHORT[G.weekdayOfIso(p.date)] + " " + d.m + "/" + d.d;
+        var on = nk >= p.startKey;
+        return '<li><button type="button"><span class="w">' + esc(on ? "On now" : day + " · " + G.fmtStart(p)) + "</span>" +
+          '<span class="n">' + esc(p.title) + "</span>" +
+          (firstAired(p) && p.badges.indexOf("PREMIERE") < 0 ? '<span class="a">' + esc(firstAired(p)) + "</span>" : "") +
+          (p.badges.indexOf("PREMIERE") >= 0 ? '<span class="a new">New episode</span>' : "") + "</button></li>";
+      }).join("") + "</ol>" : '<p class="empty" style="padding:0">Not in the current program guide.</p>') + "</div>";
+    Array.prototype.forEach.call(sec.querySelectorAll("button"), function (b) {
+      b.addEventListener("click", function () { setFilter("live"); });
+    });
+    rowsEl.appendChild(sec);
   }
 
   /* ---------- player ---------- */
@@ -1100,9 +1142,9 @@
     track.style.width = MG_MINUTES * MG_PX + "px";
     track.innerHTML = shown.length ? html : "";
     if (!shown.length) track.parentNode.parentNode.innerHTML = '<p class="mg-empty">No listings loaded for the next few hours.</p>';
-    // A block opens its show's page when the show has episodes, else the Live tab
+    // A block opens its show's page; newscasts and games open the Live tab
     Array.prototype.forEach.call(track.querySelectorAll(".mg-block"), function (b) {
-      var sh = showForListing(shown[+b.getAttribute("data-i")]);
+      var sh = showForListing(shown[+b.getAttribute("data-i")], false);
       b.addEventListener("click", function () { if (sh) setFilter("show", sh.id); else setFilter("live"); });
     });
   }

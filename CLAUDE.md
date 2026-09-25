@@ -46,7 +46,9 @@ Auto thumbnails: the build gets each episode's MP4 from `/Panopto/Pages/Viewer/D
 
 Sports folders (e.g. "Oswego Women's Hockey") become seasons via `sportLabel`: "Men's X" -> "X", "Women's X" -> "X (W)", "Ice" dropped; game titles get the same treatment ("Hockey (W) vs. Cortland: SUNYAC Semifinal"). Two basketball games are titled "January 16th, 2025" and fixed to 2026 with overrides.
 
-Mini guide blocks (Home) show the listing's show tagline (via `showForListing`: the show title, or match words outside News), "Aired 4/21" for reruns (year added when not this year), a NEW tag for premieres and LIVE for live games, and open the show's page when it has episodes (else the Live tab). 30 minutes = 150 px.
+Mini guide blocks (Home) show the listing's show tagline (via `showForListing`: the show title, or match words outside News), "Aired 4/21" for reruns (year added when not this year), a NEW tag for premieres and LIVE for live games, and open the matched show's page (newscasts and games, which match no show, open the Live tab).
+
+Every show in data.js has a page, even with no episodes yet: the hero says "No episodes online yet" and its button becomes "Watch live". Every show page ends with "Upcoming on WTOP-10" (`addUpcoming`): its next airings from the schedule (up to 6), matched with `showForListing`; hidden for shows with episodes but no airings. 30 minutes = 150 px.
 
 ## Panopto source
 
