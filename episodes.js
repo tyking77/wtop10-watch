@@ -106,6 +106,42 @@ window.WTOP_EPISODES = [
     "episode": 1
   },
   {
+    "show": "oswegolazo",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "3ec912da-aed3-4496-ba10-b48e011d0148",
+    "thumb": "thumbs/3ec912da-aed3-4496-ba10-b48e011d0148.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 2
+  },
+  {
+    "show": "oh-boy",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "4eba0e27-46fc-402e-8522-b48e01073d9e",
+    "thumb": "thumbs/4eba0e27-46fc-402e-8522-b48e01073d9e.jpg",
+    "duration": 1800,
+    "season": "Season 4",
+    "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
+    "undated": true,
+    "episode": 3
+  },
+  {
+    "show": "oswegolazo",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "5fd07d16-e2d8-4129-a3a6-b48e011d24e5",
+    "thumb": "thumbs/5fd07d16-e2d8-4129-a3a6-b48e011d24e5.jpg",
+    "duration": 1799,
+    "season": "Season 2",
+    "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 1
+  },
+  {
     "show": "entertainment-breach",
     "date": "2026-07-21",
     "title": "",
@@ -114,6 +150,18 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Season 5",
     "folder": "86493e33-edad-416d-8a2e-b48e000748e6",
+    "undated": true,
+    "episode": 2
+  },
+  {
+    "show": "oh-boy",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "b5287938-5def-4d9d-a598-b48e01076394",
+    "thumb": "thumbs/b5287938-5def-4d9d-a598-b48e01076394.jpg",
+    "duration": 1800,
+    "season": "Season 4",
+    "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
     "undated": true,
     "episode": 2
   },
@@ -130,6 +178,54 @@ window.WTOP_EPISODES = [
     "episode": 1
   },
   {
+    "show": "oswegolazo",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "c74da40b-7243-4869-afab-b48e011c64d6",
+    "thumb": "thumbs/c74da40b-7243-4869-afab-b48e011c64d6.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 3
+  },
+  {
+    "show": "oh-boy",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "e2712028-6a3c-48c6-8fa7-b48e0107b20c",
+    "thumb": "thumbs/e2712028-6a3c-48c6-8fa7-b48e0107b20c.jpg",
+    "duration": 1800,
+    "season": "Season 4",
+    "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
+    "undated": true,
+    "episode": 1
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "03d89d3d-26de-4c14-a818-b48e0070f644",
+    "thumb": "thumbs/03d89d3d-26de-4c14-a818-b48e0070f644.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 5
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "10ba9692-b42d-4892-a0ab-b48e00611397",
+    "thumb": "thumbs/10ba9692-b42d-4892-a0ab-b48e00611397.jpg",
+    "duration": 1800,
+    "season": "Season 3",
+    "folder": "511da271-62ba-4fb1-b244-b48e00075028",
+    "undated": true,
+    "episode": 1
+  },
+  {
     "show": "be-kind-and-rewind",
     "date": "2026-07-20",
     "title": "",
@@ -138,6 +234,18 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Season 4",
     "folder": "46a1e32c-8723-45dc-8e04-b48e001b838d",
+    "undated": true,
+    "episode": 2
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "2c17f2d6-74d6-4d96-a0d5-b48e0060e1a2",
+    "thumb": "thumbs/2c17f2d6-74d6-4d96-a0d5-b48e0060e1a2.jpg",
+    "duration": 1800,
+    "season": "Season 3",
+    "folder": "511da271-62ba-4fb1-b244-b48e00075028",
     "undated": true,
     "episode": 2
   },
@@ -151,6 +259,41 @@ window.WTOP_EPISODES = [
     "season": "Season 5",
     "folder": "86493e33-edad-416d-8a2e-b48e000748e6",
     "undated": true
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-07-20",
+    "title": "Senior Week Special",
+    "panoptoId": "3795efaf-5137-4342-a182-b48e0000b1c0",
+    "thumb": "thumbs/3795efaf-5137-4342-a182-b48e0000b1c0.jpg",
+    "duration": 3595,
+    "season": "Season 3",
+    "folder": "511da271-62ba-4fb1-b244-b48e00075028",
+    "undated": true
+  },
+  {
+    "show": "oswegolazo",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "39c81db2-9dc6-4d2c-af2d-b48e0017fa68",
+    "thumb": "thumbs/39c81db2-9dc6-4d2c-af2d-b48e0017fa68.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 5
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "485c75fa-0928-481c-8b26-b48e00712490",
+    "thumb": "thumbs/485c75fa-0928-481c-8b26-b48e00712490.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 3
   },
   {
     "show": "laker-showdown",
@@ -177,6 +320,30 @@ window.WTOP_EPISODES = [
     "episode": 4
   },
   {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "537af350-eec5-4f1c-ad03-b48e00710b76",
+    "thumb": "thumbs/537af350-eec5-4f1c-ad03-b48e00710b76.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 4
+  },
+  {
+    "show": "oswegolazo",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "5a46c098-60ff-4168-b211-b48e001db7dd",
+    "thumb": "thumbs/5a46c098-60ff-4168-b211-b48e001db7dd.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 4
+  },
+  {
     "show": "be-kind-and-rewind",
     "date": "2026-07-20",
     "title": "",
@@ -187,6 +354,53 @@ window.WTOP_EPISODES = [
     "folder": "46a1e32c-8723-45dc-8e04-b48e001b838d",
     "undated": true,
     "episode": 3
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "788ff502-7369-46bc-83d8-b48e000f7445",
+    "thumb": "thumbs/788ff502-7369-46bc-83d8-b48e000f7445.jpg",
+    "duration": 1799,
+    "season": "Season 3",
+    "folder": "511da271-62ba-4fb1-b244-b48e00075028",
+    "undated": true,
+    "episode": 4
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "7f5f025f-3060-49f1-b264-b48e00199a9e",
+    "thumb": "thumbs/7f5f025f-3060-49f1-b264-b48e00199a9e.jpg",
+    "duration": 1800,
+    "season": "Season 3",
+    "folder": "511da271-62ba-4fb1-b244-b48e00075028",
+    "undated": true,
+    "episode": 3
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "Senior Special 2026",
+    "panoptoId": "8b297035-a13c-4aeb-9016-b48e00002264",
+    "thumb": "thumbs/8b297035-a13c-4aeb-9016-b48e00002264.jpg",
+    "duration": 3600,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "8c4a3bb1-d1f3-4673-90a0-b48e00715bdf",
+    "thumb": "thumbs/8c4a3bb1-d1f3-4673-90a0-b48e00715bdf.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 1
   },
   {
     "show": "entertainment-breach",
@@ -213,6 +427,18 @@ window.WTOP_EPISODES = [
     "episode": 1
   },
   {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "a4c5ed0a-2170-476a-a13f-b48e001238f1",
+    "thumb": "thumbs/a4c5ed0a-2170-476a-a13f-b48e001238f1.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 8
+  },
+  {
     "show": "laker-showdown",
     "date": "2026-07-20",
     "title": "",
@@ -223,6 +449,77 @@ window.WTOP_EPISODES = [
     "folder": "48ca2c81-3f79-4488-b14a-b48e00160917",
     "undated": true,
     "episode": 3
+  },
+  {
+    "show": "oh-boy",
+    "date": "2026-07-20",
+    "title": "Senior Special 2026",
+    "panoptoId": "b1c8ec8a-2d7d-47c9-b261-b48e0000225e",
+    "thumb": "thumbs/b1c8ec8a-2d7d-47c9-b261-b48e0000225e.jpg",
+    "duration": 3600,
+    "season": "Season 4",
+    "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
+    "undated": true
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "b1f19e69-121b-4591-bccb-b48e001881e7",
+    "thumb": "thumbs/b1f19e69-121b-4591-bccb-b48e001881e7.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 7
+  },
+  {
+    "show": "oh-boy",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "b3aa5207-1075-4238-bb2e-b48e001cf9a0",
+    "thumb": "thumbs/b3aa5207-1075-4238-bb2e-b48e001cf9a0.jpg",
+    "duration": 1800,
+    "season": "Season 4",
+    "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
+    "undated": true,
+    "episode": 4
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "c36a46bc-dfbd-4f78-83db-b48e000f02a4",
+    "thumb": "thumbs/c36a46bc-dfbd-4f78-83db-b48e000f02a4.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 9
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "ee3c197b-3186-43ab-beb9-b48e001c8027",
+    "thumb": "thumbs/ee3c197b-3186-43ab-beb9-b48e001c8027.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 6
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "fc215286-2f04-434c-9f1e-b48e0071318e",
+    "thumb": "thumbs/fc215286-2f04-434c-9f1e-b48e0071318e.jpg",
+    "duration": 1800,
+    "season": "Season 25",
+    "folder": "e8424436-2f24-4182-b517-b48e0007826d",
+    "undated": true,
+    "episode": 2
   },
   {
     "show": "nightly-news",

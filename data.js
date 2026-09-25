@@ -33,7 +33,11 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=2615918c-73fc-4e9d-b9a1-b48e0004ad09", // News Spring 2026
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=86493e33-edad-416d-8a2e-b48e000748e6", // Entertainment Breach: Season 5
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=46a1e32c-8723-45dc-8e04-b48e001b838d", // Be Kind and Rewind: Season 4
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=48ca2c81-3f79-4488-b14a-b48e00160917"  // Laker Showdown: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=48ca2c81-3f79-4488-b14a-b48e00160917", // Laker Showdown: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=e8424436-2f24-4182-b517-b48e0007826d", // Laker Connections: Season 25
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=5f417599-7dcc-4c9f-b42b-b48e001ba19e", // Oswegolazo: Season 2
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=511da271-62ba-4fb1-b244-b48e00075028", // Hockey Talk: Season 3
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=0d3771a4-5497-4ca2-acce-b48e00078e18"  // Oh Boy: Season 4
   ],
 
   /* Flip "on" to true when a live broadcast is running. */
@@ -115,7 +119,8 @@ window.WTOP = {
       category: "Sports",
       tagline: "You like hockey? Talking hockey is what we do here.",
       still: "",
-      trailer: ""
+      trailer: "",
+      thumbAt: 120
     },
     {
       id: "laker-connections",
