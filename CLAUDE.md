@@ -6,14 +6,14 @@ Owner: Tyler King, WTOP-10 faculty advisor. Students will maintain the content, 
 
 ## Where it runs
 
-- Demo: GitHub Pages (public repo `wtop10-watch`)
+- Demo: GitHub Pages at https://tyking77.github.io/wtop10-watch/ (public repo github.com/tyking77/wtop10-watch)
 - Final home: `public_html/watch/` on wtop10.com, a WordPress site on Bluehost. WordPress ignores real folders, so the page sits beside it with no plugin or theme involved. The main menu gets a "Watch" link pointing to `/watch/`.
 
 ## Files
 
 - `index.html`: the page. All CSS and JS is inline. No build step, no framework, no npm.
 - `data.js`: all content (`window.WTOP = {...}`): Panopto host, live switch, shows, episodes. Students edit this file and nothing else.
-- `assets/wtop10-logo.png`: official logo, 800x229.
+- `assets/wtop10-logo.png`: official logo, web-sized (400x115). The 800x229 original is `assets/wtop10-logo-full.png` (local only).
 - `stills/`: 1920x1080 hero stills. `trailers/`: hero MP4s.
 - `README.txt`: plain-language instructions for students. Keep it in sync with any change to how content is added.
 

@@ -13,6 +13,7 @@ Approach, already evaluated:
 
 Steps:
 
+0. This folder is not a git repo yet. The same files are live at github.com/tyking77/wtop10-watch (GitHub Pages: https://tyking77.github.io/wtop10-watch/). Run `gh auth login` if needed, connect this folder to that repo, and make sure local and remote match before changing anything. `assets/wtop10-logo-full.png` is the full-size original and stays local; don't commit it.
 1. Ask me for one show folder's RSS URL. Fetch it and report exactly what each item contains: title, pubDate, guid/link, enclosure, and whether the Panopto session ID and a thumbnail are present. Stop and show me before building anything.
 2. Add a `panoptoFolder` field (feed URL or folder ID) to each show in `data.js`.
 3. Write `scripts/build-episodes.mjs` (Node, no dependencies if possible). For each show with a folder, it fetches the feed and outputs `episodes.js`, which sets `window.WTOP_EPISODES = [...]` in the same shape as `data.js` episodes. It must be a script, not JSON, so the page still works from file://.
