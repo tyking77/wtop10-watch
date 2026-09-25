@@ -45,8 +45,9 @@ window.WTOP = {
      featured: true puts the show in the rotating hero
      match:    words in a Panopto title that mean "this show". When two
                shows match, the longer phrase wins.
-     useStill: true always uses "still" instead of Panopto's thumbnails
-               (for shows whose videos open on a black frame)             */
+     thumbAt:  seconds into each episode to grab its thumbnail (default 45).
+               Pick a moment that usually shows the anchors on set.
+     useStill: true always uses "still" instead of episode thumbnails     */
   shows: [
     {
       id: "nightly-news",
@@ -66,7 +67,8 @@ window.WTOP = {
       still: "",
       trailer: "",
       featured: true,
-      match: ["Morning News"]
+      match: ["Morning News"],
+      thumbAt: 90
     },
     {
       id: "storm-team-10",

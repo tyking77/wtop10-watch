@@ -207,11 +207,25 @@
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .thumb img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+  /* Branded placeholder for episodes with no image yet: logo, big air date,
+     show name, and a red swoosh like the on-air lower third */
   .thumb .ph {
-    position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 12px 14px;
-    background: linear-gradient(135deg, var(--surface-2), var(--navy));
-    font: 700 22px/1 var(--display); text-transform: uppercase;
+    position: absolute; inset: 0; container-type: inline-size;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 4%;
+    padding: 7% 8%;
+    background:
+      linear-gradient(112deg, transparent 64%, var(--red) 64.3%, var(--red) 69%, transparent 69.3%, transparent 72%, var(--red-deep) 72.3%, var(--red-deep) 76%, transparent 76.3%),
+      radial-gradient(90% 120% at 100% 0%, rgba(229,50,47,.28), transparent 60%),
+      linear-gradient(160deg, var(--surface-2) 0%, var(--navy) 45%, var(--ground) 100%);
   }
+  .thumb .ph::before {
+    content: ""; position: absolute; left: 8%; top: 9%; width: 30%; aspect-ratio: 400 / 115;
+    background: url("assets/wtop10-logo.png") left top / contain no-repeat;
+  }
+  .thumb .ph-date { font: 700 clamp(28px, 17cqi, 64px)/.9 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+  .thumb .ph-show { font: 600 clamp(11px, 5cqi, 16px)/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .show-tile .thumb .ph { background: linear-gradient(112deg, transparent 56%, var(--red) 56.4%, var(--red) 63%, transparent 63.4%, transparent 67%, var(--red-deep) 67.4%, var(--red-deep) 72%, transparent 72.4%), linear-gradient(170deg, var(--surface-2), var(--ground) 80%); }
+  .show-tile .thumb .ph::before { width: 42%; }
   .thumb .play-badge {
     position: absolute; z-index: 3; left: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%;
     display: grid; place-items: center; background: var(--red); color: #fff;
@@ -402,6 +416,10 @@
     var d = new Date(iso + "T12:00:00");
     return isNaN(d) ? iso : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   }
+  function fmtShort(iso) {
+    var d = new Date(iso + "T12:00:00");
+    return isNaN(d) ? iso : d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  }
   function epTitle(ep) { return ep.title || fmtDate(ep.date); }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
@@ -566,7 +584,8 @@
     var meta = [ep.title ? fmtDate(ep.date) : "", fmtRuntime(ep.duration)].filter(Boolean).join(" · ");
     b.innerHTML =
       '<div class="thumb">' +
-        '<div class="ph">' + esc(ep.showObj.title) + "</div>" +
+        '<div class="ph">' + (ep.date ? '<span class="ph-date">' + esc(fmtShort(ep.date)) + "</span>" : "") +
+          '<span class="ph-show">' + esc(ep.showObj.title) + "</span></div>" +
         (t ? '<img alt="" loading="lazy" src="' + esc(t) + '">' : "") +
         '<span class="play-badge">' + PLAY_SVG + "</span>" +
       "</div>" +

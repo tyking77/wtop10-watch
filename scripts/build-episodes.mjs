@@ -5,9 +5,15 @@
 //
 // Panopto retired folder RSS, so this reads the same JSON the folder page
 // uses (Data.svc/GetSessions). It works without a login for public folders.
-// No dependencies: needs Node 18+ for fetch.
+// No npm dependencies: needs Node 18+ for fetch.
+//
+// Thumbnails: if ffmpeg is installed, it saves a frame from inside each new
+// episode to thumbs/<panoptoId>.jpg (the show's thumbAt, default 45 s),
+// skipping dark frames. Without ffmpeg it falls back to Panopto's own
+// first-frame thumbnail.
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, rmSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
@@ -15,6 +21,8 @@ import vm from "node:vm";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "episodes.js");
 const REPORT = process.argv.includes("--report");
+const THUMBS = "thumbs";
+const HAVE_FFMPEG = spawnSync("ffmpeg", ["-version"]).status === 0;
 
 // data.js and episodes.js set globals on window, so run them in a sandbox
 function loadGlobal(file, name) {
@@ -79,16 +87,65 @@ async function resolveThumb(row) {
   }
 }
 
+// Our own thumbnail: a frame from inside the video. The first try is the
+// show's thumbAt; if that frame is dark (a black frame or a slate), try
+// 30 s later, then points spread through the whole video (some recordings
+// run black for several minutes). Dark means the darkest tenth of the frame
+// is near black or the frame is dim overall. If every try is dark, keep the
+// brightest unless it is nearly black; then save nothing, so the page shows
+// its branded placeholder and the next run tries again.
+const FRAME_W = 960, FRAME_H = 540;
+async function streamUrl(deliveryId) {
+  const res = await fetch(HOST + "/Panopto/Pages/Viewer/DeliveryInfo.aspx", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "deliveryId=" + deliveryId + "&isEmbed=true&responseType=json"
+  });
+  const d = (await res.json()).Delivery || {};
+  const s = (d.PodcastStreams || [])[0] || (d.Streams || [])[0];
+  return s && s.StreamUrl;
+}
+function frameStats(file) {
+  const r = spawnSync("ffmpeg", ["-loglevel", "error", "-i", file, "-vf", "signalstats,metadata=print:file=-", "-f", "null", "-"], { encoding: "utf8" });
+  const get = (k) => +((r.stdout || "").match(new RegExp("signalstats\\." + k + "=([\\d.]+)")) || [])[1] || 0;
+  return { low: get("YLOW"), avg: get("YAVG") };
+}
+async function grabFrame(row, show, rel) {
+  let url;
+  try { url = await streamUrl(row.DeliveryID); } catch {}
+  if (!url) return false;
+  const dur = row.Duration || 0;
+  const start = show.thumbAt >= 0 ? show.thumbAt : 45;
+  const spread = dur ? [0.15, 0.3, 0.45, 0.6].map((f) => Math.round(dur * f)) : [start + 120, start + 300];
+  const tries = [start, start + 30].concat(spread)
+    .filter((t, i, a) => a.indexOf(t) === i && (!dur || t < dur - 5));
+  mkdirSync(join(ROOT, THUMBS), { recursive: true });
+  const out = join(ROOT, rel), tmp = out + ".try.jpg";
+  let best = null;
+  for (const t of tries) {
+    const r = spawnSync("ffmpeg", ["-loglevel", "error", "-y", "-ss", String(t), "-i", url, "-frames:v", "1",
+      "-vf", "scale=" + FRAME_W + ":" + FRAME_H + ":force_original_aspect_ratio=increase,crop=" + FRAME_W + ":" + FRAME_H, "-q:v", "4", tmp], { timeout: 60000 });
+    if (r.status !== 0 || !existsSync(tmp) || !statSync(tmp).size) continue;
+    const st = frameStats(tmp);
+    if (st.low >= 3 && st.avg >= 50) { writeFileSync(out, readFileSync(tmp)); best = null; break; }
+    if (!best || st.avg > best.avg) { best = { avg: st.avg, bytes: readFileSync(tmp) }; }
+  }
+  if (best && best.avg >= 25) writeFileSync(out, best.bytes);
+  rmSync(tmp, { force: true });
+  return existsSync(out);
+}
+
 // "Fall 2026" from a folder named "NEWS Fall 2026"
 function seasonOf(folderName) {
   const m = String(folderName || "").match(/\b(winter|spring|summer|fall)\s+(\d{4})\b/i);
   return m ? m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2] : folderName || "";
 }
 
-// Air date from the title. Handles "September 23, 2026", "9/17/26", "2-16-26".
+// Air date from the title. Handles "September 23, 2026", "Sept. 24th 2026",
+// "9/17/26" and "2-16-26".
 function dateFromTitle(t) {
-  let m = t.match(/\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2}),?\s+(\d{4})\b/i);
-  if (m) return { iso: m[3] + "-" + pad(MONTHS.indexOf(m[1].toLowerCase()) + 1) + "-" + pad(m[2]), text: m[0] };
+  let m = t.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b/i);
+  if (m) return { iso: m[3] + "-" + pad(MONTHS.findIndex((x) => x.startsWith(m[1].toLowerCase())) + 1) + "-" + pad(m[2]), text: m[0] };
   m = t.match(/\b(\d{1,2})[\/-](\d{1,2})[\/-](\d{2}|\d{4})\b/);
   if (m && +m[1] <= 12 && +m[2] <= 31) {
     const y = m[3].length === 2 ? "20" + m[3] : m[3];
@@ -159,7 +216,7 @@ for (const folder of folders) {
       date: d ? d.iso : uploadDate(row),
       title: cleanTitle(row.SessionName, show, d && d.text),
       panoptoId: row.DeliveryID,
-      thumb: await resolveThumb(row),
+      thumb: await thumbFor(row, show),
       duration: Math.round(row.Duration || 0),
       season: seasonOf(row.FolderName),
       folder
@@ -168,6 +225,16 @@ for (const folder of folders) {
     report.push([row.SessionName, show.title, ep.title || "(date only)", ep.date + (d ? "" : " (upload date)")]);
   }
 }
+
+async function thumbFor(row, show) {
+  const rel = THUMBS + "/" + row.DeliveryID + ".jpg";
+  if (!existsSync(join(ROOT, rel)) && HAVE_FFMPEG) {
+    if (await grabFrame(row, show, rel)) console.log(`  saved ${rel} (${row.SessionName})`);
+  }
+  return existsSync(join(ROOT, rel)) ? rel : resolveThumb(row);
+}
+
+if (!HAVE_FFMPEG) console.warn("! ffmpeg not found: using Panopto's thumbnails instead of our own frames.");
 
 if (folders.length && failures === folders.length && !previous.length) {
   console.error("Every folder failed and there is no previous data. Not writing episodes.js.");

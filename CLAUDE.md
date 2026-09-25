@@ -16,6 +16,7 @@ Owner: Tyler King, WTOP-10 faculty advisor. Students will maintain the content, 
 - `episodes.js`: generated (`window.WTOP_EPISODES = [...]`). Never edit by hand.
 - `scripts/build-episodes.mjs`: builds `episodes.js` from Panopto. Node 18+, no dependencies. `--report` prints raw and clean titles.
 - `.github/workflows/episodes.yml`: runs the build every 30 min, on manual dispatch and on push to main; commits `episodes.js` only when it changed.
+- `thumbs/`: generated episode frames, `<panoptoId>.jpg`, 960x540. Committed by the Action; each is grabbed once.
 - `assets/wtop10-logo.png`: official logo, web-sized (400x115). The 800x229 original is `assets/wtop10-logo-full.png` (local only).
 - `stills/`: 1920x1080 hero stills. `trailers/`: hero MP4s.
 - `README.txt`: plain-language instructions for students. Keep it in sync with any change to how content is added.
@@ -25,18 +26,20 @@ Hard rule: the page must keep working when `index.html` is double-clicked from d
 ## Data model (data.js)
 
 - `panoptoFolders[]`: public Panopto folder links, one per semester. Each folder is a season on the page; the season name comes from the folder name ("NEWS Fall 2026" gives "Fall 2026").
-- `shows[]`: `id`, `title`, `category` (drives the top menu), `tagline`, `still`, `trailer`, `featured` (in hero rotation), `match` (title phrases that assign a Panopto video to this show; longest match wins), `useStill` (always use `still` instead of Panopto thumbnails).
+- `shows[]`: `id`, `title`, `category` (drives the top menu), `tagline`, `still`, `trailer`, `featured` (in hero rotation), `match` (title phrases that assign a Panopto video to this show; longest match wins), `thumbAt` (seconds into each episode for its auto thumbnail, default 45), `useStill` (always use `still` instead of episode thumbnails).
 - `episodes[]`: `show` (a show id), `date` (YYYY-MM-DD, sorted newest first), `title` (optional; the date is used if empty), `panoptoId`, `thumb`. Generated episodes also carry `duration` (seconds), `season` and `folder`. Hand-entered episodes get a season from their date (Jan–May Spring, Jun–Jul Summer, Aug–Dec Fall).
 - `overrides`: keyed by panoptoId; `hide`, `title`, `thumb`, `date`.
 - `live`: `{ on, title, panoptoId }`. When on, a red LIVE pill and banner appear.
 
 Merge order in the page: `episodes.js`, then hand-entered `data.js` episodes (non-empty fields win), then overrides.
 
-Image fallback order: hero uses `show.still`, then the newest episode that has a `thumb`, then a navy gradient card. Episode cards use `ep.thumb` (skipped when the show has `useStill`), then `show.still`, then a navy card with the show name. Broken images remove themselves so the fallback shows. Panopto's auto thumbnail is the recording's first frame, which is black for shows that open on black; the build drops those automatically.
+Image fallback order: hero uses `show.still`, then the newest episode that has a `thumb`, then a navy gradient card. Episode cards use `ep.thumb` (skipped when the show has `useStill`), then `show.still`, then a branded placeholder (logo, big air date, show name, red swoosh). Broken images remove themselves so the fallback shows. `ep.thumb` priority: override or hand-entered thumb, then the build's own frame in `thumbs/`, then Panopto's first-frame thumbnail (dropped when it is black).
+
+Auto thumbnails: the build gets each episode's MP4 from `/Panopto/Pages/Viewer/DeliveryInfo.aspx` (public for public sessions, `Delivery.PodcastStreams[0].StreamUrl`), and ffmpeg grabs a frame at `thumbAt`, then +30 s, then 15/30/45/60% of the runtime. A frame passes when ffmpeg `signalstats` gives YLOW >= 3 and YAVG >= 50 (black frames measure 1/1, slates 1/33, a black frame with only a lower third 1/20, a dim studio couch shot 5/85). If none pass, the brightest is kept only if YAVG >= 25; otherwise no file is written and the next run retries. Some recordings are black for the first 5+ minutes (Sept 24, 2026). Without ffmpeg the build falls back to Panopto thumbnails.
 
 ## Panopto source
 
-Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. The frame grabber ignores timestamp parameters, so custom thumbnails need another route.
+Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. Panopto's own frame grabber ignores timestamp parameters, which is why the build uses ffmpeg on the MP4.
 
 ## Behavior to preserve
 
@@ -67,5 +70,5 @@ Dark-only by design. No green, gold or purple accents.
 
 1. Done: static prototype with 3 real Panopto sessions.
 2. Done: episodes pulled automatically from public Panopto semester folders, with seasons.
-3. Later: our own thumbnails (a frame past the opening black, or uploaded stills).
+3. Done: our own thumbnails via ffmpeg, plus a branded placeholder.
 4. Later: move to Bluehost at wtop10.com/watch/.

@@ -55,12 +55,18 @@ VIDEOS OUTSIDE THE FOLDERS
   and panoptoId. A hand-entered episode wins over the automatic copy.
 
 THUMBNAILS
-  Cards use Panopto's thumbnail, which is the video's first frame. If
-  that frame is black, the card uses the show's still instead (or a navy
-  card with the show name if there's no still). To make every episode of
-  a show use its still, set useStill: true on the show.
-  Panopto's thumbnails are small, so for the hero use a proper 1920x1080
-  still saved in the stills/ folder, e.g. still: "stills/morning-news.jpg"
+  The site makes its own. For each new episode it grabs a frame 45 seconds
+  in (set "thumbAt" on a show to change that; Morning News uses 90). If
+  that frame is black or a dark slate, it tries later points in the video.
+  The frames are saved in the thumbs/ folder.
+  Don't like one? In data.js overrides, point it at your own image:
+    "PANOPTO-ID": { thumb: "stills/sep-24-election.jpg" },
+  If a video has no frame yet (Panopto still processing it), the card
+  shows a WTOP-10 title card with the air date until the next check.
+  To make every episode of a show use the show's still image instead,
+  set useStill: true on the show.
+  For the hero, a proper 1920x1080 still in the stills/ folder looks
+  sharpest, e.g. still: "stills/morning-news.jpg"
 
 HERO TRAILERS
   Length 15-30 seconds, 1920x1080 (1280x720 is fine), H.264 MP4, audio
