@@ -163,14 +163,20 @@ async function grabFrame(row, show, rel) {
 
 // "Fall 2026" from a folder named "NEWS Fall 2026", or "Season 5" from
 // "Entertainment Breach: Season 5"
-function seasonOf(folderName) {
+// Sports: "Oswego Men's Hockey 2026-27" gives "2026–27". A sports folder
+// with no years in its name takes the season from the game's date, August
+// to July (a January 2026 game is 2025–26).
+function seasonOf(folderName, iso) {
   const f = String(folderName || "");
   let m = f.match(/\b(winter|spring|summer|fall)\s+(\d{4})\b/i);
   if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2];
   m = f.match(/\bseason\s*(\d+)\b/i);
   if (m) return "Season " + m[1];
-  // Sports folders: "Oswego Women's Hockey" -> "Hockey (W)"
-  return sportLabel(f.replace(/^(SUNY\s+)?Oswego\s+/i, ""));
+  m = f.match(/\b(20\d\d)\s*[-–\/]\s*(\d{2}|20\d\d)\b/);
+  if (m) return m[1] + "–" + m[2].slice(-2);
+  const y = +String(iso).slice(0, 4), mo = +String(iso).slice(5, 7);
+  if (y && mo) { const start = mo >= 8 ? y : y - 1; return start + "–" + String(start + 1).slice(-2); }
+  return f;
 }
 
 // "Men's Ice Hockey" -> "Hockey", "Women's Basketball" -> "Basketball (W)"
@@ -219,6 +225,9 @@ function showFor(title) {
 // Strip the job number, the date, the show name and the station name
 function cleanTitle(raw, show, cut) {
   let t = raw.replace(/^\s*\d+-\d+-\s*/, "");
+  // Game broadcasts: "SUNY Oswego Men's Ice Hockey vs ..." -- the school name
+  // goes; the sport goes with the show's match words
+  t = t.replace(/^\s*SUNY\s+Oswego\s+(?=(Men|Women)[’']s\b)/i, "");
   for (const c of cut) if (c) t = t.replace(c, " ");
   const phrases = [show.title].concat(show.match || [], ["WTOP-10TV", "WTOP-10", "WTOP 10", "WTOP"])
     .map((p) => words(p)).filter(Boolean).sort((a, b) => b.length - a.length);
@@ -231,7 +240,7 @@ function cleanTitle(raw, show, cut) {
   t = t.replace(/^S\d+\s+(?=[a-z])/i, "");
   // Game titles: "Men's Ice Hockey @ Hobart _ SUNYAC Championship" ->
   // "Men's Ice Hockey at Hobart: SUNYAC Championship"
-  t = t.replace(/\s@\s/g, " at ").replace(/\bvs\b\.?/gi, "vs.");
+  t = t.replace(/(^|\s)@\s+/g, "$1at ").replace(/\bvs\b\.?/gi, "vs.");
   const parts = t.split(/\s*_\s*/).map((x) => x.trim()).filter(Boolean);
   t = parts.length > 1 ? parts[0] + ": " + parts.slice(1).join(", ") : parts[0] || "";
   return sportLabel(t);
@@ -244,6 +253,9 @@ let failures = 0;
 
 for (const folder of folders) {
   let rows;
+  // Panopto answers HTTP 429 (too many requests) to rapid-fire runs, so
+  // space the folder requests out a little
+  await new Promise((r) => setTimeout(r, 400));
   try {
     rows = await getSessions(folder);
   } catch (err) {
@@ -271,7 +283,7 @@ for (const folder of folders) {
       panoptoId: row.DeliveryID,
       thumb: await thumbFor(row, show),
       duration: Math.round(row.Duration || 0),
-      season: seasonOf(row.FolderName),
+      season: seasonOf(row.FolderName, ((data.overrides || {})[row.DeliveryID] || {}).date || (d ? d.iso : uploadDate(row))),
       folder
     };
     // No air date in the title: the date is only the upload date, which is

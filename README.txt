@@ -99,13 +99,19 @@ THUMBNAILS
   looks through the game for a frame of the rink or court instead of the
   pregame desk or an intermission graphic.
 
-GAME BROADCASTS (HOCKEY NIGHT IN OSWEGO)
-  Each sport has its own public Panopto folder, named like
-  "Oswego Women's Hockey". Its show page has one row per folder, labeled
-  from the name: "Hockey", "Hockey (W)", "Basketball (W)" and so on.
-  Game titles get the same labels: "Hockey (W) vs. Cortland".
-  Next season, name the new folders with the years so the rows stay
-  apart, e.g. "Oswego Women's Hockey 2026-27".
+GAME BROADCASTS
+  Each sport is its own show: Hockey Night in Oswego (men's hockey),
+  Hockey Night in Oswego (W), Oswego Men's Basketball and Oswego Women's
+  Basketball. Games go into that sport's public Panopto folder, one
+  folder per season. Put the years in the folder name, e.g.
+  "Oswego Women's Hockey 2026-27", and add its link to panoptoFolders.
+  Each season becomes an option in the show's season dropdown.
+  (The 2025-26 folders have no years in their names, so their season
+  comes from the game dates: August to July.)
+  Game titles drop the school and sport, since the show name says it:
+  "vs. Cortland: SUNYAC Semifinal".
+  A new sport: copy one of these show blocks in data.js and change the
+  id, title, tagline and match, e.g. match: ["Women's Lacrosse"].
   For the hero, a proper 1920x1080 still in the stills/ folder looks
   sharpest, e.g. still: "stills/morning-news.jpg"
 

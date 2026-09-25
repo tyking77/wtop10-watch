@@ -83,8 +83,8 @@ window.WTOP = {
                longer phrase wins. Optional.
      thumbAt:  seconds into each episode to grab its thumbnail (default 45).
                Pick a moment that usually shows the anchors on set.
-     seasonsAsRows: true shows every season (for Hockey Night in Oswego,
-               every sport) as its own row on the show page, not a dropdown
+     seasonsAsRows: true lists every season as its own row on the show
+               page instead of a dropdown (not used at the moment)
      useStill: true always uses "still" instead of episode thumbnails
      airs:     when new episodes come out, shown on the show tile and page:
                  { day: "Thursday", time: "6:00 PM", weeks: "B" }
@@ -124,17 +124,52 @@ window.WTOP = {
       match: ["Storm Team"],
       airs: { day: "Tuesday", time: "10:00 AM", weeks: "B", live: true }
     },
+    /* Game broadcasts. Each sport has one Panopto folder per season; put
+       the years in the folder name, e.g. "Oswego Men's Hockey 2026-27".
+       thumbFind: "game" picks a frame of the rink or court. */
     {
       id: "hockey-night",
       title: "Hockey Night in Oswego",
       category: "Sports",
-      tagline: "Laker sports broadcasts, live on WTOP-10.",
+      tagline: "Laker men's hockey, home and away, on WTOP-10.",
       still: "",
       trailer: "",
-      match: ["HNIO", "SUNY Oswego"],
+      match: ["Men's Ice Hockey", "Men's Hockey", "HNIO"],
       thumbAt: 1800,
-      thumbFind: "game",
-      seasonsAsRows: true
+      thumbFind: "game"
+    },
+    {
+      id: "hockey-night-w",
+      title: "Hockey Night in Oswego (W)",
+      category: "Sports",
+      tagline: "Laker women's hockey, home and away, on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Women's Ice Hockey", "Women's Hockey"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "mens-basketball",
+      title: "Oswego Men's Basketball",
+      category: "Sports",
+      tagline: "Laker men's basketball on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Men's Basketball"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "womens-basketball",
+      title: "Oswego Women's Basketball",
+      category: "Sports",
+      tagline: "Laker women's basketball on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Women's Basketball"],
+      thumbAt: 1800,
+      thumbFind: "game"
     },
     {
       id: "hockey-talk",
