@@ -441,23 +441,21 @@
       .sort(function (a, b) { return a.n != null && b.n != null ? b.n - a.n : a.i - b.i; })
       .map(function (x) { return x.name; });
   }
-  // One season of a show. Numbered episodes run 1, 2, 3 (specials after);
-  // otherwise newest first.
+  // One season of a show, newest first. Numbered episodes run 3, 2, 1, with
+  // specials (end-of-season) ahead of them.
   function seasonEps(showId, name) {
     var list = epsFor(showId).filter(function (e) { return e.season === name; });
     if (!list.some(function (e) { return e.episode; })) return list;
     return list.slice().sort(function (a, b) {
-      return (a.episode || 1e9) - (b.episode || 1e9) || (a.date || "").localeCompare(b.date || "");
+      return (b.episode || 1e9) - (a.episode || 1e9) || (b.date || "").localeCompare(a.date || "");
     });
   }
 
   function epsFor(showId) { return episodes.filter(function (e) { return e.show === showId; }); }
-  // Newest episode: for numbered seasons, the highest episode number
+  // Newest episode: the first of the newest season
   function latestFor(showId) {
     var newest = seasonsFor(showId)[0];
-    var list = newest ? seasonEps(showId, newest) : epsFor(showId);
-    var numbered = list.filter(function (e) { return e.episode; });
-    return numbered.length ? numbered[numbered.length - 1] : list[0] || epsFor(showId)[0];
+    return (newest && seasonEps(showId, newest)[0]) || epsFor(showId)[0];
   }
   function stillFor(show) {
     if (show.still || show.useStill) return show.still || "";
@@ -490,6 +488,35 @@
     var lead = a.live ? "Live " : short ? "" : "New episodes ";
     var text = lead + day + (time ? (short ? ", " : " at ") + time : "");
     return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  // Next date a show has a new episode, from "airs" and data.js weekA (a
+  // Monday that starts an A week). Station time. Returns "today",
+  // "tomorrow" or "Thu, Oct 1"; "" when it can't tell.
+  var DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  function nextAir(s) {
+    var a = s.airs, G = window.WTOP_GUIDE_CORE;
+    if (!a || !G) return "";
+    var want = DAY_NAMES.indexOf(a.day);
+    if (want < 0 || (a.weeks && !D.weekA)) return "";
+    var today = G.todayIso(), mins = G.parseClock(a.time || "");
+    var dayMin = function (iso) { return G.keyToAbsMin(G.dayStartKey(iso)); };
+    for (var i = 0; i < 15; i++) {
+      var iso = G.isoOfKey(G.absMinToKey(dayMin(today) + i * 1440));
+      var wd = G.weekdayOfIso(iso);
+      if (wd !== want) continue;
+      if (a.weeks) {
+        // weeks run Monday to Sunday
+        var weeks = Math.floor(((dayMin(iso) - dayMin(D.weekA)) / 1440 - (wd + 6) % 7) / 7);
+        if (((weeks % 2) + 2) % 2 !== (a.weeks === "A" ? 0 : 1)) continue;
+      }
+      if (i === 0 && mins !== null && dayMin(iso) + mins <= G.keyToAbsMin(G.nowKey())) continue;
+      if (i === 0) return "today";
+      if (i === 1) return "tomorrow";
+      var p = G.isoToParts(iso);
+      return new Date(Date.UTC(p.y, p.m - 1, p.d)).toLocaleDateString("en-US", { timeZone: "UTC", weekday: "short", month: "short", day: "numeric" });
+    }
+    return "";
   }
 
   // Title shown on a card: its own title, else "Episode 3", else the air date
@@ -541,8 +568,17 @@
   var copyEl = document.getElementById("heroCopy");
   var heroShows = [], current = -1, timer = null, STILL_MS = 9000;
 
-  // Home page hero: the "hero" list in data.js, in order. An entry is a show
-  // id, or { show, from, until } to run between two dates (inclusive).
+  // Hero: the 4 shows with the most recent episodes, among the shows on the
+  // current tab. On Home, anything in data.js "hero" (a show id, or
+  // { show, from, until } between two dates) takes the first slots.
+  var HERO_COUNT = 4;
+  function heroRecent(picked) {
+    picked = picked.slice();
+    episodes.forEach(function (e) {
+      if (picked.length < HERO_COUNT && showMatches(e.showObj) && picked.indexOf(e.showObj) < 0) picked.push(e.showObj);
+    });
+    return picked;
+  }
   function heroFromList() {
     var t = new Date();
     var today = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
@@ -563,8 +599,8 @@
       Array.prototype.forEach.call(slidesEl.querySelectorAll("video"), function (v) { v.pause(); });
       return;
     }
-    heroShows = filter.type === "all"
-      ? heroFromList()
+    heroShows = filter.type === "all" ? heroRecent(heroFromList())
+      : filter.type === "category" ? heroRecent([])
       : shows.filter(function (s) { return latestFor(s.id) && showMatches(s); });
     if (!heroShows.length) heroShows = shows.filter(function (s) { return latestFor(s.id); }).slice(0, 5);
     slidesEl.innerHTML = ""; dotsEl.innerHTML = ""; current = -1;
@@ -651,7 +687,7 @@
       document.getElementById("heroKicker").textContent = s.category || "WTOP-10";
       document.getElementById("heroTitle").textContent = s.title;
       document.getElementById("heroMeta").innerHTML = "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (subDate(ep) ? " · " + esc(subDate(ep)) : "") +
-        (airsText(s) ? '<span class="airs">' + esc(airsText(s)) + "</span>" : "");
+        (airsText(s) ? '<span class="airs">' + esc(airsText(s)) + (nextAir(s) ? " · next " + esc(nextAir(s)) : "") + "</span>" : "");
       document.getElementById("heroTagline").textContent = s.tagline || "";
       document.getElementById("heroPlay").onclick = function () { openPlayer(ep); };
       document.getElementById("heroMore").onclick = function () { setFilter("show", s.id); };
@@ -777,7 +813,7 @@
       return;
     }
 
-    if (filter.type === "all") addRow("Live", [liveCard()], "live");
+    if (filter.type === "all") { addRow("Live", [liveCard()], "live"); updateLive(); }
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
     // A show gets its own row (its newest season) once that has two episodes

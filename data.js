@@ -55,16 +55,18 @@ window.WTOP = {
     gamesUrl: "https://www.youtube.com/@WTOP10TV/streams"
   },
 
+  /* ---------- A AND B WEEKS ----------
+     A Monday that starts an A week. Weeks alternate from there, so the
+     page can show each show's next new-episode date.                     */
+  weekA: "2026-09-21",
+
   /* ---------- HERO ----------
-     The big rotating banner on the home page, in this order. List a show
-     id, or add dates to feature a show for a while (both dates included):
-       { show: "joepardy", from: "2026-10-01", until: "2026-10-07" }
-     A show with no episodes yet is skipped.                              */
+     The big rotating banner shows the 4 shows with the newest episodes,
+     on its own. To feature a show on the home page anyway, list it here;
+     it takes the first slot. Add dates to feature it for a while (both
+     dates included):
+       { show: "joepardy", from: "2026-10-01", until: "2026-10-07" }     */
   hero: [
-    "nightly-news",
-    "morning-news",
-    "storm-team-10",
-    "hockey-night"
   ],
 
   /* ---------- SHOWS ----------

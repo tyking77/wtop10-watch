@@ -57,13 +57,18 @@ WHEN NEW EPISODES COME OUT
   weeks is "A" or "B" for shows that air every other week; leave it out
   for every week. Add live: true for shows that air live. Change it here
   when the production schedule changes.
+  The show's page also gives the next date ("next Thu, Oct 1"). For that,
+  weekA in data.js is a Monday that starts an A week. If the A/B cycle
+  ever resets (a new semester), put the new A-week Monday there.
 
-THE HERO (BIG BANNER ON THE HOME PAGE)
-  The "hero" list in data.js sets which shows rotate there, in order.
-  To feature a show for a set time, add dates (both days included):
+THE HERO (BIG BANNER AT THE TOP)
+  It rotates the 4 shows with the newest episodes, on its own: across all
+  shows on Home, and within the tab on News, Sports and Entertainment.
+  To feature a show on Home anyway, list it in "hero" in data.js; it
+  takes the first slot. Add dates to feature it for a while (both days
+  included):
     { show: "joepardy", from: "2026-10-01", until: "2026-10-07" },
-  Show ids are the "id" of each show block. A show with no episodes yet
-  is skipped.
+  Show ids are the "id" of each show block.
 
 FIXING AN EPISODE
   In data.js, add a line to "overrides" using the video's Panopto ID
