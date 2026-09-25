@@ -130,6 +130,13 @@ LIVE
   During a live game, the Live tab shows a banner linking to the game's
   own stream. That comes from the schedule; nothing to switch on.
 
-SHARING AN EPISODE
-  Opening an episode changes the address bar to watch/?v=PANOPTO-ID.
-  That link opens the site with that episode in the player.
+LINKS AND THE BACK BUTTON
+  Every view has its own address, so the browser's Back button works and
+  any view can be linked or shared:
+    watch/                          Home
+    watch/?live                     Live tab
+    watch/?tab=sports               a menu tab (news, sports, entertainment)
+    watch/?show=hockey-talk         a show (the id from data.js)
+    watch/?show=nightly-news&season=Spring 2026   an older season
+  Opening an episode adds &v=PANOPTO-ID, and that link opens the episode
+  in the player. Back closes the player.

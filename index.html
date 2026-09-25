@@ -553,14 +553,61 @@
       nav.appendChild(b);
     });
   }
-  function setFilter(type, value) {
+  // fromHistory: the change came from the address bar (page load, Back or
+  // Forward), so don't add another history entry
+  function setFilter(type, value, fromHistory, pickSeason) {
     filter = { type: type, value: value || null };
-    season = null;
+    season = pickSeason || null;
     document.body.classList.toggle("live-view", type === "live");
-    try { history.replaceState(null, "", type === "live" ? "?live" : location.pathname); } catch (e) {}
+    if (!fromHistory) pushUrl(viewUrl());
+    document.title = (type === "live" ? "Live" : type === "category" ? value : type === "show" ? showById[value].title : "") +
+      (type === "all" ? "" : " · ") + "WTOP-10 Watch";
     renderNav(); buildHero(); renderRows();
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   }
+
+  /* ---------- addresses ----------
+     Every view has its own link, so Back works and views can be shared:
+       ./                      Home
+       ?live                   Live tab
+       ?tab=sports             a menu tab
+       ?show=hockey-talk       a show (&season=Season 3 for an older one)
+       ...&v=PANOPTO-ID        an episode playing over that view
+     Browsers can refuse history changes on file://, so failures are ignored. */
+  function viewUrl(epId) {
+    var q = [];
+    if (filter.type === "live") q.push("live");
+    else if (filter.type === "category") q.push("tab=" + encodeURIComponent(filter.value.toLowerCase()));
+    else if (filter.type === "show") {
+      q.push("show=" + encodeURIComponent(filter.value));
+      if (season && season !== seasonsFor(filter.value)[0]) q.push("season=" + encodeURIComponent(season));
+    }
+    if (epId) q.push("v=" + encodeURIComponent(epId));
+    return q.length ? "?" + q.join("&") : location.pathname;
+  }
+  function pushUrl(url) { try { history.pushState(null, "", url); } catch (e) {} }
+  function replaceUrl(url) { try { history.replaceState(null, "", url); } catch (e) {} }
+  function readUrl() {
+    var p = new URLSearchParams(location.search);
+    var u = { type: "all", value: null, season: p.get("season"), ep: p.get("v") };
+    var tab = (p.get("tab") || "").toLowerCase();
+    var cat = categories.filter(function (c) { return c.toLowerCase() === tab; })[0];
+    if (p.has("live") || location.hash === "#live") u.type = "live";
+    else if (showById[p.get("show")] && epsFor(p.get("show")).length) { u.type = "show"; u.value = p.get("show"); }
+    else if (cat) { u.type = "category"; u.value = cat; }
+    return u;
+  }
+  // Show whatever the address says: on load, and on Back and Forward
+  function applyUrl() {
+    var u = readUrl();
+    if (u.type !== filter.type || u.value !== filter.value || (u.season || null) !== (season || null)) {
+      setFilter(u.type, u.value, true, u.season);
+    }
+    var hit = u.ep && episodes.filter(function (e) { return e.panoptoId === u.ep; })[0];
+    if (hit) { if (!dlg.open || (frame.getAttribute("src") || "").indexOf(encodeURIComponent(hit.panoptoId)) < 0) openPlayer(hit, true); }
+    else if (dlg.open) { playerPushed = false; dlg.close(); }
+  }
+  window.addEventListener("popstate", applyUrl);
 
   /* ---------- hero ---------- */
   var slidesEl = document.getElementById("slides");
@@ -803,7 +850,7 @@
           o.value = name; o.textContent = name + " (" + n + ")"; o.selected = name === pick;
           head.appendChild(o);
         });
-        head.addEventListener("change", function () { season = head.value; renderRows(); rowsEl.querySelector(".season").focus(); });
+        head.addEventListener("change", function () { season = head.value; replaceUrl(viewUrl()); renderRows(); rowsEl.querySelector(".season").focus(); });
       } else if (pick) {
         head = document.createElement("span");
         head.textContent = pick;
@@ -831,6 +878,16 @@
   /* ---------- player ---------- */
   var dlg = document.getElementById("player");
   var frame = document.getElementById("playerFrame");
+  // Changing an iframe's src adds a browser history entry, which would make
+  // Back step through the player instead of the site. A fresh iframe
+  // doesn't, so swap one in for every video (and a blank one on close).
+  function setFrame(url) {
+    var f = frame.cloneNode(false);
+    f.removeAttribute("src");
+    if (url) f.src = url;
+    frame.parentNode.replaceChild(f, frame);
+    frame = f;
+  }
   function embedUrl(id) {
     return HOST + "/Panopto/Pages/Embed.aspx?id=" + encodeURIComponent(id) +
       "&autoplay=true&offerviewer=false&showtitle=false&showbrand=false&captions=false&interactivity=none";
@@ -839,19 +896,20 @@
     document.getElementById("playerShow").textContent = ep.showObj ? ep.showObj.title : "Live";
     document.getElementById("playerTitle").textContent = ep.showObj ? epTitle(ep) : ep.title;
     document.getElementById("playerLink").href = HOST + "/Panopto/Pages/Viewer.aspx?id=" + encodeURIComponent(ep.panoptoId);
-    frame.src = embedUrl(ep.panoptoId);
+    setFrame(embedUrl(ep.panoptoId));
     var v = slidesEl.children[current] && slidesEl.children[current].querySelector("video");
     if (v) v.pause();
     clearTimeout(timer);
     if (!dlg.open) dlg.showModal();
-    if (!skipHistory) {
-      try { history.replaceState(null, "", "?v=" + encodeURIComponent(ep.panoptoId)); } catch (e) {}
-    }
+    if (!skipHistory && ep.showObj) { pushUrl(viewUrl(ep.panoptoId)); playerPushed = true; }
   }
+  var playerPushed = false;   // true when opening the player added a history entry
   function closePlayer() { if (dlg.open) dlg.close(); }
   dlg.addEventListener("close", function () {
-    frame.src = "about:blank";
-    try { history.replaceState(null, "", location.pathname); } catch (e) {}
+    setFrame("");
+    // Closing undoes the entry the player added, so Back doesn't reopen it
+    if (playerPushed) { playerPushed = false; history.back(); }
+    else if (/[?&]v=/.test(location.search)) replaceUrl(viewUrl());
     go(current);
   });
   document.getElementById("closePlayer").addEventListener("click", closePlayer);
@@ -981,16 +1039,9 @@
   window.addEventListener("scroll", function () { topbar.classList.toggle("solid", window.scrollY > 40); }, { passive: true });
 
   /* ---------- start ---------- */
-  if (/[?&]live\b/.test(location.search) || location.hash === "#live") setFilter("live");
-  else { renderNav(); buildHero(); renderRows(); }
+  renderNav(); buildHero(); renderRows();
+  applyUrl();
   updateLive();
-
-  // Shareable links: watch/?v=PANOPTO-ID opens that episode
-  var linked = new URLSearchParams(location.search).get("v");
-  if (linked) {
-    var hit = episodes.filter(function (e) { return e.panoptoId === linked; })[0];
-    if (hit) openPlayer(hit, true);
-  }
 })();
 </script>
 </body>
