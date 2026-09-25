@@ -170,7 +170,52 @@
   .live-now li .m { min-width: 68px; }
   .guide-head { margin: 34px 0 12px; font: 700 clamp(22px, 2vw, 28px)/1 var(--display); letter-spacing: .02em; text-transform: uppercase; }
   .guide-frame { display: block; width: 100%; min-height: 600px; border: 0; border-radius: 8px; background: var(--surface); }
-  .track.live { grid-auto-columns: clamp(300px, 44vw, 620px); }
+  /* Home Live row: the Live card, then a one-channel guide running sideways */
+  .live-home {
+    display: grid; grid-template-columns: minmax(280px, 500px) minmax(0, 1fr); gap: 18px;
+    align-items: stretch; padding: 6px var(--gutter) 14px;
+  }
+  .live-home .live-card { width: 100%; }
+  .mini-guide {
+    min-width: 0; display: flex; flex-direction: column; gap: 10px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 0 14px;
+  }
+  .mg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 16px; }
+  .mg-head .k { font: 700 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .mg-head button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+  .mg-head button:hover { color: var(--ink); }
+  .mg-wrap { position: relative; flex: 1; min-height: 170px; }
+  .mg-scroll { position: absolute; inset: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .mg-scroll::-webkit-scrollbar { display: none; }
+  .mg-track { position: relative; height: 100%; margin: 0 16px; }
+  .mg-tick {
+    position: absolute; top: 0; bottom: 0; padding-left: 6px; border-left: 1px solid rgba(44,62,107,.7);
+    font-size: 12px; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .mg-block {
+    position: absolute; top: 24px; bottom: 0; display: flex; flex-direction: column; gap: 5px;
+    padding: 10px 12px 12px; overflow: hidden; text-align: left; cursor: pointer;
+    background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+    font: inherit;
+  }
+  .mg-block:hover, .mg-block:focus-visible { border-color: var(--ink); }
+  .mg-block.now { background: #1d3470; border-color: var(--red); }
+  .mg-block.now .t { color: #ff8b8b; font-weight: 600; }
+  .mg-block .t { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mg-block .n { font-weight: 600; font-size: 15px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mg-block .c { margin-top: auto; font: 600 11px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .mg-block .tag { align-self: flex-start; background: var(--red); color: #fff; border-radius: 3px; padding: 3px 6px; font: 700 11px/1 var(--display); letter-spacing: .1em; }
+  .mg-block .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(238,238,240,.15); }
+  .mg-block .bar i { display: block; height: 100%; background: var(--red); }
+  .mg-now { position: absolute; top: 16px; height: 9px; width: 2px; margin-left: -1px; background: var(--red); z-index: 2; pointer-events: none; }
+  .mg-now::before { content: ""; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+  .mg-empty { padding: 0 16px; color: var(--muted); }
+  .mini-guide .arrow { top: 24px; bottom: 0; width: 40px; min-width: 0; border-radius: 0 6px 6px 0; }
+  .mini-guide .arrow.prev { border-radius: 6px 0 0 6px; }
+  .mini-guide:hover .arrow:not([disabled]) { opacity: 1; }
+  @media (max-width: 640px) {
+    .live-home { grid-template-columns: minmax(0, 1fr); }
+  }
   .live-card .badge {
     position: absolute; z-index: 3; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 7px;
     background: var(--red); color: #fff; border-radius: 3px; padding: 5px 9px;
@@ -860,7 +905,7 @@
       return;
     }
 
-    if (filter.type === "all") { addRow("Live", [liveCard()], "live"); updateLive(); }
+    if (filter.type === "all") { rowsEl.appendChild(liveRow()); updateLive(); }
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
     // A show gets its own row (its newest season) once that has two episodes
@@ -971,6 +1016,69 @@
     return b;
   }
 
+  // Home page Live row: the Live card beside a mini guide that runs sideways,
+  // like one channel of a TV grid. Six hours from the current half hour;
+  // blocks are as wide as the programs are long.
+  var MG_MINUTES = 360, MG_PX = 4;   // 30 minutes = 120 px
+  function liveRow() {
+    var sec = document.createElement("section");
+    sec.className = "row";
+    sec.innerHTML = '<div class="row-head"><h2>Live</h2></div><div class="live-home"></div>';
+    var box = sec.querySelector(".live-home");
+    box.appendChild(liveCard());
+    var mg = document.createElement("div");
+    mg.className = "mini-guide";
+    mg.innerHTML =
+      '<div class="mg-head"><span class="k">Coming up on WTOP-10</span><button type="button">Full guide</button></div>' +
+      '<div class="mg-wrap"><button class="arrow prev" aria-label="Earlier">‹</button>' +
+        '<div class="mg-scroll"><div class="mg-track" data-live="strip"></div></div>' +
+        '<button class="arrow next" aria-label="Later">›</button></div>';
+    mg.querySelector(".mg-head button").addEventListener("click", function () { setFilter("live"); });
+    var sc = mg.querySelector(".mg-scroll"), prev = mg.querySelector(".prev"), next = mg.querySelector(".next");
+    function upd() {
+      prev.disabled = sc.scrollLeft < 8;
+      next.disabled = sc.scrollLeft + sc.clientWidth > sc.scrollWidth - 8;
+    }
+    prev.addEventListener("click", function () { sc.scrollBy({ left: -sc.clientWidth * 0.8, behavior: "smooth" }); });
+    next.addEventListener("click", function () { sc.scrollBy({ left: sc.clientWidth * 0.8, behavior: "smooth" }); });
+    sc.addEventListener("scroll", upd, { passive: true });
+    window.addEventListener("resize", upd);
+    requestAnimationFrame(upd);
+    box.appendChild(mg);
+    return sec;
+  }
+
+  function renderStrip(track) {
+    var nowMin = G.nowAbsMin();
+    var from = Math.floor(nowMin / 30) * 30, to = from + MG_MINUTES;
+    var html = "";
+    for (var m = from; m < to; m += 30) {
+      var k = G.keyParts(G.absMinToKey(m));
+      html += '<span class="mg-tick" style="left:' + (m - from) * MG_PX + 'px">' + esc(G.fmtTimeHM(k.h, k.mi)) + "</span>";
+    }
+    var shown = SCHED.filter(function (p) { return G.keyToAbsMin(p.endKey) > from && G.keyToAbsMin(p.startKey) < to; });
+    shown.forEach(function (p, i) {
+      var st = G.keyToAbsMin(p.startKey), en = G.keyToAbsMin(p.endKey);
+      var left = (Math.max(st, from) - from) * MG_PX, width = (Math.min(en, to) - Math.max(st, from)) * MG_PX - 4;
+      var isNow = nowMin >= st && nowMin < en;
+      html += '<button type="button" class="mg-block' + (isNow ? " now" : "") + '" data-i="' + i + '" style="left:' + left + "px;width:" + width + 'px"' +
+        ' title="' + esc(p.title + ", " + G.fmtStart(p) + " – " + G.fmtEnd(p)) + '">' +
+        '<span class="t">' + (isNow ? "On now" : esc(G.fmtStart(p))) + "</span>" +
+        (isLiveGame(p) ? '<span class="tag">LIVE</span>' : "") +
+        '<span class="n">' + esc(p.title) + "</span>" +
+        '<span class="c">' + esc((G.CAT_LABELS && G.CAT_LABELS[p.cat]) || "") + "</span>" +
+        (isNow ? '<span class="bar"><i style="width:' + Math.round((nowMin - st) / (en - st) * 100) + '%"></i></span>' : "") +
+        "</button>";
+    });
+    if (nowMin >= from && nowMin < to) html += '<span class="mg-now" style="left:' + (nowMin - from) * MG_PX + 'px"></span>';
+    track.style.width = MG_MINUTES * MG_PX + "px";
+    track.innerHTML = shown.length ? html : "";
+    if (!shown.length) track.parentNode.parentNode.innerHTML = '<p class="mg-empty">No listings loaded for the next few hours.</p>';
+    Array.prototype.forEach.call(track.querySelectorAll(".mg-block"), function (b) {
+      b.addEventListener("click", function () { setFilter("live"); });
+    });
+  }
+
   function renderLive() {
     var wrap = document.createElement("section");
     wrap.className = "live-wrap";
@@ -988,6 +1096,8 @@
   // Refresh the on-now text on the home card and the Live tab
   function updateLive() {
     if (!G) return;
+    var strip = document.querySelector("[data-live=strip]");
+    if (strip) renderStrip(strip);
     var now = onAir(), next = upNext(4);
     var title = document.querySelector("[data-live=title]");
     if (title) {
