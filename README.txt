@@ -4,6 +4,7 @@ FILES
   index.html   The page itself. Nobody needs to edit this for day-to-day updates.
   data.js      Shows, Panopto folders and fixes. This is the file students edit.
   episodes.js  Episodes pulled from Panopto. Made automatically; don't edit.
+  pages.js     The Donate and About Us pages (text you can edit).
   guide.html   The program guide (also shown on wtop10.com).
   guide-core.js  Guide rules: show categories and title spellings.
   schedule/    Cablecast CSV exports go here.
@@ -138,6 +139,16 @@ LIVE
   During a live game, the Live tab shows a banner linking to the game's
   own stream. That comes from the schedule; nothing to switch on.
 
+DONATE AND ABOUT US PAGES
+  Their text is in pages.js, between the backticks. Formatting:
+    ## Heading   ### Smaller heading   - List item   > Big callout line
+    **bold**     [link text](https://...)
+  Leave a blank line between paragraphs. Don't type a backtick inside.
+  "menu" at the top of pages.js sets the menu: a single page, or a group
+  that becomes a dropdown. To add a page, copy one, give it a new name,
+  and add that name to the menu.
+  Photos for these pages go in assets/pages/.
+
 LINKS AND THE BACK BUTTON
   Every view has its own address, so the browser's Back button works and
   any view can be linked or shared:
@@ -146,5 +157,7 @@ LINKS AND THE BACK BUTTON
     watch/?tab=sports               a menu tab (news, sports, entertainment)
     watch/?show=hockey-talk         a show (the id from data.js)
     watch/?show=nightly-news&season=Spring 2026   an older season
+    watch/?page=donate              Donate (also ?page=about,
+                                    ?page=constitution, ?page=contact)
   Opening an episode adds &v=PANOPTO-ID, and that link opens the episode
   in the player. Back closes the player.
