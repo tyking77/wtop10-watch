@@ -40,11 +40,15 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=0d3771a4-5497-4ca2-acce-b48e00078e18"  // Oh Boy: Season 4
   ],
 
-  /* Flip "on" to true when a live broadcast is running. */
+  /* ---------- LIVE ----------
+     The Live tab plays the 24/7 YouTube stream. If the stream is ever
+     restarted, YouTube gives it a new video ID: copy it from the new link
+     (youtube.com/watch?v=THIS-PART) into "youtube". Games stream on their
+     own; during a live game the Live tab links to gamesUrl.              */
   live: {
-    on: false,
-    title: "Morning News",
-    panoptoId: ""
+    youtube: "2pDkDTtbGRY",
+    channel: "UCbb2fiQ8Z174AhIlWx-gDiA",
+    gamesUrl: "https://www.youtube.com/@WTOP10TV/streams"
   },
 
   /* ---------- HERO ----------
@@ -172,6 +176,22 @@ window.WTOP = {
       trailer: ""
     },
     {
+      id: "full-court-press",
+      title: "Full Court Press",
+      category: "Sports",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "laker-night-life",
+      title: "Laker Night Life",
+      category: "Sports",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
       id: "laker-showdown",
       title: "Laker Showdown",
       category: "Entertainment",
@@ -273,6 +293,141 @@ window.WTOP = {
       still: "",
       trailer: "",
       match: ["Foodies"]
+    },
+    /* Older shows from the program guide. Hidden until they have episodes. */
+    {
+      id: "cooked",
+      title: "Cooked",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "cooked-live",
+      title: "Cooked! Live",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "no-alternative",
+      title: "No Alternative",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["No Alterntive"]
+    },
+    {
+      id: "dk-experience",
+      title: "The DK Experience",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["DK Experience"]
+    },
+    {
+      id: "borealis-booklight",
+      title: "Borealis Booklight",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["Borealis Book Light", "Borealis Book Talk"]
+    },
+    {
+      id: "not-for-primetime",
+      title: "Not for Primetime",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "ten-point-two",
+      title: "Ten Point Two",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "connection-terminated",
+      title: "Connection Terminated",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "the-bigger-picture",
+      title: "The Bigger Picture",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["Bigger Picture"]
+    },
+    {
+      id: "dah-boys-talk",
+      title: "Dah Boys Talk about DWTS",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["Dah Boys Talk"]
+    },
+    {
+      id: "ross-berry-live",
+      title: "Ross Berry Live",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "storm-and-tell",
+      title: "Storm and Tell",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "fitzcalpine",
+      title: "Fitzcalpine",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "amateurs-live",
+      title: "Amateurs Live",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "shut-the-chuck-up",
+      title: "SHUT THE CHUCK UP!",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["Shut the Chuck Up"]
+    },
+    {
+      id: "ooo-girl",
+      title: "OOO Girl",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
     }
   ],
 

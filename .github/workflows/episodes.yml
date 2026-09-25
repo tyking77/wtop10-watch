@@ -1,5 +1,6 @@
 # Rebuilds episodes.js (and thumbs/ for new episodes) from the Panopto
-# folders listed in data.js and commits when something changed. GitHub Pages then redeploys the site.
+# folders listed in data.js, and schedule.js from the Cablecast CSVs in
+# schedule/. Commits when something changed; GitHub Pages then redeploys.
 name: Update episodes
 
 on:
@@ -13,7 +14,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths-ignore: [episodes.js, "thumbs/**"]
+    paths-ignore: [episodes.js, schedule.js, "thumbs/**"]
 
 permissions:
   contents: write
@@ -27,6 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history: build-schedule uses each CSV's commit time to decide
+          # which export is newest
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -38,15 +43,18 @@ jobs:
       - name: Build episodes.js
         run: node scripts/build-episodes.mjs
 
+      - name: Build schedule.js
+        run: node scripts/build-schedule.mjs
+
       - name: Commit if changed
         run: |
-          if [ -z "$(git status --porcelain -- episodes.js thumbs)" ]; then
-            echo "No new episodes."
+          if [ -z "$(git status --porcelain -- episodes.js thumbs schedule.js)" ]; then
+            echo "Nothing new."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add episodes.js thumbs
-          git commit -m "Update episodes from Panopto"
+          git add episodes.js thumbs schedule.js
+          git commit -m "Update episodes and schedule"
           git pull --rebase origin main
           git push

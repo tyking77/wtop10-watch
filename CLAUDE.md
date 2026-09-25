@@ -19,6 +19,10 @@ Owner: Tyler King, WTOP-10 faculty advisor. Students will maintain the content, 
 - `thumbs/`: generated episode frames, `<panoptoId>.jpg`, 960x540. Committed by the Action; each is grabbed once.
 - `assets/wtop10-logo.png`: official logo, web-sized (400x115). The 800x229 original is `assets/wtop10-logo-full.png` (local only).
 - `stills/`: 1920x1080 hero stills. `trailers/`: hero MP4s.
+- `guide.html`: the program guide (split out of `../Program Guide/wtop10-schedule.html`). Shown in the Live tab and, via `wordpress-guide-embed.html`, on the wtop10.com homepage. Reports its height to the parent with postMessage (`wtopScheduleHeight`, `wtopScrollTo`). Its old admin tools (CSV import, category dropdowns, WordPress snippet export) are hidden and unused.
+- `guide-core.js`: the guide's settings, CATEGORY_RULES, CANONICAL_TITLES and Cablecast CSV parser, with no DOM access. Loaded by guide.html, index.html and scripts/build-schedule.mjs (as a CommonJS module). Edit rules here, once.
+- `schedule/`: Cablecast X-List CSVs, uploaded through GitHub's web uploader. `scripts/build-schedule.mjs` merges them into `schedule.js` (`window.WTOP_SCHEDULE_CSV`): per day, the most recently committed file wins (the Action checks out full history for this); days before yesterday are dropped. "Off Air" rows have no end time and are skipped by design. Cablecast's API isn't reachable until the new Live service (early 2027); then the build should read it instead of CSVs.
+- `wordpress-guide-embed.html`: the tiny Custom HTML block for wtop10.com that iframes guide.html. Not used by the page.
 - `README.txt`: plain-language instructions for students. Keep it in sync with any change to how content is added.
 
 Hard rule: the page must keep working when `index.html` is double-clicked from disk (file://). That is why content loads through a `<script src="data.js">` tag rather than `fetch()` of JSON. Any generated content file has to follow the same pattern (e.g. `episodes.js` setting a global).
@@ -31,7 +35,7 @@ Hard rule: the page must keep working when `index.html` is double-clicked from d
 - `shows[]`: all 22 WTOP-10 shows, listed ahead of their folders; a show is hidden until it has episodes. `id`, `title`, `category` (drives the top menu), `tagline`, `still`, `trailer`, `match` (extra title phrases; the show's own title always counts; longest match wins), `thumbAt` (seconds into each episode for its auto thumbnail, default 45), `useStill` (always use `still` instead of episode thumbnails).
 - `episodes[]`: `show` (a show id), `date` (YYYY-MM-DD, sorted newest first), `title` (optional; the date is used if empty), `panoptoId`, `thumb`. Generated episodes also carry `duration` (seconds), `season`, `folder`, and when relevant `episode` (number parsed from "S5 Ep.1", "Episode 3") and `undated: true` (no air date in the title, so `date` is only the upload date and is never shown). Numbered episodes display as "Episode N", run 1, 2, 3 within a season (specials after), and "Play latest" picks the highest number. Numbered seasons sort by number. In "Latest" rows an undated episode sorts by its season's newest upload date, then episode number descending. Hand-entered episodes get a season from their date (Jan–May Spring, Jun–Jul Summer, Aug–Dec Fall).
 - `overrides`: keyed by panoptoId; `hide`, `title`, `thumb`, `date`.
-- `live`: `{ on, title, panoptoId }`. When on, a red LIVE pill and banner appear.
+- `live`: `{ youtube, channel, gamesUrl }`. `youtube` is the 24/7 stream's video ID; the channel-live embed is only a fallback because game streams run on the same channel at the same time. WTOP-10 doesn't use Panopto webcasts, so the old Panopto live switch is gone.
 
 Merge order in the page: `episodes.js`, then hand-entered `data.js` episodes (non-empty fields win), then overrides.
 
@@ -42,6 +46,10 @@ Auto thumbnails: the build gets each episode's MP4 from `/Panopto/Pages/Viewer/D
 ## Panopto source
 
 Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. When every folder loads, frames in `thumbs/` that no episode uses are deleted. A video being renamed or reprocessed can vanish from the folder listing for a few minutes (seen with Sept 24, 2026); it comes back on the next run with the same ID. Panopto's own frame grabber ignores timestamp parameters, which is why the build uses ffmpeg on the MP4.
+
+## Live tab
+
+Nav order: Home, Live (pulsing red dot), then categories. `?live` or `#live` opens it, and entering it writes `?live` to the address bar. It hides the hero and shows the YouTube player, an "On now / Up next" strip (with a link to a show's past episodes when a watch-page show title matches the listing), a game banner, then guide.html in an auto-height iframe. The home page gets a "Live" row above Latest episodes with one card (YouTube's `hqdefault_live.jpg` of the stream, on-now and next) that opens the Live tab. The game banner shows only while a Live Sports listing is airing for the first time on its own date (later airings that day are replays) and links to `live.gamesUrl`. On-now text refreshes every 30 s.
 
 ## Behavior to preserve
 

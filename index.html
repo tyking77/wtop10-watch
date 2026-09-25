@@ -150,15 +150,42 @@
   .dots.paused button::after { animation-play-state: paused; }
   @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-  /* ---------- Live banner ---------- */
+  /* ---------- Live ---------- */
+  .nav .live-nav::before {
+    content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%;
+    background: var(--red); vertical-align: 2px; animation: blink 1.4s infinite;
+  }
+  body.live-view .hero { display: none; }
+  body.live-view main { margin-top: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 78px); }
+  .live-wrap { padding-inline: var(--gutter); max-width: 1280px; margin: 0 auto; }
+  .live-player { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border-radius: 8px; overflow: hidden; }
+  .live-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .live-now { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; padding: 18px 2px 20px; border-bottom: 1px solid var(--line); }
+  .live-now .k { display: block; margin-bottom: 6px; font: 700 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .live-now .t { display: block; font: 600 clamp(20px, 2vw, 24px)/1.2 var(--display); }
+  .live-now .m { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .live-now button.link { color: var(--ink); font-size: 14px; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .live-now ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .live-now li { display: flex; gap: 12px; }
+  .live-now li .m { min-width: 68px; }
+  .guide-head { margin: 34px 0 12px; font: 700 clamp(22px, 2vw, 28px)/1 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+  .guide-frame { display: block; width: 100%; min-height: 600px; border: 0; border-radius: 8px; background: var(--surface); }
+  .track.live { grid-auto-columns: clamp(300px, 44vw, 620px); }
+  .live-card .badge {
+    position: absolute; z-index: 3; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 7px;
+    background: var(--red); color: #fff; border-radius: 3px; padding: 5px 9px;
+    font: 700 13px/1 var(--display); letter-spacing: .1em; text-transform: uppercase;
+  }
+  .live-card .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: blink 1.4s infinite; }
   .live-banner {
-    margin: 0 var(--gutter) 8px; position: relative; z-index: 4;
+    margin: 16px 0 0; position: relative; z-index: 4;
     display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
     padding: 14px 18px; border-radius: 6px;
     background: linear-gradient(90deg, rgba(229,72,77,.22), rgba(229,72,77,.06));
     box-shadow: inset 0 0 0 1px rgba(229,72,77,.45);
   }
   .live-banner p { margin: 0; font-weight: 600; }
+  .live-banner a { color: #fff; }
 
   /* ---------- Rows ---------- */
   main { position: relative; z-index: 4; margin-top: -40px; padding-bottom: 64px; }
@@ -299,7 +326,6 @@
 <header class="topbar" id="topbar">
   <a class="wordmark" href="./"><img src="assets/wtop10-logo.png" alt="WTOP-10 home"></a>
   <nav class="nav" id="nav" aria-label="Browse by category"></nav>
-  <button class="live-pill" id="livePill" hidden>Live</button>
 </header>
 
 <section class="hero" id="hero" aria-roledescription="carousel" aria-label="Featured shows">
@@ -322,11 +348,6 @@
 </section>
 
 <main id="main">
-  <div class="live-banner" id="liveBanner" hidden>
-    <span class="live-pill" style="margin:0;cursor:default">Live</span>
-    <p id="liveText"></p>
-    <button class="btn btn-play" id="liveWatch" style="margin-left:auto">Watch live</button>
-  </div>
   <div id="rows"></div>
 </main>
 
@@ -349,6 +370,8 @@
 
 <script src="data.js"></script>
 <script src="episodes.js"></script>
+<script src="guide-core.js"></script>
+<script src="schedule.js"></script>
 <script>
 (function () {
   "use strict";
@@ -472,12 +495,13 @@
   /* ---------- nav ---------- */
   var nav = document.getElementById("nav");
   function renderNav() {
-    var items = [{ label: "Home", type: "all" }].concat(categories.map(function (c) { return { label: c, type: "category", value: c }; }));
+    var items = [{ label: "Home", type: "all" }, { label: "Live", type: "live" }].concat(categories.map(function (c) { return { label: c, type: "category", value: c }; }));
     nav.innerHTML = "";
     items.forEach(function (it) {
       var b = document.createElement("button");
       b.textContent = it.label;
-      var on = filter.type === it.type && (it.type === "all" || filter.value === it.value);
+      if (it.type === "live") b.className = "live-nav";
+      var on = filter.type === it.type && (it.type === "all" || it.type === "live" || filter.value === it.value);
       b.setAttribute("aria-pressed", on ? "true" : "false");
       b.addEventListener("click", function () { setFilter(it.type, it.value); });
       nav.appendChild(b);
@@ -486,6 +510,8 @@
   function setFilter(type, value) {
     filter = { type: type, value: value || null };
     season = null;
+    document.body.classList.toggle("live-view", type === "live");
+    try { history.replaceState(null, "", type === "live" ? "?live" : location.pathname); } catch (e) {}
     renderNav(); buildHero(); renderRows();
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   }
@@ -514,6 +540,10 @@
 
   function buildHero() {
     clearTimeout(timer);
+    if (filter.type === "live") {
+      Array.prototype.forEach.call(slidesEl.querySelectorAll("video"), function (v) { v.pause(); });
+      return;
+    }
     heroShows = filter.type === "all"
       ? heroFromList()
       : shows.filter(function (s) { return latestFor(s.id) && showMatches(s); });
@@ -551,6 +581,7 @@
 
   function go(i, fromUser) {
     clearTimeout(timer);
+    if (filter.type === "live") return;
     var slides = slidesEl.children;
     if (!slides.length) return;
     if (current >= 0 && slides[current]) {
@@ -696,6 +727,7 @@
 
   function renderRows() {
     rowsEl.innerHTML = "";
+    if (filter.type === "live") { renderLive(); return; }
     var visibleShows = shows.filter(function (s) { return showMatches(s) && epsFor(s.id).length; });
     var visibleEps = episodes.filter(function (e) { return showMatches(e.showObj); });
 
@@ -724,6 +756,7 @@
       return;
     }
 
+    if (filter.type === "all") addRow("Live", [liveCard()], "live");
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
     // A show gets its own row (its newest season) once that has two episodes
@@ -767,23 +800,138 @@
   document.getElementById("closePlayer").addEventListener("click", closePlayer);
   dlg.addEventListener("click", function (e) { if (e.target === dlg) closePlayer(); });
 
-  /* ---------- live ---------- */
-  if (D.live && D.live.on && D.live.panoptoId) {
-    var liveEp = { panoptoId: D.live.panoptoId, title: D.live.title || "WTOP-10 Live" };
-    var pill = document.getElementById("livePill");
-    pill.hidden = false;
-    pill.addEventListener("click", function () { openPlayer(liveEp); });
-    document.getElementById("liveBanner").hidden = false;
-    document.getElementById("liveText").textContent = "On now: " + liveEp.title;
-    document.getElementById("liveWatch").addEventListener("click", function () { openPlayer(liveEp); });
+  /* ---------- live ----------
+     The 24/7 YouTube stream plus the program guide. Listings come from
+     schedule.js (the Cablecast CSV) parsed by guide-core.js, the same code
+     the full guide uses. */
+  var LIVE = D.live || {};
+  var G = window.WTOP_GUIDE_CORE;
+  var SCHED = [];
+  if (G && window.WTOP_SCHEDULE_CSV) {
+    SCHED = G.parseStationCsv(window.WTOP_SCHEDULE_CSV).programs.filter(function (p) { return !p.filler; });
   }
+  function onAir() {
+    var nk = G.nowKey();
+    return SCHED.filter(function (p) { return nk >= p.startKey && nk < p.endKey; })[0] || null;
+  }
+  function upNext(n) {
+    var nk = G.nowKey();
+    return SCHED.filter(function (p) { return p.startKey > nk; }).slice(0, n);
+  }
+  // A game is live when it airs on its own date for the first time that day;
+  // later airings are replays
+  function isLiveGame(p) {
+    if (!p || p.cat !== "livesports" || p.badges.indexOf("PREMIERE") < 0) return false;
+    return !SCHED.some(function (q) { return q.title === p.title && q.origAired === p.origAired && q.startKey < p.startKey; });
+  }
+  // The watch-page show a guide listing belongs to, matched on the show title
+  function showForListing(p) {
+    var t = " " + String(p.title).toLowerCase().replace(/[^a-z0-9]+/g, " ") + " ";
+    var best = null;
+    shows.forEach(function (s) {
+      var w = String(s.title).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+      if (w && t.indexOf(" " + w + " ") >= 0 && epsFor(s.id).length && (!best || w.length > best.w)) best = { s: s, w: w.length };
+    });
+    return best && best.s;
+  }
+  function ytEmbed() {
+    return LIVE.youtube
+      ? "https://www.youtube.com/embed/" + encodeURIComponent(LIVE.youtube) + "?autoplay=1&rel=0"
+      : "https://www.youtube.com/embed/live_stream?channel=" + encodeURIComponent(LIVE.channel || "") + "&autoplay=1";
+  }
+
+  function liveCard() {
+    var b = document.createElement("button");
+    b.className = "card live-card";
+    b.setAttribute("aria-label", "Watch WTOP-10 live");
+    var img = LIVE.youtube ? "https://i.ytimg.com/vi/" + encodeURIComponent(LIVE.youtube) + "/hqdefault_live.jpg" : "";
+    b.innerHTML =
+      '<div class="thumb">' +
+        '<div class="ph"><span class="ph-date">24/7</span><span class="ph-show">WTOP-10 Live</span></div>' +
+        (img ? '<img alt="" loading="lazy" src="' + esc(img) + '">' : "") +
+        '<span class="badge">Live</span>' +
+        '<span class="play-badge">' + PLAY_SVG + "</span>" +
+      "</div>" +
+      '<div class="card-text"><span class="show-name">WTOP-10 24/7</span>' +
+        '<span class="ep-title" data-live="title">Watch live</span>' +
+        '<span class="ep-date" data-live="meta"></span></div>';
+    var im = b.querySelector("img");
+    if (im) im.addEventListener("error", function () { im.remove(); });
+    b.addEventListener("click", function () { setFilter("live"); });
+    return b;
+  }
+
+  function renderLive() {
+    var wrap = document.createElement("section");
+    wrap.className = "live-wrap";
+    wrap.innerHTML =
+      '<div class="live-player"><iframe title="WTOP-10 24/7 live stream" src="' + esc(ytEmbed()) + '" ' +
+        'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' +
+      '<div class="live-banner" data-live="game" hidden></div>' +
+      '<div class="live-now" data-live="now"></div>' +
+      '<h2 class="guide-head">Program guide</h2>' +
+      '<iframe class="guide-frame" id="guideFrame" title="WTOP-10 program guide" src="guide.html"></iframe>';
+    rowsEl.appendChild(wrap);
+    updateLive();
+  }
+
+  // Refresh the on-now text on the home card and the Live tab
+  function updateLive() {
+    if (!G) return;
+    var now = onAir(), next = upNext(4);
+    var title = document.querySelector("[data-live=title]");
+    if (title) {
+      title.textContent = now ? "On now: " + now.title : "Watch live";
+      document.querySelector("[data-live=meta]").textContent =
+        (now ? "Until " + G.fmtEnd(now) : "") + (next[0] ? (now ? " · " : "") + "Next: " + next[0].title + " at " + G.fmtStart(next[0]) : "");
+    }
+    var box = document.querySelector("[data-live=now]");
+    if (box) {
+      var html = '<div><span class="k">On now</span>';
+      if (now) {
+        var sh = showForListing(now);
+        html += '<span class="t">' + esc(now.title) + '</span><span class="m">' + esc(G.fmtStart(now) + " – " + G.fmtEnd(now)) + "</span>" +
+          (sh ? '<div style="margin-top:8px"><button class="link" data-show="' + esc(sh.id) + '">Watch past episodes of ' + esc(sh.title) + "</button></div>" : "");
+      } else {
+        html += '<span class="t">WTOP-10 24/7</span>';
+      }
+      html += '</div><div><span class="k">Up next</span><ol>' + next.slice(0, 3).map(function (p) {
+        return '<li><span class="m">' + esc(G.fmtStart(p)) + "</span><span>" + esc(p.title) + "</span></li>";
+      }).join("") + "</ol></div>";
+      box.innerHTML = html;
+      var link = box.querySelector("[data-show]");
+      if (link) link.addEventListener("click", function () { setFilter("show", link.getAttribute("data-show")); });
+      var game = document.querySelector("[data-live=game]");
+      if (isLiveGame(now) && LIVE.gamesUrl) {
+        game.hidden = false;
+        game.innerHTML = '<span class="live-pill" style="margin:0;cursor:default">Live</span><p>' + esc(now.title) +
+          ' is live on its own stream too.</p><a class="btn btn-play" style="margin-left:auto" target="_blank" rel="noopener" href="' + esc(LIVE.gamesUrl) + '">Watch the game</a>';
+      } else {
+        game.hidden = true;
+      }
+    }
+  }
+  setInterval(updateLive, 30000);
+
+  // The guide iframe reports its height (and asks to scroll to "on now")
+  window.addEventListener("message", function (e) {
+    var gf = document.getElementById("guideFrame");
+    if (!gf || !e.data || e.source !== gf.contentWindow) return;
+    if (typeof e.data.wtopScheduleHeight === "number") gf.style.height = e.data.wtopScheduleHeight + "px";
+    if (typeof e.data.wtopScrollTo === "number") {
+      var top = gf.getBoundingClientRect().top + window.pageYOffset + e.data.wtopScrollTo - 70;
+      window.scrollTo({ top: top, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+  });
 
   /* ---------- top bar ---------- */
   var topbar = document.getElementById("topbar");
   window.addEventListener("scroll", function () { topbar.classList.toggle("solid", window.scrollY > 40); }, { passive: true });
 
   /* ---------- start ---------- */
-  renderNav(); buildHero(); renderRows();
+  if (/[?&]live\b/.test(location.search) || location.hash === "#live") setFilter("live");
+  else { renderNav(); buildHero(); renderRows(); }
+  updateLive();
 
   // Shareable links: watch/?v=PANOPTO-ID opens that episode
   var linked = new URLSearchParams(location.search).get("v");

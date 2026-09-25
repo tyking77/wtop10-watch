@@ -1,0 +1,26 @@
+<!-- WTOP-10 Program Guide for wtop10.com. Paste this whole block into the
+     homepage's Custom HTML block, replacing the old guide snippet. It loads
+     the guide from the watch site, so it never needs pasting again: new
+     schedules are uploaded to schedule/ on GitHub. When the watch page moves
+     to Bluehost, change the src to /watch/guide.html -->
+<div style="max-width:980px;margin:0 auto;">
+  <iframe id="wtopScheduleFrame" title="WTOP-10 Program Guide" loading="lazy"
+    src="https://tyking77.github.io/wtop10-watch/guide.html"
+    style="width:100%;border:0;display:block;min-height:600px;"></iframe>
+</div>
+<script>
+(function(){
+  var frame = document.getElementById("wtopScheduleFrame");
+  window.addEventListener("message", function(e){
+    if(!e.data || !frame.contentWindow || e.source !== frame.contentWindow) return;
+    if(typeof e.data.wtopScheduleHeight === "number"){
+      frame.style.height = e.data.wtopScheduleHeight + "px";
+    }
+    if(typeof e.data.wtopScrollTo === "number"){
+      var top = frame.getBoundingClientRect().top + window.pageYOffset + e.data.wtopScrollTo;
+      try { window.scrollTo({ top: top, behavior: "smooth" }); } catch (err) { window.scrollTo(0, top); }
+    }
+  });
+})();
+</script>
+<!-- End WTOP-10 Program Guide -->

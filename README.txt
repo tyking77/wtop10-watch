@@ -4,6 +4,10 @@ FILES
   index.html   The page itself. Nobody needs to edit this for day-to-day updates.
   data.js      Shows, Panopto folders and fixes. This is the file students edit.
   episodes.js  Episodes pulled from Panopto. Made automatically; don't edit.
+  guide.html   The program guide (also shown on wtop10.com).
+  guide-core.js  Guide rules: show categories and title spellings.
+  schedule/    Cablecast CSV exports go here.
+  schedule.js  The merged schedule. Made automatically; don't edit.
   scripts/     The program that builds episodes.js.
   assets/      The WTOP-10 logo.
   trailers/    Hero trailer MP4s go here.
@@ -89,10 +93,27 @@ HERO TRAILERS
   trailer: "trailers/morning-news.mp4"
   Shows without a trailer use their still image with a slow zoom.
 
+UPDATING THE PROGRAM GUIDE
+  1. Export the X-List report from Cablecast as CSV. Don't open or edit it.
+  2. Go to https://github.com/tyking77/wtop10-watch/upload/main/schedule
+  3. Drag the CSV in and click "Commit changes".
+  In a couple of minutes the guide updates on the watch page's Live tab
+  and on wtop10.com. When two exports cover the same day, the newer one
+  wins. Old days drop off by themselves.
+  To check it worked: open the repo's Actions tab, click the latest
+  "Update episodes" run and read the "Build schedule.js" step. It lists
+  any rows it skipped and any show it didn't know the category of.
+  A show in the wrong category, or spelled two ways? Fix it once in
+  guide-core.js (CATEGORY_RULES and CANONICAL_TITLES).
+
 LIVE
-  In data.js, set live.on to true and paste the webcast's Panopto ID into
-  live.panoptoId. A red LIVE button and banner appear. Set it back to
-  false when the broadcast ends.
+  The Live tab plays the 24/7 YouTube stream with the program guide
+  under it. Link straight to it with watch/?live
+  If the 24/7 stream is ever restarted, YouTube gives it a new video ID.
+  Copy it from the new link (youtube.com/watch?v=THIS-PART) into
+  live.youtube in data.js.
+  During a live game, the Live tab shows a banner linking to the game's
+  own stream. That comes from the schedule; nothing to switch on.
 
 SHARING AN EPISODE
   Opening an episode changes the address bar to watch/?v=PANOPTO-ID.
