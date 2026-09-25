@@ -202,8 +202,11 @@
   .mg-block.now { background: #1d3470; border-color: var(--red); }
   .mg-block.now .t { color: #ff8b8b; font-weight: 600; }
   .mg-block .t { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .mg-block .n { font-weight: 600; font-size: 15px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .mg-block .c { margin-top: auto; font: 600 11px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .mg-block .n { flex-shrink: 0; font-weight: 600; font-size: 15px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mg-block .d { flex: 0 1 auto; min-height: 0; font-size: 13px; line-height: 1.3; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mg-block .a { flex-shrink: 0; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mg-block .tag.new { background: var(--ink); color: var(--navy); }
+  .mg-block .c { flex-shrink: 0; margin-top: auto; font: 600 11px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
   .mg-block .tag { align-self: flex-start; background: var(--red); color: #fff; border-radius: 3px; padding: 3px 6px; font: 700 11px/1 var(--display); letter-spacing: .1em; }
   .mg-block .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(238,238,240,.15); }
   .mg-block .bar i { display: block; height: 100%; background: var(--red); }
@@ -883,6 +886,13 @@
     if (filter.type === "show") {
       var s = showById[filter.value];
       var seasons = seasonsFor(s.id);
+      if (s.seasonsAsRows) {
+        seasons.forEach(function (name) {
+          addRow(name, seasonEps(s.id, name).map(function (e) { return episodeCard(e, false); }));
+        });
+        addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
+        return;
+      }
       var pick = seasons.indexOf(season) >= 0 ? season : seasons[0];
       var head = null;
       if (seasons.length > 1) {
@@ -908,10 +918,11 @@
     if (filter.type === "all") { rowsEl.appendChild(liveRow()); updateLive(); }
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
-    // A show gets its own row (its newest season) once that has two episodes
+    // A show gets its own row (its newest season) once that has two episodes.
+    // A show with seasons as rows (every sport) shows its newest across all.
     visibleShows.forEach(function (s) {
-      var newest = seasonsFor(s.id)[0];
-      var list = seasonEps(s.id, newest);
+      var newest = s.seasonsAsRows ? "Latest" : seasonsFor(s.id)[0];
+      var list = s.seasonsAsRows ? epsFor(s.id).slice(0, 20) : seasonEps(s.id, newest);
       if (list.length < 2) return;
       var tag = document.createElement("span");
       tag.textContent = newest;
@@ -979,15 +990,26 @@
     return SCHED.filter(function (p) { return p.startKey > nk; }).slice(0, n);
   }
   function isLiveGame(p) { return G.isLiveAiring(p, SCHED); }
-  // The watch-page show a guide listing belongs to, matched on the show title
-  function showForListing(p) {
+  // The watch-page show a guide listing belongs to: its title, or a match
+  // word outside News (where "WTOP-10 News" could be either newscast).
+  // withEpisodes: only shows that have episodes on the page.
+  function showForListing(p, withEpisodes) {
     var t = " " + String(p.title).toLowerCase().replace(/[^a-z0-9]+/g, " ") + " ";
     var best = null;
     shows.forEach(function (s) {
-      var w = String(s.title).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-      if (w && t.indexOf(" " + w + " ") >= 0 && epsFor(s.id).length && (!best || w.length > best.w)) best = { s: s, w: w.length };
+      if (withEpisodes !== false && !epsFor(s.id).length) return;
+      [s.title].concat(s.category === "News" ? [] : s.match || []).forEach(function (phrase) {
+        var w = String(phrase).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+        if (w && t.indexOf(" " + w + " ") >= 0 && (!best || w.length > best.w)) best = { s: s, w: w.length };
+      });
     });
     return best && best.s;
+  }
+  // "Aired 4/21" (with the year when it isn't this year: "Aired 11/10/25")
+  function firstAired(p) {
+    var o = p.origAiredObj;
+    if (!o) return "";
+    return "Aired " + o.m + "/" + o.d + (String(o.y) !== G.todayIso().slice(0, 4) ? "/" + String(o.y).slice(-2) : "");
   }
   function ytEmbed() {
     return LIVE.youtube
@@ -1019,7 +1041,7 @@
   // Home page Live row: the Live card beside a mini guide that runs sideways,
   // like one channel of a TV grid. Six hours from the current half hour;
   // blocks are as wide as the programs are long.
-  var MG_MINUTES = 360, MG_PX = 4;   // 30 minutes = 120 px
+  var MG_MINUTES = 360, MG_PX = 5;   // 30 minutes = 150 px
   function liveRow() {
     var sec = document.createElement("section");
     sec.className = "row";
@@ -1061,11 +1083,15 @@
       var st = G.keyToAbsMin(p.startKey), en = G.keyToAbsMin(p.endKey);
       var left = (Math.max(st, from) - from) * MG_PX, width = (Math.min(en, to) - Math.max(st, from)) * MG_PX - 4;
       var isNow = nowMin >= st && nowMin < en;
+      var sh = showForListing(p, false), live = isLiveGame(p);
+      var isNew = !live && p.badges.indexOf("PREMIERE") >= 0;
       html += '<button type="button" class="mg-block' + (isNow ? " now" : "") + '" data-i="' + i + '" style="left:' + left + "px;width:" + width + 'px"' +
-        ' title="' + esc(p.title + ", " + G.fmtStart(p) + " – " + G.fmtEnd(p)) + '">' +
+        ' title="' + esc(p.title + ", " + G.fmtStart(p) + " – " + G.fmtEnd(p) + (p.origAired ? " (first aired " + p.origAired + ")" : "")) + '">' +
         '<span class="t">' + (isNow ? "On now" : esc(G.fmtStart(p))) + "</span>" +
-        (isLiveGame(p) ? '<span class="tag">LIVE</span>' : "") +
+        (live ? '<span class="tag">LIVE</span>' : isNew ? '<span class="tag new">NEW</span>' : "") +
         '<span class="n">' + esc(p.title) + "</span>" +
+        (sh && sh.tagline ? '<span class="d">' + esc(sh.tagline) + "</span>" : "") +
+        (!isNew && !live && firstAired(p) ? '<span class="a">' + esc(firstAired(p)) + "</span>" : "") +
         '<span class="c">' + esc((G.CAT_LABELS && G.CAT_LABELS[p.cat]) || "") + "</span>" +
         (isNow ? '<span class="bar"><i style="width:' + Math.round((nowMin - st) / (en - st) * 100) + '%"></i></span>' : "") +
         "</button>";
@@ -1074,8 +1100,10 @@
     track.style.width = MG_MINUTES * MG_PX + "px";
     track.innerHTML = shown.length ? html : "";
     if (!shown.length) track.parentNode.parentNode.innerHTML = '<p class="mg-empty">No listings loaded for the next few hours.</p>';
+    // A block opens its show's page when the show has episodes, else the Live tab
     Array.prototype.forEach.call(track.querySelectorAll(".mg-block"), function (b) {
-      b.addEventListener("click", function () { setFilter("live"); });
+      var sh = showForListing(shown[+b.getAttribute("data-i")]);
+      b.addEventListener("click", function () { if (sh) setFilter("show", sh.id); else setFilter("live"); });
     });
   }
 

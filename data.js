@@ -41,7 +41,10 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=f45e89e2-ab05-4333-be0b-b48e0007658b", // Joepardy: Season 2
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ad4485e-20da-4e0a-be43-b48e0010de55", // Late Night With Lebones: Season 1
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=f42527d9-9be2-4581-a235-b48e0015cbc4", // Stick 2 Sports: Season 10
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ac2fa0c-2643-4b09-b440-b48e006e9dea"  // Oswego Men's Hockey
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ac2fa0c-2643-4b09-b440-b48e006e9dea", // Oswego Men's Hockey
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=d2e779ca-e891-4d85-bee0-b48e006ea6d1", // Oswego Women's Hockey
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=05ed34a2-3407-4837-890c-b48e006f4c47", // Oswego Men's Basketball
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=a8a301be-88c9-4bf2-a055-b48e006f5672"  // Oswego Women's Basketball
   ],
 
   /* ---------- LIVE ----------
@@ -80,6 +83,8 @@ window.WTOP = {
                longer phrase wins. Optional.
      thumbAt:  seconds into each episode to grab its thumbnail (default 45).
                Pick a moment that usually shows the anchors on set.
+     seasonsAsRows: true shows every season (for Hockey Night in Oswego,
+               every sport) as its own row on the show page, not a dropdown
      useStill: true always uses "still" instead of episode thumbnails
      airs:     when new episodes come out, shown on the show tile and page:
                  { day: "Thursday", time: "6:00 PM", weeks: "B" }
@@ -128,7 +133,8 @@ window.WTOP = {
       trailer: "",
       match: ["HNIO", "SUNY Oswego"],
       thumbAt: 1800,
-      thumbFind: "ice"
+      thumbFind: "game",
+      seasonsAsRows: true
     },
     {
       id: "hockey-talk",
@@ -490,5 +496,8 @@ window.WTOP = {
      Example:
        "33937c68-6e2e-4cad-9876-b4d0000472d6": { title: "Election Night" },  */
   overrides: {
+    // Titled "January 16th, 2025"; the game was in 2026
+    "49a03c52-0d52-48f7-86b0-b4960160d312": { date: "2026-01-16" },
+    "cfb5e834-9464-4449-a1ea-b4970153dffc": { date: "2026-01-16" }
   }
 };

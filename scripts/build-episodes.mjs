@@ -95,11 +95,11 @@ async function resolveThumb(row) {
 // brightest unless it is nearly black; then save nothing, so the page shows
 // its branded placeholder and the next run tries again.
 //
-// Shows with thumbFind: "ice" (game broadcasts) want game action, not the
+// Shows with thumbFind: "game" (game broadcasts; "ice" works too) want game action, not the
 // pregame desk or an intermission graphic, and pregame length varies. For
 // those, try thumbAt and then points from 30% to 75% of the video, and keep
-// the first frame that looks like a rink: a bright lower half (the ice) at
-// least 40 points brighter than the top third (the stands). If none does,
+// the first frame that looks like a rink or court: a bright lower half (the
+// ice or floor) at least 40 points brighter than the top third (the stands). If none does,
 // fall back to the first frame that passes the brightness check.
 const FRAME_W = 960, FRAME_H = 540;
 async function streamUrl(deliveryId) {
@@ -129,9 +129,12 @@ async function grabFrame(row, show, rel) {
   if (!url) return false;
   const dur = row.Duration || 0;
   const start = show.thumbAt >= 0 ? show.thumbAt : 45;
-  const ice = show.thumbFind === "ice";
+  const ice = show.thumbFind === "game" || show.thumbFind === "ice";
+  // A recording left running for hours after a game would send the search
+  // into dead air, so game searches assume at most 4 hours
+  const span = ice ? Math.min(dur, 4 * 3600) : dur;
   const spread = !dur ? [start + 120, start + 300]
-    : (ice ? [0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75] : [0.15, 0.3, 0.45, 0.6]).map((f) => Math.round(dur * f));
+    : (ice ? [0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75] : [0.15, 0.3, 0.45, 0.6]).map((f) => Math.round(span * f));
   const tries = (ice ? [start] : [start, start + 30]).concat(spread)
     .filter((t, i, a) => a.indexOf(t) === i && (!dur || t < dur - 5));
   mkdirSync(join(ROOT, THUMBS), { recursive: true });
@@ -165,7 +168,14 @@ function seasonOf(folderName) {
   let m = f.match(/\b(winter|spring|summer|fall)\s+(\d{4})\b/i);
   if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2];
   m = f.match(/\bseason\s*(\d+)\b/i);
-  return m ? "Season " + m[1] : f;
+  if (m) return "Season " + m[1];
+  // Sports folders: "Oswego Women's Hockey" -> "Hockey (W)"
+  return sportLabel(f.replace(/^(SUNY\s+)?Oswego\s+/i, ""));
+}
+
+// "Men's Ice Hockey" -> "Hockey", "Women's Basketball" -> "Basketball (W)"
+function sportLabel(t) {
+  return t.replace(/\b(Men|Women)[’']s\s+(?:Ice\s+)?([A-Za-z]+)/g, (m, who, sport) => (who === "Women" ? sport + " (W)" : sport));
 }
 
 // Episode number from "S5 Ep.1", "S5E1", "Ep 3" or "Episode 3"
@@ -224,7 +234,7 @@ function cleanTitle(raw, show, cut) {
   t = t.replace(/\s@\s/g, " at ").replace(/\bvs\b\.?/gi, "vs.");
   const parts = t.split(/\s*_\s*/).map((x) => x.trim()).filter(Boolean);
   t = parts.length > 1 ? parts[0] + ": " + parts.slice(1).join(", ") : parts[0] || "";
-  return t;
+  return sportLabel(t);
 }
 
 const folders = (data.panoptoFolders || []).map(folderIdOf).filter(Boolean);

@@ -94,9 +94,17 @@ THUMBNAILS
   shows a WTOP-10 title card with the air date until the next check.
   To make every episode of a show use the show's still image instead,
   set useStill: true on the show.
-  Game broadcasts (Hockey Night in Oswego) use thumbFind: "ice", which
-  looks through the game for a frame of the rink instead of the pregame
-  desk or an intermission graphic.
+  Game broadcasts (Hockey Night in Oswego) use thumbFind: "game", which
+  looks through the game for a frame of the rink or court instead of the
+  pregame desk or an intermission graphic.
+
+GAME BROADCASTS (HOCKEY NIGHT IN OSWEGO)
+  Each sport has its own public Panopto folder, named like
+  "Oswego Women's Hockey". Its show page has one row per folder, labeled
+  from the name: "Hockey", "Hockey (W)", "Basketball (W)" and so on.
+  Game titles get the same labels: "Hockey (W) vs. Cortland".
+  Next season, name the new folders with the years so the rows stay
+  apart, e.g. "Oswego Women's Hockey 2026-27".
   For the hero, a proper 1920x1080 still in the stills/ folder looks
   sharpest, e.g. still: "stills/morning-news.jpg"
 

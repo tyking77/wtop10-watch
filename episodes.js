@@ -962,11 +962,11 @@ window.WTOP_EPISODES = [
   {
     "show": "hockey-night",
     "date": "2026-03-07",
-    "title": "Men's Ice Hockey at Hobart: SUNYAC Championship",
+    "title": "Hockey at Hobart: SUNYAC Championship",
     "panoptoId": "cc9f3eb6-0d9b-4a98-b66e-b499005ee56b",
     "thumb": "thumbs/cc9f3eb6-0d9b-4a98-b66e-b499005ee56b.jpg",
     "duration": 11765,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
@@ -1022,12 +1022,22 @@ window.WTOP_EPISODES = [
   {
     "show": "hockey-night",
     "date": "2026-02-28",
-    "title": "Men's Ice Hockey vs. Skidmore: SUNYAC Semifinal",
+    "title": "Hockey vs. Skidmore: SUNYAC Semifinal",
     "panoptoId": "01ccbeec-4b7d-48b9-9710-b499005eafd0",
     "thumb": "thumbs/01ccbeec-4b7d-48b9-9710-b499005eafd0.jpg",
     "duration": 12165,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-28",
+    "title": "Hockey (W) vs. Cortland: SUNYAC Semifinal",
+    "panoptoId": "5099e39f-273c-4274-8d8f-b49a0018d502",
+    "thumb": "thumbs/5099e39f-273c-4274-8d8f-b49a0018d502.jpg",
+    "duration": 10490,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
   },
   {
     "show": "nightly-news",
@@ -1042,11 +1052,11 @@ window.WTOP_EPISODES = [
   {
     "show": "hockey-night",
     "date": "2026-02-25",
-    "title": "Men's Ice Hockey vs. Buffalo State: SUNYAC Quarterfinals",
+    "title": "Hockey vs. Buffalo State: SUNYAC Quarterfinals",
     "panoptoId": "614b7ce0-d61d-40f2-840e-b499005e7465",
     "thumb": "thumbs/614b7ce0-d61d-40f2-840e-b499005e7465.jpg",
     "duration": 12195,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
@@ -1058,6 +1068,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Spring 2026",
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-24",
+    "title": "Basketball vs. Morrisville: SUNYAC Quarterfinals",
+    "panoptoId": "75e60ce7-9411-4a89-a82a-b49601602ade",
+    "thumb": "thumbs/75e60ce7-9411-4a89-a82a-b49601602ade.jpg",
+    "duration": 8465,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
   },
   {
     "show": "nightly-news",
@@ -1072,22 +1092,82 @@ window.WTOP_EPISODES = [
   {
     "show": "hockey-night",
     "date": "2026-02-21",
-    "title": "Men's Ice Hockey vs. Buffalo State",
+    "title": "Hockey (W) vs. William Smith",
+    "panoptoId": "1ab731ad-c23c-4c59-8313-b49a0018626d",
+    "thumb": "thumbs/1ab731ad-c23c-4c59-8313-b49a0018626d.jpg",
+    "duration": 11040,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-21",
+    "title": "Basketball (W) vs. Buffalo State",
+    "panoptoId": "70326379-309f-48bf-ab18-b4970154a766",
+    "thumb": "thumbs/70326379-309f-48bf-ab18-b4970154a766.jpg",
+    "duration": 6274,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-21",
+    "title": "Basketball vs. Buffalo State",
+    "panoptoId": "9bab1653-ebaa-489b-830c-b49601602ea3",
+    "thumb": "thumbs/9bab1653-ebaa-489b-830c-b49601602ea3.jpg",
+    "duration": 6105,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-21",
+    "title": "Hockey vs. Buffalo State",
     "panoptoId": "f67138fe-cf20-4322-b27c-b499005e2cec",
     "thumb": "thumbs/f67138fe-cf20-4322-b27c-b499005e2cec.jpg",
     "duration": 12610,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
     "date": "2026-02-20",
-    "title": "Men's Ice Hockey vs. Fredonia",
+    "title": "Basketball (W) vs. Fredonia",
+    "panoptoId": "03fcde98-be64-468f-8761-b49701548090",
+    "thumb": "thumbs/03fcde98-be64-468f-8761-b49701548090.jpg",
+    "duration": 7011,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-20",
+    "title": "Basketball vs. Fredonia",
+    "panoptoId": "15d49d87-d9d9-4d85-adb3-b4960160381a",
+    "thumb": "thumbs/15d49d87-d9d9-4d85-adb3-b4960160381a.jpg",
+    "duration": 5240,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-20",
+    "title": "Hockey vs. Fredonia",
     "panoptoId": "46dd139d-ea84-412e-ac45-b499005e061d",
     "thumb": "thumbs/46dd139d-ea84-412e-ac45-b499005e061d.jpg",
     "duration": 11164,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-20",
+    "title": "Hockey (W) vs. Buffalo State",
+    "panoptoId": "625c8783-2efa-498e-994e-b49a0018488b",
+    "thumb": "thumbs/625c8783-2efa-498e-994e-b49a0018488b.jpg",
+    "duration": 10880,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
   },
   {
     "show": "nightly-news",
@@ -1141,72 +1221,242 @@ window.WTOP_EPISODES = [
   },
   {
     "show": "hockey-night",
+    "date": "2026-02-14",
+    "title": "Basketball (W) vs. Cortland",
+    "panoptoId": "13992059-f1ed-4c20-8ebd-b497015468e5",
+    "thumb": "thumbs/13992059-f1ed-4c20-8ebd-b497015468e5.jpg",
+    "duration": 5835,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-14",
+    "title": "Basketball vs. Cortland",
+    "panoptoId": "40e339ae-5c43-4de7-9534-b49601604555",
+    "thumb": "thumbs/40e339ae-5c43-4de7-9534-b49601604555.jpg",
+    "duration": 6480,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-14",
+    "title": "Hockey (W) vs. Potsdam",
+    "panoptoId": "f02866ab-fd33-464e-9629-b49a00183f16",
+    "thumb": "thumbs/f02866ab-fd33-464e-9629-b49a00183f16.jpg",
+    "duration": 11175,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-13",
+    "title": "Basketball (W) vs. Morrisville",
+    "panoptoId": "59bc3168-c57a-48f3-9442-b497015453de",
+    "thumb": "thumbs/59bc3168-c57a-48f3-9442-b497015453de.jpg",
+    "duration": 6180,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-13",
+    "title": "Basketball vs. Morrisville",
+    "panoptoId": "b0fea8db-24b4-4f9a-b56b-b496016063db",
+    "thumb": "thumbs/b0fea8db-24b4-4f9a-b56b-b496016063db.jpg",
+    "duration": 42899,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-13",
+    "title": "Hockey (W) vs. Plattsburgh",
+    "panoptoId": "c637f043-07d6-477c-b4f6-b49a00183a2c",
+    "thumb": "thumbs/c637f043-07d6-477c-b4f6-b49a00183a2c.jpg",
+    "duration": 8785,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-10",
+    "title": "Basketball (W) vs. Houghton",
+    "panoptoId": "342921e0-d7ea-4d4b-b318-b49701543f7c",
+    "thumb": "thumbs/342921e0-d7ea-4d4b-b318-b49701543f7c.jpg",
+    "duration": 6804,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
     "date": "2026-02-07",
-    "title": "Men's Ice Hockey vs. Geneseo",
+    "title": "Hockey vs. Geneseo",
     "panoptoId": "1fe896d3-d43b-45f7-ad34-b499005e004b",
     "thumb": "thumbs/1fe896d3-d43b-45f7-ad34-b499005e004b.jpg",
     "duration": 11560,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
+    "date": "2026-02-03",
+    "title": "Basketball vs. New Paltz",
+    "panoptoId": "7fcd4040-2daf-48b9-bea3-b49601608833",
+    "thumb": "thumbs/7fcd4040-2daf-48b9-bea3-b49601608833.jpg",
+    "duration": 6765,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-03",
+    "title": "Basketball (W) vs. New Paltz",
+    "panoptoId": "9565d09d-93b8-403a-8b0a-b49701542eef",
+    "thumb": "thumbs/9565d09d-93b8-403a-8b0a-b49701542eef.jpg",
+    "duration": 7475,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
     "date": "2026-01-31",
-    "title": "Men's Ice Hockey vs. Canton",
+    "title": "Hockey vs. Canton",
     "panoptoId": "bf712df3-5f9c-4d23-84f7-b499005df487",
     "thumb": "thumbs/bf712df3-5f9c-4d23-84f7-b499005df487.jpg",
     "duration": 11220,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
     "date": "2026-01-30",
-    "title": "Men's Ice Hockey vs. Potsdam",
+    "title": "Hockey vs. Potsdam",
     "panoptoId": "6022f966-357d-4c69-a0fd-b499005decf4",
     "thumb": "thumbs/6022f966-357d-4c69-a0fd-b499005decf4.jpg",
     "duration": 11055,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-30",
+    "title": "Hockey (W) vs. Canton",
+    "panoptoId": "89d0677a-8edb-48da-a244-b49a001820c8",
+    "thumb": "thumbs/89d0677a-8edb-48da-a244-b49a001820c8.jpg",
+    "duration": 10185,
+    "season": "Hockey (W)",
+    "folder": "d2e779ca-e891-4d85-bee0-b48e006ea6d1"
   },
   {
     "show": "hockey-night",
     "date": "2026-01-27",
-    "title": "Men's Ice Hockey vs. Nazareth",
+    "title": "Hockey vs. Nazareth",
     "panoptoId": "9dc83fff-23ad-4b29-8c61-b499005d699b",
     "thumb": "thumbs/9dc83fff-23ad-4b29-8c61-b499005d699b.jpg",
     "duration": 11850,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
+    "date": "2026-01-20",
+    "title": "Basketball (W) vs. Oneonta",
+    "panoptoId": "dc3e3f42-fe9e-4c9a-bf52-b4970153e925",
+    "thumb": "thumbs/dc3e3f42-fe9e-4c9a-bf52-b4970153e925.jpg",
+    "duration": 7175,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-20",
+    "title": "Basketball vs. Oneonta",
+    "panoptoId": "ef04ba75-56f9-4e86-b5d7-b4960160b383",
+    "thumb": "thumbs/ef04ba75-56f9-4e86-b5d7-b4960160b383.jpg",
+    "duration": 7330,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
     "date": "2026-01-10",
-    "title": "Men's Ice Hockey vs. Cortland",
+    "title": "Basketball (W) vs. Plattsburgh",
+    "panoptoId": "79ee60cc-9f4a-4f1b-80c1-b4970153c0ad",
+    "thumb": "thumbs/79ee60cc-9f4a-4f1b-80c1-b4970153c0ad.jpg",
+    "duration": 6725,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-10",
+    "title": "Hockey vs. Cortland",
     "panoptoId": "897d6ae3-c9a4-44e8-aaa8-b499005d591c",
     "thumb": "thumbs/897d6ae3-c9a4-44e8-aaa8-b499005d591c.jpg",
     "duration": 8380,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
     "date": "2026-01-09",
-    "title": "Men's Ice Hockey vs. Morrisville",
+    "title": "Basketball vs. Potsdam",
+    "panoptoId": "86515017-7696-4d5a-91a6-b49601612a1e",
+    "thumb": "thumbs/86515017-7696-4d5a-91a6-b49601612a1e.jpg",
+    "duration": 6505,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-09",
+    "title": "Hockey vs. Morrisville",
     "panoptoId": "b5321d9f-c017-405a-a6b9-b499005d5247",
     "thumb": "thumbs/b5321d9f-c017-405a-a6b9-b499005d5247.jpg",
     "duration": 9130,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "hockey-night",
+    "date": "2026-01-09",
+    "title": "Basketball (W) vs. Potsdam",
+    "panoptoId": "c5d48d18-c51a-430d-80f7-b4970153b72e",
+    "thumb": "thumbs/c5d48d18-c51a-430d-80f7-b4970153b72e.jpg",
+    "duration": 7740,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
+  },
+  {
+    "show": "hockey-night",
     "date": "2026-01-02",
-    "title": "Men's Hockey Holiday Tournament: Oswego vs. Williams",
+    "title": "Hockey Holiday Tournament: Oswego vs. Williams",
     "panoptoId": "915733b7-9643-48ab-aea3-b499005d3668",
     "thumb": "thumbs/915733b7-9643-48ab-aea3-b499005d3668.jpg",
     "duration": 9455,
-    "season": "Oswego Men's Hockey",
+    "season": "Hockey",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2025-01-16",
+    "title": "Basketball vs. Canton",
+    "panoptoId": "49a03c52-0d52-48f7-86b0-b4960160d312",
+    "thumb": "thumbs/49a03c52-0d52-48f7-86b0-b4960160d312.jpg",
+    "duration": 6340,
+    "season": "Basketball",
+    "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2025-01-16",
+    "title": "Basketball (W) vs. Canton",
+    "panoptoId": "cfb5e834-9464-4449-a1ea-b4970153dffc",
+    "thumb": "thumbs/cfb5e834-9464-4449-a1ea-b4970153dffc.jpg",
+    "duration": 7140,
+    "season": "Basketball (W)",
+    "folder": "a8a301be-88c9-4bf2-a055-b48e006f5672"
   }
 ];
