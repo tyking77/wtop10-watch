@@ -5,6 +5,16 @@ window.WTOP_EPISODES = [
     "show": "morning-news",
     "date": "2026-09-25",
     "title": "",
+    "panoptoId": "6b836038-eba8-43f0-b7cf-b4d00114b24c",
+    "thumb": "thumbs/6b836038-eba8-43f0-b7cf-b4d00114b24c.jpg",
+    "duration": 1826,
+    "season": "Fall 2026",
+    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
+  },
+  {
+    "show": "morning-news",
+    "date": "2026-09-25",
+    "title": "",
     "panoptoId": "ac83a713-c8e2-4195-a3c4-b4d000f7e9e2",
     "thumb": "thumbs/ac83a713-c8e2-4195-a3c4-b4d000f7e9e2.jpg",
     "duration": 1826,
