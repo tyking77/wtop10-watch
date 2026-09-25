@@ -241,13 +241,21 @@ window.WTOP = {
       match: ["Girls Night"]
     },
     {
-      id: "late-night-labones",
-      title: "Late Night w/ Labones",
+      id: "late-night-lebones",
+      title: "Late Night w/ Lebones",
       category: "Entertainment",
-      tagline: "A late-night talk show with your host with the most: Labones.",
+      tagline: "A late-night talk show with your host with the most: Lebones.",
       still: "",
       trailer: "",
-      match: ["Labones"]
+      match: ["Lebones", "Labones"]
+    },
+    {
+      id: "ta-time",
+      title: "TA Time",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
     },
     {
       id: "oh-boy",
