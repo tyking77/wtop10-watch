@@ -1265,7 +1265,7 @@ window.WTOP_EPISODES = [
     "title": "Basketball vs. Morrisville",
     "panoptoId": "b0fea8db-24b4-4f9a-b56b-b496016063db",
     "thumb": "thumbs/b0fea8db-24b4-4f9a-b56b-b496016063db.jpg",
-    "duration": 42899,
+    "duration": 9516,
     "season": "Basketball",
     "folder": "05ed34a2-3407-4837-890c-b48e006f4c47"
   },
