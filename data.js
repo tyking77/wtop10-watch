@@ -80,7 +80,7 @@ window.WTOP = {
       id: "storm-team-10",
       title: "Storm Team 10 Live",
       category: "News",
-      tagline: "Forecasts and weather coverage from the WTOP-10 Storm Team.",
+      tagline: "Join Storm Team 10 in its first weather-focused original production.",
       /* Panopto's thumbnail for this show is a black first frame, so it
          uses its own still. Save a frame grab as stills/storm-team-10.jpg.
          Until that file exists, a navy title card shows instead. */
@@ -103,8 +103,8 @@ window.WTOP = {
     {
       id: "laker-showdown",
       title: "Laker Showdown",
-      category: "Sports",
-      tagline: "DRAFT: replace with a one-line description of the show.",
+      category: "Entertainment",
+      tagline: "Two contestants face off in a game of categories.",
       still: "",
       trailer: "",
       featured: false,
@@ -114,7 +114,7 @@ window.WTOP = {
       id: "entertainment-breach",
       title: "Entertainment Breach",
       category: "Entertainment",
-      tagline: "DRAFT: replace with a one-line description of the show.",
+      tagline: "Chris DeLuca and Austin Claus host WTOP-10's entertainment show.",
       still: "",
       trailer: "",
       featured: false,
@@ -124,7 +124,7 @@ window.WTOP = {
       id: "be-kind-and-rewind",
       title: "Be Kind and Rewind",
       category: "Entertainment",
-      tagline: "DRAFT: replace with a one-line description of the show.",
+      tagline: "Join Blake Blodgett and Owen Miles as they review your favorite movie franchises.",
       still: "",
       trailer: "",
       featured: false,
