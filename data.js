@@ -43,14 +43,27 @@ window.WTOP = {
     panoptoId: ""
   },
 
+  /* ---------- HERO ----------
+     The big rotating banner on the home page, in this order. List a show
+     id, or add dates to feature a show for a while (both dates included):
+       { show: "joepardy", from: "2026-10-01", until: "2026-10-07" }
+     A show with no episodes yet is skipped.                              */
+  hero: [
+    "nightly-news",
+    "morning-news",
+    "storm-team-10",
+    "hockey-night"
+  ],
+
   /* ---------- SHOWS ----------
      category: the top menu tab: "News", "Sports" or "Entertainment".
                Tabs appear in the order shows are listed here.
      still:    wide image for the hero (1920x1080 JPG works best)
      trailer:  optional MP4 for the hero, e.g. "trailers/morning-news.mp4"
-     featured: true puts the show in the rotating hero
-     match:    words in a Panopto title that mean "this show". When two
-               shows match, the longer phrase wins.
+     A show stays hidden until it has episodes.
+     match:    extra words in a Panopto title that mean "this show" (the
+               show's title always counts). When two shows match, the
+               longer phrase wins. Optional.
      thumbAt:  seconds into each episode to grab its thumbnail (default 45).
                Pick a moment that usually shows the anchors on set.
      useStill: true always uses "still" instead of episode thumbnails     */
@@ -62,7 +75,6 @@ window.WTOP = {
       tagline: "The day's news from campus and Oswego, weeknights on WTOP-10.",
       still: "",
       trailer: "",
-      featured: true,
       match: ["Nightly News", "WTOP News", "WTOP-10 News"]
     },
     {
@@ -72,7 +84,6 @@ window.WTOP = {
       tagline: "Campus and Oswego news from the WTOP-10 newsroom.",
       still: "",
       trailer: "",
-      featured: true,
       match: ["Morning News"],
       thumbAt: 90
     },
@@ -86,7 +97,6 @@ window.WTOP = {
          Until that file exists, a navy title card shows instead. */
       still: "stills/storm-team-10.jpg",
       trailer: "",
-      featured: true,
       useStill: true,
       match: ["Storm Team"]
     },
@@ -94,11 +104,67 @@ window.WTOP = {
       id: "hockey-night",
       title: "Hockey Night in Oswego",
       category: "Sports",
-      tagline: "Laker men's hockey, home and away, live on WTOP-10.",
+      tagline: "Laker sports broadcasts, live on WTOP-10.",
       still: "",
       trailer: "",
-      featured: true,
-      match: ["Hockey"]
+      match: ["HNIO"]
+    },
+    {
+      id: "hockey-talk",
+      title: "Hockey Talk",
+      category: "Sports",
+      tagline: "You like hockey? Talking hockey is what we do here.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "laker-connections",
+      title: "Laker Connections",
+      category: "Sports",
+      tagline: "The go-to television program for Laker sports.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "batting-practice",
+      title: "Batting Practice",
+      category: "Sports",
+      tagline: "Join Joshua Matteson and Connor Saingas as they discuss all things baseball. From Oswego to the major leagues, they break down stats and plays.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "oswegolazo",
+      title: "Oswegolazo",
+      category: "Sports",
+      tagline: "Nick Stetter and Sam Brewer talk everything soccer.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "stick-to-sports",
+      title: "Stick to Sports",
+      category: "Sports",
+      tagline: "From hockey to football and even basketball, these four lads talk about it all.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "unofficial-sports-show",
+      title: "The Unofficial Sports Show",
+      category: "Sports",
+      tagline: "Lorenz Guzman and Logan Weingartener take on all kinds of sports.",
+      still: "",
+      trailer: "",
+      match: ["Unofficial Sports"]
+    },
+    {
+      id: "tapped-out",
+      title: "Tapped Out",
+      category: "Sports",
+      tagline: "A show about pro wrestling: news, rumors, updates, match ratings and anything new in the wrestling world.",
+      still: "",
+      trailer: ""
     },
     {
       id: "laker-showdown",
@@ -107,7 +173,6 @@ window.WTOP = {
       tagline: "Two contestants face off in a game of categories.",
       still: "",
       trailer: "",
-      featured: false,
       match: ["Laker Showdown"]
     },
     {
@@ -117,7 +182,6 @@ window.WTOP = {
       tagline: "Chris DeLuca and Austin Claus host WTOP-10's entertainment show.",
       still: "",
       trailer: "",
-      featured: false,
       match: ["Entertainment Breach"]
     },
     {
@@ -127,8 +191,75 @@ window.WTOP = {
       tagline: "Join Blake Blodgett and Owen Miles as they review your favorite movie franchises.",
       still: "",
       trailer: "",
-      featured: false,
       match: ["Be Kind and Rewind", "Be Kind Rewind"]
+    },
+    {
+      id: "joepardy",
+      title: "Joepardy",
+      category: "Entertainment",
+      tagline: "Joe Seidman hosts an Oswego version of the popular game show.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "this-or-that",
+      title: "This or That",
+      category: "Entertainment",
+      tagline: "Hosts Rowan Astorino and Kaden Nagel weigh in on which they like more, one category at a time.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "game-night",
+      title: "Game Night",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "oswego-taskmaster",
+      title: "Oswego Taskmaster",
+      category: "Entertainment",
+      tagline: "",
+      still: "",
+      trailer: "",
+      match: ["Taskmaster"]
+    },
+    {
+      id: "girls-night-out",
+      title: "Girls Night Out",
+      category: "Entertainment",
+      tagline: "A group of college girls take on small challenges and explore their college town, bringing you into their daily lives.",
+      still: "",
+      trailer: "",
+      match: ["Girls Night"]
+    },
+    {
+      id: "late-night-labones",
+      title: "Late Night w/ Labones",
+      category: "Entertainment",
+      tagline: "A late-night talk show with your host with the most: Labones.",
+      still: "",
+      trailer: "",
+      match: ["Labones"]
+    },
+    {
+      id: "oh-boy",
+      title: "OH BOY",
+      category: "Entertainment",
+      tagline: "Four guys do skits, bits and all sorts of shenanigans.",
+      still: "",
+      trailer: ""
+    },
+    {
+      id: "oswego-foodies",
+      title: "Oswego Foodies",
+      category: "Entertainment",
+      tagline: "Join James Zepp as he tastes and reviews restaurants across the Oswego region.",
+      still: "",
+      trailer: "",
+      match: ["Foodies"]
     }
   ],
 

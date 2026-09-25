@@ -169,12 +169,13 @@ function uploadDate(row) {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date(ms));
 }
 
-// The show whose longest "match" phrase appears in the title wins
+// The show whose longest phrase (its title or a "match" word) appears in
+// the Panopto title wins
 function showFor(title) {
   const t = " " + words(title) + " ";
   let best = null, bestLen = 0;
   for (const s of data.shows) {
-    for (const phrase of [].concat(s.match || [])) {
+    for (const phrase of [s.title].concat(s.match || [])) {
       const p = words(phrase);
       if (p && t.includes(" " + p + " ") && p.length > bestLen) { best = s; bestLen = p.length; }
     }

@@ -496,10 +496,28 @@
   var copyEl = document.getElementById("heroCopy");
   var heroShows = [], current = -1, timer = null, STILL_MS = 9000;
 
+  // Home page hero: the "hero" list in data.js, in order. An entry is a show
+  // id, or { show, from, until } to run between two dates (inclusive).
+  function heroFromList() {
+    var t = new Date();
+    var today = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
+    var picked = [];
+    (D.hero || []).forEach(function (h) {
+      var e = typeof h === "string" ? { show: h } : h || {};
+      var s = showById[e.show];
+      if (!s || picked.indexOf(s) >= 0 || !latestFor(s.id)) return;
+      if ((e.from && today < e.from) || (e.until && today > e.until)) return;
+      picked.push(s);
+    });
+    return picked;
+  }
+
   function buildHero() {
     clearTimeout(timer);
-    heroShows = shows.filter(function (s) { return latestFor(s.id) && showMatches(s) && (filter.type !== "all" || s.featured !== false); });
-    if (!heroShows.length) heroShows = shows.filter(function (s) { return latestFor(s.id); });
+    heroShows = filter.type === "all"
+      ? heroFromList()
+      : shows.filter(function (s) { return latestFor(s.id) && showMatches(s); });
+    if (!heroShows.length) heroShows = shows.filter(function (s) { return latestFor(s.id); }).slice(0, 5);
     slidesEl.innerHTML = ""; dotsEl.innerHTML = ""; current = -1;
 
     heroShows.forEach(function (s, i) {

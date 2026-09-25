@@ -40,10 +40,19 @@ NEW SEMESTER OR SEASON
   and viewers pick older ones from the dropdown.
 
 ADDING A SHOW
-  Copy a show block in data.js and fill it in. "category" is the menu tab:
-  "News", "Sports" or "Entertainment". "match" lists words from
-  the Panopto titles that mean this show, e.g. match: ["Sports Desk"].
-  If its videos are in a folder that isn't listed yet, add the folder too.
+  Every current show is already in data.js. A show stays hidden until it
+  has episodes, so usually you only need to add its Panopto folder.
+  For a brand-new show, copy a show block and fill it in. "category" is
+  the menu tab: "News", "Sports" or "Entertainment". Panopto titles that
+  contain the show's title go to that show automatically. If the titles
+  use a different name, list it in "match", e.g. match: ["Taskmaster"].
+
+THE HERO (BIG BANNER ON THE HOME PAGE)
+  The "hero" list in data.js sets which shows rotate there, in order.
+  To feature a show for a set time, add dates (both days included):
+    { show: "joepardy", from: "2026-10-01", until: "2026-10-07" },
+  Show ids are the "id" of each show block. A show with no episodes yet
+  is skipped.
 
 FIXING AN EPISODE
   In data.js, add a line to "overrides" using the video's Panopto ID
