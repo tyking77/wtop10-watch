@@ -166,6 +166,18 @@ window.WTOP_EPISODES = [
     "episode": 2
   },
   {
+    "show": "stick-to-sports",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "b57481c8-30a3-4724-aeb8-b48e0152832d",
+    "thumb": "thumbs/b57481c8-30a3-4724-aeb8-b48e0152832d.jpg",
+    "duration": 1800,
+    "season": "Season 10",
+    "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
+    "undated": true,
+    "episode": 3
+  },
+  {
     "show": "laker-showdown",
     "date": "2026-07-21",
     "title": "",
@@ -190,6 +202,18 @@ window.WTOP_EPISODES = [
     "episode": 3
   },
   {
+    "show": "stick-to-sports",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "dbb367c1-2708-420b-a52a-b48e0152af3e",
+    "thumb": "thumbs/dbb367c1-2708-420b-a52a-b48e0152af3e.jpg",
+    "duration": 1800,
+    "season": "Season 10",
+    "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
+    "undated": true,
+    "episode": 1
+  },
+  {
     "show": "oh-boy",
     "date": "2026-07-21",
     "title": "",
@@ -200,6 +224,18 @@ window.WTOP_EPISODES = [
     "folder": "0d3771a4-5497-4ca2-acce-b48e00078e18",
     "undated": true,
     "episode": 1
+  },
+  {
+    "show": "stick-to-sports",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "fa62875b-7ef9-48d1-b2e5-b48e015296d2",
+    "thumb": "thumbs/fa62875b-7ef9-48d1-b2e5-b48e015296d2.jpg",
+    "duration": 1799,
+    "season": "Season 10",
+    "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
+    "undated": true,
+    "episode": 2
   },
   {
     "show": "laker-connections",
@@ -224,6 +260,18 @@ window.WTOP_EPISODES = [
     "folder": "511da271-62ba-4fb1-b244-b48e00075028",
     "undated": true,
     "episode": 1
+  },
+  {
+    "show": "stick-to-sports",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "117749ca-5cd5-4d9d-8007-b48e001cd567",
+    "thumb": "thumbs/117749ca-5cd5-4d9d-8007-b48e001cd567.jpg",
+    "duration": 1800,
+    "season": "Season 10",
+    "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
+    "undated": true,
+    "episode": 4
   },
   {
     "show": "be-kind-and-rewind",
@@ -356,6 +404,18 @@ window.WTOP_EPISODES = [
     "episode": 3
   },
   {
+    "show": "late-night-lebones",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "700286b3-a297-4459-95ef-b48e0075489f",
+    "thumb": "thumbs/700286b3-a297-4459-95ef-b48e0075489f.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
+    "undated": true,
+    "episode": 3
+  },
+  {
     "show": "hockey-talk",
     "date": "2026-07-20",
     "title": "",
@@ -413,6 +473,29 @@ window.WTOP_EPISODES = [
     "folder": "86493e33-edad-416d-8a2e-b48e000748e6",
     "undated": true,
     "episode": 4
+  },
+  {
+    "show": "late-night-lebones",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "8e060811-36c7-4fcc-b6b5-b48e00755e4b",
+    "thumb": "thumbs/8e060811-36c7-4fcc-b6b5-b48e00755e4b.jpg",
+    "duration": 1799,
+    "season": "Season 1",
+    "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
+    "undated": true,
+    "episode": 2
+  },
+  {
+    "show": "stick-to-sports",
+    "date": "2026-07-20",
+    "title": "Draft Special",
+    "panoptoId": "a20664f0-46d5-4e33-8b30-b48e0017fa6c",
+    "thumb": "thumbs/a20664f0-46d5-4e33-8b30-b48e0017fa6c.jpg",
+    "duration": 3599,
+    "season": "Season 10",
+    "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
+    "undated": true
   },
   {
     "show": "be-kind-and-rewind",
@@ -498,6 +581,41 @@ window.WTOP_EPISODES = [
     "episode": 9
   },
   {
+    "show": "late-night-lebones",
+    "date": "2026-07-20",
+    "title": "Finale",
+    "panoptoId": "d4c362ac-8b1c-48c3-b36c-b48e000f029a",
+    "thumb": "thumbs/d4c362ac-8b1c-48c3-b36c-b48e000f029a.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
+    "undated": true
+  },
+  {
+    "show": "late-night-lebones",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "ec11d368-f5dc-4560-a3f9-b48e007574ed",
+    "thumb": "thumbs/ec11d368-f5dc-4560-a3f9-b48e007574ed.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
+    "undated": true,
+    "episode": 1
+  },
+  {
+    "show": "late-night-lebones",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "ec2e9b62-9257-4e6d-bf15-b48e00192f7c",
+    "thumb": "thumbs/ec2e9b62-9257-4e6d-bf15-b48e00192f7c.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
+    "undated": true,
+    "episode": 4
+  },
+  {
     "show": "laker-connections",
     "date": "2026-07-20",
     "title": "",
@@ -520,6 +638,16 @@ window.WTOP_EPISODES = [
     "folder": "e8424436-2f24-4182-b517-b48e0007826d",
     "undated": true,
     "episode": 2
+  },
+  {
+    "show": "joepardy",
+    "date": "2026-05-07",
+    "title": "",
+    "panoptoId": "c863e920-46ae-4b36-bcbe-b4a0014292be",
+    "thumb": "thumbs/c863e920-46ae-4b36-bcbe-b4a0014292be.jpg",
+    "duration": 3600,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
   },
   {
     "show": "nightly-news",
@@ -592,6 +720,16 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "joepardy",
+    "date": "2026-04-21",
+    "title": "",
+    "panoptoId": "8639ed1a-7eac-479a-a28f-b4a00142a9e1",
+    "thumb": "thumbs/8639ed1a-7eac-479a-a28f-b4a00142a9e1.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-04-20",
     "title": "",
@@ -660,6 +798,16 @@ window.WTOP_EPISODES = [
     "duration": 1799,
     "season": "Spring 2026",
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
+  },
+  {
+    "show": "joepardy",
+    "date": "2026-04-07",
+    "title": "",
+    "panoptoId": "6beec4ad-a69d-4b96-b2ea-b4a00142c767",
+    "thumb": "thumbs/6beec4ad-a69d-4b96-b2ea-b4a00142c767.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
   },
   {
     "show": "nightly-news",
@@ -752,6 +900,16 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "joepardy",
+    "date": "2026-03-24",
+    "title": "",
+    "panoptoId": "cc4d77ea-a72d-448b-b7d5-b4a00142d6a7",
+    "thumb": "thumbs/cc4d77ea-a72d-448b-b7d5-b4a00142d6a7.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-03-23",
     "title": "",
@@ -802,6 +960,16 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "hockey-night",
+    "date": "2026-03-07",
+    "title": "Men's Ice Hockey at Hobart: SUNYAC Championship",
+    "panoptoId": "cc9f3eb6-0d9b-4a98-b66e-b499005ee56b",
+    "thumb": "thumbs/cc9f3eb6-0d9b-4a98-b66e-b499005ee56b.jpg",
+    "duration": 11765,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-03-05",
     "title": "",
@@ -820,6 +988,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Spring 2026",
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
+  },
+  {
+    "show": "joepardy",
+    "date": "2026-03-03",
+    "title": "",
+    "panoptoId": "aa2a4ece-db2b-4426-9368-b4a00142f7f7",
+    "thumb": "thumbs/aa2a4ece-db2b-4426-9368-b4a00142f7f7.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
   },
   {
     "show": "nightly-news",
@@ -842,6 +1020,16 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "hockey-night",
+    "date": "2026-02-28",
+    "title": "Men's Ice Hockey vs. Skidmore: SUNYAC Semifinal",
+    "panoptoId": "01ccbeec-4b7d-48b9-9710-b499005eafd0",
+    "thumb": "thumbs/01ccbeec-4b7d-48b9-9710-b499005eafd0.jpg",
+    "duration": 12165,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-02-26",
     "title": "",
@@ -850,6 +1038,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Spring 2026",
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-25",
+    "title": "Men's Ice Hockey vs. Buffalo State: SUNYAC Quarterfinals",
+    "panoptoId": "614b7ce0-d61d-40f2-840e-b499005e7465",
+    "thumb": "thumbs/614b7ce0-d61d-40f2-840e-b499005e7465.jpg",
+    "duration": 12195,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   },
   {
     "show": "nightly-news",
@@ -872,6 +1070,26 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "hockey-night",
+    "date": "2026-02-21",
+    "title": "Men's Ice Hockey vs. Buffalo State",
+    "panoptoId": "f67138fe-cf20-4322-b27c-b499005e2cec",
+    "thumb": "thumbs/f67138fe-cf20-4322-b27c-b499005e2cec.jpg",
+    "duration": 12610,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-20",
+    "title": "Men's Ice Hockey vs. Fredonia",
+    "panoptoId": "46dd139d-ea84-412e-ac45-b499005e061d",
+    "thumb": "thumbs/46dd139d-ea84-412e-ac45-b499005e061d.jpg",
+    "duration": 11164,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-02-19",
     "title": "",
@@ -892,6 +1110,16 @@ window.WTOP_EPISODES = [
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
   },
   {
+    "show": "joepardy",
+    "date": "2026-02-17",
+    "title": "",
+    "panoptoId": "413f4a1f-bc01-4316-a75a-b4a001432e47",
+    "thumb": "thumbs/413f4a1f-bc01-4316-a75a-b4a001432e47.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "f45e89e2-ab05-4333-be0b-b48e0007658b"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-02-17",
     "title": "",
@@ -910,5 +1138,75 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Spring 2026",
     "folder": "2615918c-73fc-4e9d-b9a1-b48e0004ad09"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-02-07",
+    "title": "Men's Ice Hockey vs. Geneseo",
+    "panoptoId": "1fe896d3-d43b-45f7-ad34-b499005e004b",
+    "thumb": "thumbs/1fe896d3-d43b-45f7-ad34-b499005e004b.jpg",
+    "duration": 11560,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-31",
+    "title": "Men's Ice Hockey vs. Canton",
+    "panoptoId": "bf712df3-5f9c-4d23-84f7-b499005df487",
+    "thumb": "thumbs/bf712df3-5f9c-4d23-84f7-b499005df487.jpg",
+    "duration": 11220,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-30",
+    "title": "Men's Ice Hockey vs. Potsdam",
+    "panoptoId": "6022f966-357d-4c69-a0fd-b499005decf4",
+    "thumb": "thumbs/6022f966-357d-4c69-a0fd-b499005decf4.jpg",
+    "duration": 11055,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-27",
+    "title": "Men's Ice Hockey vs. Nazareth",
+    "panoptoId": "9dc83fff-23ad-4b29-8c61-b499005d699b",
+    "thumb": "thumbs/9dc83fff-23ad-4b29-8c61-b499005d699b.jpg",
+    "duration": 11850,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-10",
+    "title": "Men's Ice Hockey vs. Cortland",
+    "panoptoId": "897d6ae3-c9a4-44e8-aaa8-b499005d591c",
+    "thumb": "thumbs/897d6ae3-c9a4-44e8-aaa8-b499005d591c.jpg",
+    "duration": 8380,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-09",
+    "title": "Men's Ice Hockey vs. Morrisville",
+    "panoptoId": "b5321d9f-c017-405a-a6b9-b499005d5247",
+    "thumb": "thumbs/b5321d9f-c017-405a-a6b9-b499005d5247.jpg",
+    "duration": 9130,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "hockey-night",
+    "date": "2026-01-02",
+    "title": "Men's Hockey Holiday Tournament: Oswego vs. Williams",
+    "panoptoId": "915733b7-9643-48ab-aea3-b499005d3668",
+    "thumb": "thumbs/915733b7-9643-48ab-aea3-b499005d3668.jpg",
+    "duration": 9455,
+    "season": "Oswego Men's Hockey",
+    "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
   }
 ];

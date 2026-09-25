@@ -51,6 +51,13 @@ ADDING A SHOW
   contain the show's title go to that show automatically. If the titles
   use a different name, list it in "match", e.g. match: ["Taskmaster"].
 
+WHEN NEW EPISODES COME OUT
+  Each show's "airs" in data.js shows on its tile and its page, e.g.
+    airs: { day: "Thursday", time: "6:00 PM", weeks: "B" },
+  weeks is "A" or "B" for shows that air every other week; leave it out
+  for every week. Add live: true for shows that air live. Change it here
+  when the production schedule changes.
+
 THE HERO (BIG BANNER ON THE HOME PAGE)
   The "hero" list in data.js sets which shows rotate there, in order.
   To feature a show for a set time, add dates (both days included):
@@ -82,6 +89,9 @@ THUMBNAILS
   shows a WTOP-10 title card with the air date until the next check.
   To make every episode of a show use the show's still image instead,
   set useStill: true on the show.
+  Game broadcasts (Hockey Night in Oswego) use thumbFind: "ice", which
+  looks through the game for a frame of the rink instead of the pregame
+  desk or an intermission graphic.
   For the hero, a proper 1920x1080 still in the stills/ folder looks
   sharpest, e.g. still: "stills/morning-news.jpg"
 

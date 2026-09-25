@@ -549,7 +549,21 @@
   }
 
 
-  var api = { STATION_TZ: STATION_TZ, HIDE_FILLER: HIDE_FILLER, FILLER_RE: FILLER_RE, FEATURED_MIN_MINUTES: FEATURED_MIN_MINUTES, ROLLING_WINDOW_HOURS: ROLLING_WINDOW_HOURS, UP_NEXT_COUNT: UP_NEXT_COUNT, SHOW_AIRS_AGAIN: SHOW_AIRS_AGAIN, CATEGORY_RULES: CATEGORY_RULES, DEFAULT_CAT: DEFAULT_CAT, CANONICAL_TITLES: CANONICAL_TITLES, SHOW_LINKS: SHOW_LINKS, SHOW_LOGOS: SHOW_LOGOS, CAT_LABELS: CAT_LABELS, CAT_ORDER: CAT_ORDER, DAYPARTS: DAYPARTS, DAY_NAMES_LONG: DAY_NAMES_LONG, DAY_NAMES_SHORT: DAY_NAMES_SHORT, MONTH_NAMES: MONTH_NAMES, stationFmt: stationFmt, stationNowParts: stationNowParts, keyOf: keyOf, keyParts: keyParts, keyToAbsMin: keyToAbsMin, absMinToKey: absMinToKey, addHoursToKey: addHoursToKey, nowKey: nowKey, nowAbsMin: nowAbsMin, isoDate: isoDate, isoToParts: isoToParts, isoOfKey: isoOfKey, weekdayOfIso: weekdayOfIso, dayStartKey: dayStartKey, todayIso: todayIso, fmtTimeHM: fmtTimeHM, fmtStart: fmtStart, fmtEnd: fmtEnd, fmtDur: fmtDur, parseCsvRows: parseCsvRows, parseLooseDate: parseLooseDate, fmtLooseDate: fmtLooseDate, parseClock: parseClock, stripGfx: stripGfx, splitTrailingDate: splitTrailingDate, SENIOR_RE: SENIOR_RE, stripSeniorWeek: stripSeniorWeek, NOTE_RE: NOTE_RE, EVENT_RE: EVENT_RE, EVENT_NAME: EVENT_NAME, EVENT_NOT_TEAM_RE: EVENT_NOT_TEAM_RE, titleCaseWords: titleCaseWords, normalizeTitle: normalizeTitle, categoryFor: categoryFor, REQUIRED_COLS: REQUIRED_COLS, parseStationCsv: parseStationCsv };
+  // Shared with index.html (game banner) and guide.html (LIVE / REPLAY badges
+  // and the "Next live sports broadcast" strip).
+  // A game broadcast is live only on its first airing on its own date; later
+  // airings that day, and airings on other days, are replays. "list" is the
+  // parsed schedule the program came from.
+  function isLiveAiring(p, list){
+    if(!p || p.cat !== 'livesports' || p.badges.indexOf('PREMIERE') < 0) return false;
+    for(var i = 0; i < list.length; i++){
+      var q = list[i];
+      if(q.startKey < p.startKey && q.title === p.title && q.origAired === p.origAired) return false;
+    }
+    return true;
+  }
+
+  var api = { isLiveAiring: isLiveAiring, STATION_TZ: STATION_TZ, HIDE_FILLER: HIDE_FILLER, FILLER_RE: FILLER_RE, FEATURED_MIN_MINUTES: FEATURED_MIN_MINUTES, ROLLING_WINDOW_HOURS: ROLLING_WINDOW_HOURS, UP_NEXT_COUNT: UP_NEXT_COUNT, SHOW_AIRS_AGAIN: SHOW_AIRS_AGAIN, CATEGORY_RULES: CATEGORY_RULES, DEFAULT_CAT: DEFAULT_CAT, CANONICAL_TITLES: CANONICAL_TITLES, SHOW_LINKS: SHOW_LINKS, SHOW_LOGOS: SHOW_LOGOS, CAT_LABELS: CAT_LABELS, CAT_ORDER: CAT_ORDER, DAYPARTS: DAYPARTS, DAY_NAMES_LONG: DAY_NAMES_LONG, DAY_NAMES_SHORT: DAY_NAMES_SHORT, MONTH_NAMES: MONTH_NAMES, stationFmt: stationFmt, stationNowParts: stationNowParts, keyOf: keyOf, keyParts: keyParts, keyToAbsMin: keyToAbsMin, absMinToKey: absMinToKey, addHoursToKey: addHoursToKey, nowKey: nowKey, nowAbsMin: nowAbsMin, isoDate: isoDate, isoToParts: isoToParts, isoOfKey: isoOfKey, weekdayOfIso: weekdayOfIso, dayStartKey: dayStartKey, todayIso: todayIso, fmtTimeHM: fmtTimeHM, fmtStart: fmtStart, fmtEnd: fmtEnd, fmtDur: fmtDur, parseCsvRows: parseCsvRows, parseLooseDate: parseLooseDate, fmtLooseDate: fmtLooseDate, parseClock: parseClock, stripGfx: stripGfx, splitTrailingDate: splitTrailingDate, SENIOR_RE: SENIOR_RE, stripSeniorWeek: stripSeniorWeek, NOTE_RE: NOTE_RE, EVENT_RE: EVENT_RE, EVENT_NAME: EVENT_NAME, EVENT_NOT_TEAM_RE: EVENT_NOT_TEAM_RE, titleCaseWords: titleCaseWords, normalizeTitle: normalizeTitle, categoryFor: categoryFor, REQUIRED_COLS: REQUIRED_COLS, parseStationCsv: parseStationCsv };
   if(typeof window !== 'undefined') window.WTOP_GUIDE_CORE = api;
   if(typeof module !== 'undefined') module.exports = api;
 })();

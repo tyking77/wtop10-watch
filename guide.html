@@ -1133,6 +1133,7 @@
   var IS_STANDALONE = document.documentElement.getAttribute('data-standalone') === 'true';
 
   var C = window.WTOP_GUIDE_CORE;
+  var isLiveAiring = C.isLiveAiring;
   var STATION_TZ = C.STATION_TZ,
       HIDE_FILLER = C.HIDE_FILLER,
       FILLER_RE = C.FILLER_RE,
@@ -1370,9 +1371,12 @@
 
   function badgeHtml(p, isNow){
     var out = '';
-    if(p.featured && isNow) out += '<span class="badge live">LIVE</span>';
+    var live = isLiveAiring(p, SCHEDULE);
+    if(live && isNow) out += '<span class="badge live">LIVE</span>';
     else if(isNow) out += '<span class="badge now">ON NOW</span>';
+    if(p.cat === 'livesports' && !live) out += '<span class="badge">REPLAY</span>';
     p.badges.forEach(function(b){
+      if(b === 'PREMIERE' && p.cat === 'livesports' && !live) return; // same-day replay
       var cls = b === 'PREMIERE' ? 'premiere' : (b === 'SENIOR WEEK' ? 'senior' : '');
       out += '<span class="badge ' + cls + '">' + escapeHtml(b) + '</span>';
     });
@@ -1598,7 +1602,7 @@
     var nk = nowKey();
     var next = null;
     for(var i = 0; i < SCHEDULE.length; i++){
-      if(SCHEDULE[i].cat === 'livesports' && SCHEDULE[i].startKey > nk){ next = SCHEDULE[i]; break; }
+      if(SCHEDULE[i].startKey > nk && isLiveAiring(SCHEDULE[i], SCHEDULE)){ next = SCHEDULE[i]; break; }
     }
     if(!next){ strip.hidden = true; return; }
     var p = isoToParts(next.date);

@@ -94,6 +94,13 @@ async function resolveThumb(row) {
 // is near black or the frame is dim overall. If every try is dark, keep the
 // brightest unless it is nearly black; then save nothing, so the page shows
 // its branded placeholder and the next run tries again.
+//
+// Shows with thumbFind: "ice" (game broadcasts) want game action, not the
+// pregame desk or an intermission graphic, and pregame length varies. For
+// those, try thumbAt and then points from 30% to 75% of the video, and keep
+// the first frame that looks like a rink: a bright lower half (the ice) at
+// least 40 points brighter than the top third (the stands). If none does,
+// fall back to the first frame that passes the brightness check.
 const FRAME_W = 960, FRAME_H = 540;
 async function streamUrl(deliveryId) {
   const res = await fetch(HOST + "/Panopto/Pages/Viewer/DeliveryInfo.aspx", {
@@ -105,10 +112,16 @@ async function streamUrl(deliveryId) {
   const s = (d.PodcastStreams || [])[0] || (d.Streams || [])[0];
   return s && s.StreamUrl;
 }
-function frameStats(file) {
-  const r = spawnSync("ffmpeg", ["-loglevel", "error", "-i", file, "-vf", "signalstats,metadata=print:file=-", "-f", "null", "-"], { encoding: "utf8" });
+function frameStats(file, crop) {
+  const vf = (crop ? "crop=" + crop + "," : "") + "signalstats,metadata=print:file=-";
+  const r = spawnSync("ffmpeg", ["-loglevel", "error", "-i", file, "-vf", vf, "-f", "null", "-"], { encoding: "utf8" });
   const get = (k) => +((r.stdout || "").match(new RegExp("signalstats\\." + k + "=([\\d.]+)")) || [])[1] || 0;
   return { low: get("YLOW"), avg: get("YAVG") };
+}
+function looksLikeIce(file) {
+  const bottom = frameStats(file, "iw:ih*0.5:0:ih*0.5").avg;
+  const top = frameStats(file, "iw:ih*0.33:0:0").avg;
+  return bottom >= 125 && bottom - top >= 40;
 }
 async function grabFrame(row, show, rel) {
   let url;
@@ -116,21 +129,31 @@ async function grabFrame(row, show, rel) {
   if (!url) return false;
   const dur = row.Duration || 0;
   const start = show.thumbAt >= 0 ? show.thumbAt : 45;
-  const spread = dur ? [0.15, 0.3, 0.45, 0.6].map((f) => Math.round(dur * f)) : [start + 120, start + 300];
-  const tries = [start, start + 30].concat(spread)
+  const ice = show.thumbFind === "ice";
+  const spread = !dur ? [start + 120, start + 300]
+    : (ice ? [0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75] : [0.15, 0.3, 0.45, 0.6]).map((f) => Math.round(dur * f));
+  const tries = (ice ? [start] : [start, start + 30]).concat(spread)
     .filter((t, i, a) => a.indexOf(t) === i && (!dur || t < dur - 5));
   mkdirSync(join(ROOT, THUMBS), { recursive: true });
   const out = join(ROOT, rel), tmp = out + ".try.jpg";
-  let best = null;
+  let best = null, fallback = null;
   for (const t of tries) {
     const r = spawnSync("ffmpeg", ["-loglevel", "error", "-y", "-ss", String(t), "-i", url, "-frames:v", "1",
       "-vf", "scale=" + FRAME_W + ":" + FRAME_H + ":force_original_aspect_ratio=increase,crop=" + FRAME_W + ":" + FRAME_H, "-q:v", "4", tmp], { timeout: 60000 });
     if (r.status !== 0 || !existsSync(tmp) || !statSync(tmp).size) continue;
     const st = frameStats(tmp);
-    if (st.low >= 3 && st.avg >= 50) { writeFileSync(out, readFileSync(tmp)); best = null; break; }
+    const bright = st.low >= 3 && st.avg >= 50;
+    if (ice) {
+      if (bright && looksLikeIce(tmp)) { writeFileSync(out, readFileSync(tmp)); best = fallback = null; break; }
+      if (bright && !fallback) fallback = readFileSync(tmp);
+      if (!best || st.avg > best.avg) best = { avg: st.avg, bytes: readFileSync(tmp) };
+      continue;
+    }
+    if (bright) { writeFileSync(out, readFileSync(tmp)); best = null; break; }
     if (!best || st.avg > best.avg) { best = { avg: st.avg, bytes: readFileSync(tmp) }; }
   }
-  if (best && best.avg >= 25) writeFileSync(out, best.bytes);
+  if (fallback) writeFileSync(out, fallback);
+  else if (best && best.avg >= 25 && !existsSync(out)) writeFileSync(out, best.bytes);
   rmSync(tmp, { force: true });
   return existsSync(out);
 }
@@ -193,7 +216,15 @@ function cleanTitle(raw, show, cut) {
     const re = new RegExp("(^|[^a-z0-9])" + p.split(" ").join("[^a-z0-9]*") + "(?=$|[^a-z0-9])", "gi");
     t = t.replace(re, "$1");
   }
-  return t.replace(/\s+/g, " ").replace(/^[\s\-–—|:,]+|[\s\-–—|:,]+$/g, "").trim();
+  t = t.replace(/\s+/g, " ").replace(/^[\s\-–—|:,]+|[\s\-–—|:,]+$/g, "").trim();
+  // A season marker left in front of words: "S1 Finale" -> "Finale"
+  t = t.replace(/^S\d+\s+(?=[a-z])/i, "");
+  // Game titles: "Men's Ice Hockey @ Hobart _ SUNYAC Championship" ->
+  // "Men's Ice Hockey at Hobart: SUNYAC Championship"
+  t = t.replace(/\s@\s/g, " at ").replace(/\bvs\b\.?/gi, "vs.");
+  const parts = t.split(/\s*_\s*/).map((x) => x.trim()).filter(Boolean);
+  t = parts.length > 1 ? parts[0] + ": " + parts.slice(1).join(", ") : parts[0] || "";
+  return t;
 }
 
 const folders = (data.panoptoFolders || []).map(folderIdOf).filter(Boolean);

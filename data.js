@@ -37,7 +37,11 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=e8424436-2f24-4182-b517-b48e0007826d", // Laker Connections: Season 25
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=5f417599-7dcc-4c9f-b42b-b48e001ba19e", // Oswegolazo: Season 2
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=511da271-62ba-4fb1-b244-b48e00075028", // Hockey Talk: Season 3
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=0d3771a4-5497-4ca2-acce-b48e00078e18"  // Oh Boy: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=0d3771a4-5497-4ca2-acce-b48e00078e18", // Oh Boy: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=f45e89e2-ab05-4333-be0b-b48e0007658b", // Joepardy: Season 2
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ad4485e-20da-4e0a-be43-b48e0010de55", // Late Night With Lebones: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=f42527d9-9be2-4581-a235-b48e0015cbc4", // Stick 2 Sports: Season 10
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ac2fa0c-2643-4b09-b440-b48e006e9dea"  // Oswego Men's Hockey
   ],
 
   /* ---------- LIVE ----------
@@ -74,7 +78,11 @@ window.WTOP = {
                longer phrase wins. Optional.
      thumbAt:  seconds into each episode to grab its thumbnail (default 45).
                Pick a moment that usually shows the anchors on set.
-     useStill: true always uses "still" instead of episode thumbnails     */
+     useStill: true always uses "still" instead of episode thumbnails
+     airs:     when new episodes come out, shown on the show tile and page:
+                 { day: "Thursday", time: "6:00 PM", weeks: "B" }
+               weeks is "A" or "B" for every-other-week shows; leave it out
+               for every week. Add live: true for shows that air live.   */
   shows: [
     {
       id: "nightly-news",
@@ -106,7 +114,8 @@ window.WTOP = {
       still: "stills/storm-team-10.jpg",
       trailer: "",
       useStill: true,
-      match: ["Storm Team"]
+      match: ["Storm Team"],
+      airs: { day: "Tuesday", time: "10:00 AM", weeks: "B", live: true }
     },
     {
       id: "hockey-night",
@@ -115,7 +124,9 @@ window.WTOP = {
       tagline: "Laker sports broadcasts, live on WTOP-10.",
       still: "",
       trailer: "",
-      match: ["HNIO"]
+      match: ["HNIO", "SUNY Oswego"],
+      thumbAt: 1800,
+      thumbFind: "ice"
     },
     {
       id: "hockey-talk",
@@ -124,7 +135,8 @@ window.WTOP = {
       tagline: "You like hockey? Talking hockey is what we do here.",
       still: "",
       trailer: "",
-      thumbAt: 120
+      thumbAt: 120,
+      airs: { day: "Thursday", time: "6:00 PM", weeks: "B" }
     },
     {
       id: "laker-connections",
@@ -132,7 +144,8 @@ window.WTOP = {
       category: "Sports",
       tagline: "The go-to television program for Laker sports.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Thursday", time: "7:30 PM", live: true }
     },
     {
       id: "batting-practice",
@@ -140,7 +153,8 @@ window.WTOP = {
       category: "Sports",
       tagline: "Join Joshua Matteson and Connor Saingas as they discuss all things baseball. From Oswego to the major leagues, they break down stats and plays.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Thursday", time: "5:30 PM", weeks: "B" }
     },
     {
       id: "oswegolazo",
@@ -148,7 +162,8 @@ window.WTOP = {
       category: "Sports",
       tagline: "Nick Stetter and Sam Brewer talk everything soccer.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Thursday", time: "5:00 PM", weeks: "B" }
     },
     {
       id: "stick-to-sports",
@@ -156,7 +171,9 @@ window.WTOP = {
       category: "Sports",
       tagline: "From hockey to football and even basketball, these four lads talk about it all.",
       still: "",
-      trailer: ""
+      trailer: "",
+      match: ["Stick 2 Sports"],
+      airs: { day: "Thursday", time: "6:30 PM" }
     },
     {
       id: "unofficial-sports-show",
@@ -165,7 +182,8 @@ window.WTOP = {
       tagline: "Lorenz Guzman and Logan Weingartener take on all kinds of sports.",
       still: "",
       trailer: "",
-      match: ["Unofficial Sports"]
+      match: ["Unofficial Sports"],
+      airs: { day: "Thursday", time: "7:00 PM", weeks: "A" }
     },
     {
       id: "tapped-out",
@@ -173,7 +191,8 @@ window.WTOP = {
       category: "Sports",
       tagline: "A show about pro wrestling: news, rumors, updates, match ratings and anything new in the wrestling world.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Friday", time: "2:00 PM", weeks: "A" }
     },
     {
       id: "full-court-press",
@@ -198,7 +217,8 @@ window.WTOP = {
       tagline: "Two contestants face off in a game of categories.",
       still: "",
       trailer: "",
-      match: ["Laker Showdown"]
+      match: ["Laker Showdown"],
+      airs: { day: "Monday", time: "3:00 PM", weeks: "B" }
     },
     {
       id: "entertainment-breach",
@@ -207,7 +227,8 @@ window.WTOP = {
       tagline: "Chris DeLuca and Austin Claus host WTOP-10's entertainment show.",
       still: "",
       trailer: "",
-      match: ["Entertainment Breach"]
+      match: ["Entertainment Breach"],
+      airs: { day: "Monday", time: "1:30 PM", weeks: "A" }
     },
     {
       id: "be-kind-and-rewind",
@@ -216,7 +237,8 @@ window.WTOP = {
       tagline: "Join Blake Blodgett and Owen Miles as they review your favorite movie franchises.",
       still: "",
       trailer: "",
-      match: ["Be Kind and Rewind", "Be Kind Rewind"]
+      match: ["Be Kind and Rewind", "Be Kind Rewind"],
+      airs: { day: "Monday", time: "6:00 PM", weeks: "B" }
     },
     {
       id: "joepardy",
@@ -224,7 +246,8 @@ window.WTOP = {
       category: "Entertainment",
       tagline: "Joe Seidman hosts an Oswego version of the popular game show.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Monday", time: "10:00 AM" }
     },
     {
       id: "this-or-that",
@@ -232,7 +255,8 @@ window.WTOP = {
       category: "Entertainment",
       tagline: "Hosts Rowan Astorino and Kaden Nagel weigh in on which they like more, one category at a time.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Tuesday", time: "2:00 PM", weeks: "A" }
     },
     {
       id: "game-night",
@@ -240,7 +264,8 @@ window.WTOP = {
       category: "Entertainment",
       tagline: "",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Saturday", time: "8:00 PM", weeks: "A" }
     },
     {
       id: "oswego-taskmaster",
@@ -249,7 +274,8 @@ window.WTOP = {
       tagline: "",
       still: "",
       trailer: "",
-      match: ["Taskmaster"]
+      match: ["Taskmaster"],
+      airs: { day: "Wednesday", time: "2:00 PM", weeks: "B" }
     },
     {
       id: "girls-night-out",
@@ -258,7 +284,8 @@ window.WTOP = {
       tagline: "A group of college girls take on small challenges and explore their college town, bringing you into their daily lives.",
       still: "",
       trailer: "",
-      match: ["Girls Night"]
+      match: ["Girls Night"],
+      airs: { day: "Friday", time: "8:30 PM", weeks: "B" }
     },
     {
       id: "late-night-lebones",
@@ -267,7 +294,8 @@ window.WTOP = {
       tagline: "A late-night talk show with your host with the most: Lebones.",
       still: "",
       trailer: "",
-      match: ["Lebones", "Labones"]
+      match: ["Late Night With Lebones", "Lebones", "Labones"],
+      airs: { day: "Monday", time: "1:00 PM", weeks: "B" }
     },
     {
       id: "ta-time",
@@ -279,11 +307,12 @@ window.WTOP = {
     },
     {
       id: "oh-boy",
-      title: "OH BOY",
+      title: "Oh Boy!",
       category: "Entertainment",
       tagline: "Four guys do skits, bits and all sorts of shenanigans.",
       still: "",
-      trailer: ""
+      trailer: "",
+      airs: { day: "Monday", time: "4:00 PM", weeks: "A" }
     },
     {
       id: "oswego-foodies",
@@ -292,7 +321,8 @@ window.WTOP = {
       tagline: "Join James Zepp as he tastes and reviews restaurants across the Oswego region.",
       still: "",
       trailer: "",
-      match: ["Foodies"]
+      match: ["Foodies"],
+      airs: { day: "Friday", time: "12:00 PM", weeks: "A" }
     },
     /* Older shows from the program guide. Hidden until they have episodes. */
     {
@@ -445,13 +475,6 @@ window.WTOP = {
       date: "2026-09-15",
       panoptoId: "50f7b3dd-585b-408c-b871-b4c60140b130",
       thumb: ""
-    },
-    {
-      show: "hockey-night",
-      title: "Oswego at Hobart: SUNYAC Championship",
-      date: "2026-03-07",
-      panoptoId: "cc9f3eb6-0d9b-4a98-b66e-b499005ee56b",
-      thumb: "https://d2y36twrtb17ty.cloudfront.net/sessions/75cf486e-845d-455d-8bcd-b499005ee55b/6af8c514-8a14-4f26-a156-b499007630f5_et/thumbs/slide0.jpg"
     }
   ],
 
