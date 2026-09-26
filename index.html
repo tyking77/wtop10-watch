@@ -1013,7 +1013,12 @@
     rowsEl.innerHTML = "";
     if (filter.type === "live") { renderLive(); return; }
     if (filter.type === "page") { renderPage(filter.value); return; }
-    var visibleShows = shows.filter(function (s) { return showMatches(s) && epsFor(s.id).length; });
+    // Shows in order of their newest episode, the same order as "Latest
+    // episodes" (episodes is already sorted newest first)
+    var rank = {};
+    episodes.forEach(function (e, i) { if (!(e.show in rank)) rank[e.show] = i; });
+    var visibleShows = shows.filter(function (s) { return showMatches(s) && epsFor(s.id).length; })
+      .sort(function (a, b) { return rank[a.id] - rank[b.id]; });
     var visibleEps = episodes.filter(function (e) { return showMatches(e.showObj); });
 
     // Show page: the current season, then its upcoming airings, then each
@@ -1035,6 +1040,11 @@
 
     if (filter.type === "all") { rowsEl.appendChild(liveRow()); updateLive(); }
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
+    // Home: the newest game broadcasts across every sport (shows with
+    // thumbFind "game")
+    if (filter.type === "all") {
+      addRow("Latest Live Sports", episodes.filter(function (e) { return e.showObj.thumbFind; }).slice(0, 20).map(function (e) { return episodeCard(e, true); }));
+    }
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
     // A show gets its own row once it has two episodes. It starts on the
     // newest season; a show with more than one has a season dropdown that
