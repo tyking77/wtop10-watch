@@ -49,7 +49,8 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=794b1d5e-6733-4211-bbed-b48e0015f828", // The Unofficial Sports Show: Season 1
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=869d2ffd-7a9b-4e1d-a9da-b48e006ed868", // Oswego Women's Soccer
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=d27d5f75-c551-4e8a-9392-b48e006eb10c", // Oswego Men's Soccer
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=47c62cbd-20c5-4834-a9cc-b48e006f21fb"  // Oswego Women's Volleyball
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=47c62cbd-20c5-4834-a9cc-b48e006f21fb", // Oswego Women's Volleyball
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=78eac15f-827e-488b-b53b-b48e006f0602"  // Oswego Field Hockey
   ],
 
   /* ---------- LIVE ----------
@@ -88,8 +89,6 @@ window.WTOP = {
                longer phrase wins. Optional.
      thumbAt:  seconds into each episode to grab its thumbnail (default 45).
                Pick a moment that usually shows the anchors on set.
-     seasonsAsRows: true lists every season as its own row on the show
-               page instead of a dropdown (not used at the moment)
      useStill: true always uses "still" instead of episode thumbnails
      airs:     when new episodes come out, shown on the show tile and page:
                  { day: "Thursday", time: "6:00 PM", weeks: "B" }
@@ -106,13 +105,14 @@ window.WTOP = {
       match: ["Nightly News", "WTOP News", "WTOP-10 News"]
     },
     {
-      id: "morning-news",
-      title: "Morning News",
+      id: "rise-and-shine",
+      title: "Rise and Shine Oswego",
       category: "News",
-      tagline: "Campus and Oswego news from the WTOP-10 newsroom.",
+      tagline: "Campus and Oswego news to start your Friday, from the WTOP-10 newsroom.",
       still: "",
       trailer: "",
-      match: ["Morning News"],
+      /* Panopto titles may say Rise and Shine Oswego, RASO or Morning News */
+      match: ["Rise and Shine Oswego", "Rise and Shine", "RASO", "Morning News"],
       thumbAt: 90,
       airs: { day: "Friday", time: "9:30 AM" }
     },
@@ -209,6 +209,17 @@ window.WTOP = {
       still: "",
       trailer: "",
       match: ["Women's Soccer", "Womens Soccer"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "field-hockey",
+      title: "Oswego Field Hockey",
+      category: "Sports",
+      tagline: "Laker field hockey on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Field Hockey"],
       thumbAt: 1800,
       thumbFind: "game"
     },

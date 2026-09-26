@@ -41,8 +41,11 @@ NEW SEMESTER OR SEASON
      "Laker Showdown: Season 5".
   2. Copy the folder's link from the address bar.
   3. Paste it at the top of panoptoFolders in data.js.
-  Each folder becomes a season. A show's page opens on its newest season,
-  and viewers pick older ones from the dropdown.
+  Each folder becomes a season. On Home and the News, Sports and
+  Entertainment tabs, a show's row starts on its newest season, with a
+  dropdown for the others. The show's own page lists every season in its
+  own row: the current season first, then "Upcoming on WTOP-10", then
+  the earlier seasons.
 
 ADDING A SHOW
   Every current show is already in data.js. A show stays hidden until it
@@ -112,8 +115,7 @@ GAME BROADCASTS
   "vs. Cortland: SUNYAC Semifinal".
   Shows so far: Hockey Night in Oswego, Hockey Night in Oswego (W),
   Oswego Men's Basketball, Oswego Women's Basketball, Oswego Volleyball,
-  Oswego Men's Soccer and Oswego Women's Soccer. Each stays hidden until
-  its folder is added.
+  Oswego Men's Soccer, Oswego Women's Soccer and Oswego Field Hockey.
   A new sport: copy one of these show blocks in data.js and change the
   id, title, tagline and match, e.g. match: ["Women's Lacrosse"].
   Older games go in a folder with "Classics" in its name, e.g.
@@ -121,14 +123,14 @@ GAME BROADCASTS
   dropdown, after the current seasons. One Classics folder can hold both
   men's and women's games; the titles sort them.
   For the hero, a proper 1920x1080 still in the stills/ folder looks
-  sharpest, e.g. still: "stills/morning-news.jpg"
+  sharpest, e.g. still: "stills/rise-and-shine.jpg"
 
 HERO TRAILERS
   Length 15-30 seconds, 1920x1080 (1280x720 is fine), H.264 MP4, audio
   removed, 3-8 MB. Keep the lower-left of the frame fairly plain, since
   the show title and buttons sit there. Cut it so the end flows back to
   the start. Put the file in trailers/ and set the show's trailer, e.g.
-  trailer: "trailers/morning-news.mp4"
+  trailer: "trailers/rise-and-shine.mp4"
   Shows without a trailer use their still image with a slow zoom.
 
 UPDATING THE PROGRAM GUIDE
@@ -144,7 +146,9 @@ UPDATING THE PROGRAM GUIDE
   A show in the wrong category, or spelled two ways? Fix it once in
   guide-core.js (CATEGORY_RULES and CANONICAL_TITLES).
   Cablecast calls every newscast "WTOP-10 NEWS". The guide shows them as
-  Nightly News, except Friday at 9:30 AM, which is Morning News.
+  Nightly News, except Friday at 9:30 AM, which is Rise and Shine Oswego.
+  Rise and Shine Oswego used to be called Morning News; titles saying
+  "Morning News", "Rise and Shine" or "RASO" all go to it.
 
 LIVE
   The Live tab plays the 24/7 YouTube stream with the program guide

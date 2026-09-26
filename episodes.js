@@ -2,12 +2,12 @@
    Do not edit: changes are overwritten. Fix an episode with "overrides" in data.js. */
 window.WTOP_EPISODES = [
   {
-    "show": "morning-news",
-    "date": "2026-09-24",
+    "show": "rise-and-shine",
+    "date": "2026-09-25",
     "title": "",
     "panoptoId": "ac83a713-c8e2-4195-a3c4-b4d000f7e9e2",
     "thumb": "thumbs/ac83a713-c8e2-4195-a3c4-b4d000f7e9e2.jpg",
-    "duration": 1826,
+    "duration": 1796,
     "season": "Fall 2026",
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
@@ -72,7 +72,7 @@ window.WTOP_EPISODES = [
     "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
   },
   {
-    "show": "morning-news",
+    "show": "rise-and-shine",
     "date": "2026-09-18",
     "title": "",
     "panoptoId": "efbe645c-4f4f-4be9-b993-b4ca01655f60",
@@ -110,6 +110,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Fall 2026",
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
+  },
+  {
+    "show": "field-hockey",
+    "date": "2026-09-09",
+    "title": "vs. Keuka",
+    "panoptoId": "1d39708f-75a6-4946-b282-b4c1004636fd",
+    "thumb": "thumbs/1d39708f-75a6-4946-b282-b4c1004636fd.jpg",
+    "duration": 5870,
+    "season": "2026–27",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
   },
   {
     "show": "womens-soccer",
@@ -1660,6 +1670,16 @@ window.WTOP_EPISODES = [
     "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
   },
   {
+    "show": "field-hockey",
+    "date": "2025-10-11",
+    "title": "vs. Oneonta",
+    "panoptoId": "29058dea-0bcf-4a95-9397-b48f0152ca3b",
+    "thumb": "thumbs/29058dea-0bcf-4a95-9397-b48f0152ca3b.jpg",
+    "duration": 6098,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "womens-soccer",
     "date": "2025-10-11",
     "title": "vs. New Paltz",
@@ -1720,6 +1740,16 @@ window.WTOP_EPISODES = [
     "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
   },
   {
+    "show": "field-hockey",
+    "date": "2025-09-27",
+    "title": "vs. New Paltz",
+    "panoptoId": "1b36a6eb-6458-434e-9633-b48f01526f4f",
+    "thumb": "thumbs/1b36a6eb-6458-434e-9633-b48f01526f4f.jpg",
+    "duration": 5909,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "mens-soccer",
     "date": "2025-09-27",
     "title": "vs. Oneonta",
@@ -1760,6 +1790,16 @@ window.WTOP_EPISODES = [
     "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
   },
   {
+    "show": "field-hockey",
+    "date": "2025-09-17",
+    "title": "vs. Geneseo",
+    "panoptoId": "9fae8687-1b68-488e-9dd1-b48f0152418b",
+    "thumb": "thumbs/9fae8687-1b68-488e-9dd1-b48f0152418b.jpg",
+    "duration": 8085,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "womens-soccer",
     "date": "2025-09-13",
     "title": "vs. St. Lawrence",
@@ -1780,6 +1820,16 @@ window.WTOP_EPISODES = [
     "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
   },
   {
+    "show": "field-hockey",
+    "date": "2025-09-10",
+    "title": "vs. St. John Fisher",
+    "panoptoId": "e292eb80-3262-44f6-b38c-b48f015237ce",
+    "thumb": "thumbs/e292eb80-3262-44f6-b38c-b48f015237ce.jpg",
+    "duration": 6145,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "womens-soccer",
     "date": "2025-09-09",
     "title": "vs. Hamilton",
@@ -1788,6 +1838,26 @@ window.WTOP_EPISODES = [
     "duration": 8175,
     "season": "2025–26",
     "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "field-hockey",
+    "date": "2025-09-06",
+    "title": "vs. Nazareth",
+    "panoptoId": "882089df-ade3-43d5-b3d3-b48f01523240",
+    "thumb": "thumbs/882089df-ade3-43d5-b3d3-b48f01523240.jpg",
+    "duration": 8190,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
+    "show": "field-hockey",
+    "date": "2025-09-03",
+    "title": "vs. Elmira",
+    "panoptoId": "f257a025-5105-4bab-9e53-b48f01522bf3",
+    "thumb": "thumbs/f257a025-5105-4bab-9e53-b48f01522bf3.jpg",
+    "duration": 6220,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
   },
   {
     "show": "mens-soccer",
@@ -1808,6 +1878,16 @@ window.WTOP_EPISODES = [
     "duration": 7390,
     "season": "2025–26",
     "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "field-hockey",
+    "date": "2025-08-30",
+    "title": "vs. Wilkes",
+    "panoptoId": "d8bb2a0f-3584-4c39-b33c-b48f015221f0",
+    "thumb": "thumbs/d8bb2a0f-3584-4c39-b33c-b48f015221f0.jpg",
+    "duration": 3425,
+    "season": "2025–26",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
   },
   {
     "show": "mens-soccer",

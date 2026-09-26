@@ -55,7 +55,7 @@
     { match: /\b(volleyball|basketball|soccer|lacrosse|hockey|baseball|softball|football|tennis|swimming|track)\b/i, cat: 'sports' },
     { match: /wtop-10 news/i, cat: 'news' },
     { match: /^nightly news/i, cat: 'news' },
-    { match: /^morning news/i, cat: 'news' },
+    { match: /^(morning news|rise and shine|raso)/i, cat: 'news' },
     { match: /storm team/i, cat: 'news' },
     { match: /regular scheduled programming will return soon/i, cat: 'community' },
     { match: /bulletin|community calendar|public affairs/i, cat: 'community' },
@@ -107,7 +107,10 @@
     'laker night life':'Laker Night Life',
     'laker showdown':'Laker Showdown',
     'late night with lebones':'Late Night With Lebones',
-    'morning news':'Morning News',
+    'morning news':'Rise and Shine Oswego',
+    'raso':'Rise and Shine Oswego',
+    'rise and shine':'Rise and Shine Oswego',
+    'rise and shine oswego':'Rise and Shine Oswego',
     'no alternative':'No Alternative',
     'no alterntive':'No Alternative',
     'not for primetime':'Not for Primetime',
@@ -471,9 +474,10 @@
 
       var n = normalizeTitle(rawTitle);
       // Cablecast lists every newscast as "WTOP-10 NEWS". They're Nightly
-      // News (and its reruns), except Friday 9:30 AM, which is Morning News.
+      // News (and its reruns), except Friday 9:30 AM, which is Rise and
+      // Shine Oswego (the Friday morning show, once called Morning News).
       if(n.title === 'WTOP-10 News'){
-        n.title = (weekdayOfIso(isoDate(d.y, d.m, d.d)) === 5 && sMin === 570) ? 'Morning News' : 'Nightly News';
+        n.title = (weekdayOfIso(isoDate(d.y, d.m, d.d)) === 5 && sMin === 570) ? 'Rise and Shine Oswego' : 'Nightly News';
       }
       var cat = categoryFor(n.title);
       if(cat === null){

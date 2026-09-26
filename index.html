@@ -732,7 +732,7 @@
        ./                      Home
        ?live                   Live tab
        ?tab=sports             a menu tab
-       ?show=hockey-talk       a show (&season=Season 3 for an older one)
+       ?show=hockey-talk       a show (every season is on its page)
        ?page=donate            an information page from pages.js
        ...&v=PANOPTO-ID        an episode playing over that view
      Browsers can refuse history changes on file://, so failures are ignored. */
@@ -743,7 +743,6 @@
     else if (filter.type === "category") q.push("tab=" + encodeURIComponent(filter.value.toLowerCase()));
     else if (filter.type === "show") {
       q.push("show=" + encodeURIComponent(filter.value));
-      if (season && season !== seasonsFor(filter.value)[0]) q.push("season=" + encodeURIComponent(season));
     }
     if (epId) q.push("v=" + encodeURIComponent(epId));
     return q.length ? "?" + q.join("&") : location.pathname;
@@ -996,6 +995,7 @@
     window.addEventListener("resize", upd);
     rowsEl.appendChild(sec);
     requestAnimationFrame(upd);
+    return sec;
   }
 
   function renderRows() {
@@ -1005,36 +1005,16 @@
     var visibleShows = shows.filter(function (s) { return showMatches(s) && epsFor(s.id).length; });
     var visibleEps = episodes.filter(function (e) { return showMatches(e.showObj); });
 
+    // Show page: the current season, then its upcoming airings, then each
+    // earlier season in its own row
     if (filter.type === "show") {
       var s = showById[filter.value];
       var seasons = seasonsFor(s.id);
-      if (s.seasonsAsRows) {
-        seasons.forEach(function (name) {
-          addRow(name, seasonEps(s.id, name).map(function (e) { return episodeCard(e, false); }));
-        });
-        addUpcoming(s);
-        addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
-        return;
-      }
-      var pick = seasons.indexOf(season) >= 0 ? season : seasons[0];
-      var head = null;
-      if (seasons.length > 1) {
-        head = document.createElement("select");
-        head.className = "season";
-        head.setAttribute("aria-label", "Season");
-        seasons.forEach(function (name) {
-          var n = visibleEps.filter(function (e) { return e.season === name; }).length;
-          var o = document.createElement("option");
-          o.value = name; o.textContent = name + " (" + n + ")"; o.selected = name === pick;
-          head.appendChild(o);
-        });
-        head.addEventListener("change", function () { season = head.value; replaceUrl(viewUrl()); renderRows(); rowsEl.querySelector(".season").focus(); });
-      } else if (pick) {
-        head = document.createElement("span");
-        head.textContent = pick;
-      }
-      if (pick) addRow(s.title, seasonEps(s.id, pick).map(function (e) { return episodeCard(e, false); }), "", head);
+      var cards = function (name) { return seasonEps(s.id, name).map(function (e) { return episodeCard(e, false); }); };
+      var tag = function (text) { var el = document.createElement("span"); el.textContent = text; return el; };
+      if (seasons.length) addRow(s.title, cards(seasons[0]), "", tag(seasons[0] + (seasons.length > 1 ? " · current season" : "")));
       addUpcoming(s);
+      seasons.slice(1).forEach(function (name) { addRow(name, cards(name)); });
       addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
       return;
     }
@@ -1042,15 +1022,34 @@
     if (filter.type === "all") { rowsEl.appendChild(liveRow()); updateLive(); }
     addRow(filter.type === "all" ? "Latest episodes" : "Latest in " + filter.value, visibleEps.slice(0, 20).map(function (e) { return episodeCard(e, true); }));
     addRow(filter.type === "all" ? "Shows" : filter.value + " shows", visibleShows.map(showTile), "shows");
-    // A show gets its own row (its newest season) once that has two episodes.
-    // A show with seasons as rows (every sport) shows its newest across all.
+    // A show gets its own row once it has two episodes. It starts on the
+    // newest season; a show with more than one has a season dropdown that
+    // refills just that row.
     visibleShows.forEach(function (s) {
-      var newest = s.seasonsAsRows ? "Latest" : seasonsFor(s.id)[0];
-      var list = s.seasonsAsRows ? epsFor(s.id).slice(0, 20) : seasonEps(s.id, newest);
-      if (list.length < 2) return;
-      var tag = document.createElement("span");
-      tag.textContent = newest;
-      addRow(s.title, list.map(function (e) { return episodeCard(e, false); }), "", tag);
+      var seasons = seasonsFor(s.id);
+      if (epsFor(s.id).length < 2 || !seasons.length) return;
+      var head;
+      if (seasons.length > 1) {
+        head = document.createElement("select");
+        head.className = "season";
+        head.setAttribute("aria-label", s.title + " season");
+        seasons.forEach(function (name) {
+          var o = document.createElement("option");
+          o.value = name; o.textContent = name + " (" + seasonEps(s.id, name).length + ")";
+          head.appendChild(o);
+        });
+      } else {
+        head = document.createElement("span");
+        head.textContent = seasons[0];
+      }
+      var sec = addRow(s.title, seasonEps(s.id, seasons[0]).map(function (e) { return episodeCard(e, false); }), "", head);
+      if (sec && seasons.length > 1) head.addEventListener("change", function () {
+        var track = sec.querySelector(".track");
+        track.innerHTML = "";
+        seasonEps(s.id, head.value).forEach(function (e) { track.appendChild(episodeCard(e, false)); });
+        track.scrollLeft = 0;
+        track.dispatchEvent(new Event("scroll"));
+      });
     });
     if (!visibleEps.length) rowsEl.innerHTML = '<p class="empty">No episodes here yet.</p>';
   }
