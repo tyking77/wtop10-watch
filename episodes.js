@@ -1910,3 +1910,108 @@ window.WTOP_EPISODES = [
     "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
   }
 ];
+/* Season folders with no episodes yet, shown as "coming soon" */
+window.WTOP_COMING_SEASONS = [
+  {
+    "show": "batting-practice",
+    "season": "Season 1",
+    "name": "Batting Practice: Season 1",
+    "folder": "ebe16db1-5d10-44b2-8040-b4d000f3ed94"
+  },
+  {
+    "show": "be-kind-and-rewind",
+    "season": "Season 5",
+    "name": "Be Kind and Rewind: Season 5",
+    "folder": "b4dc8820-6464-4f03-bbd2-b4d000f3dc4d"
+  },
+  {
+    "show": "entertainment-breach",
+    "season": "Season 6",
+    "name": "Entertainment Breach: Season 6",
+    "folder": "32f3e4ba-8f55-486a-bad3-b4d000f3bec7"
+  },
+  {
+    "show": "game-night",
+    "season": "Season 1",
+    "name": "Game Night: Season 1",
+    "folder": "51e803cd-5e18-4ee6-875c-b4d000f3994c"
+  },
+  {
+    "show": "girls-night-out",
+    "season": "Season 1",
+    "name": "Girls Night Out: Season 1",
+    "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
+  },
+  {
+    "show": "hockey-talk",
+    "season": "Season 4",
+    "name": "Hockey Talk: Season 4",
+    "folder": "db3569fc-3f8e-4fed-81dc-b4d000f361d3"
+  },
+  {
+    "show": "joepardy",
+    "season": "Season 3",
+    "name": "Joepardy: Season 3",
+    "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
+  },
+  {
+    "show": "laker-connections",
+    "season": "Season 26",
+    "name": "Laker Connections: Season 26",
+    "folder": "7f652fa1-ee4e-4b3f-aa2f-b4ac01319277"
+  },
+  {
+    "show": "laker-showdown",
+    "season": "Season 5",
+    "name": "Laker Showdown: Season 5",
+    "folder": "1b64f645-6cba-424a-b565-b4d000f2e6c4"
+  },
+  {
+    "show": "late-night-lebones",
+    "season": "Season 2",
+    "name": "Late Night W/Lebones: Season 2",
+    "folder": "3a972c24-934f-4f72-9554-b4d000f2c7cb"
+  },
+  {
+    "show": "oh-boy",
+    "season": "Season 5",
+    "name": "Oh Boy: Season 5",
+    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
+  },
+  {
+    "show": "oswego-foodies",
+    "season": "Season 1",
+    "name": "Oswego Foodies: Season 1",
+    "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
+  },
+  {
+    "show": "oswego-taskmaster",
+    "season": "Season 1",
+    "name": "Oswego Taskmaster: Season 1",
+    "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
+  },
+  {
+    "show": "oswegolazo",
+    "season": "Season 3",
+    "name": "Oswegolazo: Season 3",
+    "folder": "a4fec54b-f8df-43eb-a7cb-b4d000f215df"
+  },
+  {
+    "show": "stick-to-sports",
+    "season": "Season 11",
+    "name": "Stick to Sports: Season 11",
+    "folder": "6ad79145-8032-4c80-84d6-b4d000f1b6af"
+  },
+  {
+    "show": "tapped-out",
+    "season": "Season 1",
+    "name": "Tapped Out: Season 1",
+    "folder": "9e017f78-68e8-4772-bdc2-b4d000f15909"
+  },
+  {
+    "show": "unofficial-sports-show",
+    "season": "Season 2",
+    "name": "Unofficial Sports Show: Season 2",
+    "folder": "46caddae-a9f3-4e5f-8953-b4d000f1289d"
+  }
+];

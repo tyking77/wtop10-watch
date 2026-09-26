@@ -41,6 +41,8 @@ NEW SEMESTER OR SEASON
      "Laker Showdown: Season 5".
   2. Copy the folder's link from the address bar.
   3. Paste it at the top of panoptoFolders in data.js.
+  As soon as the folder is listed, even before its first episode, the
+  show's page says "Season 6 coming soon" (from the folder's name).
   Each folder becomes a season. On Home and the News, Sports and
   Entertainment tabs, a show's row starts on its newest season, with a
   dropdown for the others. The show's own page lists every season in its

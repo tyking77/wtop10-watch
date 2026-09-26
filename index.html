@@ -408,6 +408,7 @@
   .show-tile .tile-label span { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .show-tile .tile-label .airs { margin-top: -2px; color: var(--ink); }
   .hero .meta .airs { display: block; margin-top: 4px; color: var(--ink); }
+  .hero .meta .coming { display: inline-block; margin-top: 8px; padding: 4px 9px; border-radius: 3px; background: var(--red); color: #fff; font: 700 13px/1.2 var(--display); letter-spacing: .08em; text-transform: uppercase; }
 
   .empty { padding-inline: var(--gutter); color: var(--muted); }
   .upcoming { padding-inline: var(--gutter); }
@@ -593,6 +594,15 @@
     return list.slice().sort(function (a, b) {
       return (b.episode || 1e9) - (a.episode || 1e9) || (b.date || "").localeCompare(a.date || "");
     });
+  }
+
+  // Seasons with a Panopto folder but no episodes yet (from episodes.js)
+  function comingFor(showId) {
+    var have = seasonsFor(showId), out = [];
+    (window.WTOP_COMING_SEASONS || []).forEach(function (c) {
+      if (c.show === showId && c.season && have.indexOf(c.season) < 0 && out.indexOf(c.season) < 0) out.push(c.season);
+    });
+    return out;
   }
 
   function epsFor(showId) { return episodes.filter(function (e) { return e.show === showId; }); }
@@ -898,7 +908,8 @@
       document.getElementById("heroTitle").textContent = s.title;
       document.getElementById("heroMeta").innerHTML =
         (ep ? "Latest: <strong>" + esc(epTitle(ep)) + "</strong>" + (subDate(ep) ? " · " + esc(subDate(ep)) : "") : "No episodes online yet") +
-        (airsText(s) ? '<span class="airs">' + esc(airsText(s)) + (nextAir(s) ? " · next " + esc(nextAir(s)) : "") + "</span>" : "");
+        (airsText(s) ? '<span class="airs">' + esc(airsText(s)) + (nextAir(s) ? " · next " + esc(nextAir(s)) : "") + "</span>" : "") +
+        (comingFor(s.id).length ? '<span class="airs coming">' + esc(comingFor(s.id).join(", ")) + " coming soon</span>" : "");
       document.getElementById("heroTagline").textContent = s.tagline || "";
       // A show with no episodes online yet: offer the live channel instead
       var play = document.getElementById("heroPlay"), more = document.getElementById("heroMore");
@@ -1012,7 +1023,10 @@
       var seasons = seasonsFor(s.id);
       var cards = function (name) { return seasonEps(s.id, name).map(function (e) { return episodeCard(e, false); }); };
       var tag = function (text) { var el = document.createElement("span"); el.textContent = text; return el; };
-      if (seasons.length) addRow(s.title, cards(seasons[0]), "", tag(seasons[0] + (seasons.length > 1 ? " · current season" : "")));
+      // A season with a folder but no episodes yet means the newest one
+      // online is no longer the current one
+      var label = comingFor(s.id).length ? " · latest season" : seasons.length > 1 ? " · current season" : "";
+      if (seasons.length) addRow(s.title, cards(seasons[0]), "", tag(seasons[0] + label));
       addUpcoming(s);
       seasons.slice(1).forEach(function (name) { addRow(name, cards(name)); });
       addRow("More from WTOP-10", shows.filter(function (x) { return x.id !== s.id && epsFor(x.id).length; }).map(showTile), "shows");
