@@ -289,7 +289,8 @@ function cleanTitle(raw, show, cut) {
   // File-version notes aren't titles: "OSWEGOLAZO FINAL 9-17-26" leaves
   // "FINAL". Drop a trailing all-caps note, or a note that's all that's left.
   t = t.replace(/\s+\(?(FINAL( CUT)?|EXPORT|RENDER|MASTER|V\d+)\)?$/, "");
-  if (/^\(?(final( cut)?|final export|export|render|master|v\d+|edit)\)?$/i.test(t)) t = "";
+  // Any spelling: "finalcut", "final_cut", "Final Export", "draft", "v2"...
+  if (/^\(?(final([\s._-]*(cut|export|edit|version|v?\d+))?|export|render|master|draft|edit|v\d+)\)?$/i.test(t)) t = "";
   return sportLabel(t);
 }
 

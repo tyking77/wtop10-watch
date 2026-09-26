@@ -25,7 +25,7 @@ window.WTOP_EPISODES = [
   {
     "show": "game-night",
     "date": "2026-09-24",
-    "title": "finalcut",
+    "title": "",
     "panoptoId": "11b0fe84-75f2-4360-b136-b4d1003aa521",
     "thumb": "thumbs/11b0fe84-75f2-4360-b136-b4d1003aa521.jpg",
     "duration": 1800,
