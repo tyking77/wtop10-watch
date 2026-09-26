@@ -69,7 +69,8 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=6ad79145-8032-4c80-84d6-b4d000f1b6af", // Stick to Sports: Season 11
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=1e73e07c-c0ca-4209-b858-b4c60140a69f", // Storm Team 10 Live: Season 1
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=9e017f78-68e8-4772-bdc2-b4d000f15909", // Tapped Out: Season 1
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=46caddae-a9f3-4e5f-8953-b4d000f1289d"  // Unofficial Sports Show: Season 2
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=46caddae-a9f3-4e5f-8953-b4d000f1289d", // Unofficial Sports Show: Season 2
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=fd444489-5b8e-4567-a1f1-b4d10043437f"  // This or That: Season 2
   ],
 
   /* ---------- LIVE ----------

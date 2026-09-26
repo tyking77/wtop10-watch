@@ -2013,6 +2013,12 @@ window.WTOP_COMING_SEASONS = [
     "folder": "9e017f78-68e8-4772-bdc2-b4d000f15909"
   },
   {
+    "show": "this-or-that",
+    "season": "Season 2",
+    "name": "This or That: Season 2",
+    "folder": "fd444489-5b8e-4567-a1f1-b4d10043437f"
+  },
+  {
     "show": "unofficial-sports-show",
     "season": "Season 2",
     "name": "Unofficial Sports Show: Season 2",
