@@ -9,7 +9,8 @@ FILES
   guide-core.js  Guide rules: show categories and title spellings.
   schedule/    Cablecast CSV exports go here.
   schedule.js  The merged schedule. Made automatically; don't edit.
-  scripts/     The program that builds episodes.js.
+  scripts/     The programs that build episodes.js and schedule.js, plus
+               folder-tools.mjs for checking a new Panopto folder.
   assets/      The WTOP-10 logo.
   trailers/    Hero trailer MP4s go here.
   stills/      Hero still images go here.

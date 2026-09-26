@@ -93,4 +93,19 @@ Dark-only by design. No green, gold or purple accents.
 1. Done: static prototype with 3 real Panopto sessions.
 2. Done: episodes pulled automatically from public Panopto semester folders, with seasons.
 3. Done: our own thumbnails via ffmpeg, plus a branded placeholder.
-4. Later: move to Bluehost at wtop10.com/watch/.
+4. Later: move to Bluehost at wtop10.com/watch/, with a Google-login admin page (hero pins, live switch, overrides).
+5. Early 2027: read the schedule from Cablecast's API once the new Live service is in, instead of CSV uploads.
+
+## Open items
+
+- Taglines still needed: TA Time, Game Night, Oswego Taskmaster.
+- Panopto fixes: the two Canton basketball games are titled "January 16th, 2025" (overridden to 2026 in data.js); Men's Basketball vs. Morrisville (2/13/26) runs 715 minutes; Men's Soccer vs. Clarkson (8/29/25) is only 15 minutes.
+- wtop10.com: swap the homepage guide block for `wordpress-guide-embed.html`, and switch its YouTube embed off the fixed video ID.
+
+## Working rules
+
+- Add new Panopto folders with the project skill `.claude/skills/wtop-add-panopto-folder`.
+- Tyler wants verified changes pushed to main ("push when done"). The Action commits too, so `git fetch` and rebase first; on an `episodes.js`/`schedule.js` conflict, keep the local copy and rebuild.
+- Edit files with the Edit tool or a script saved to the scratchpad. Inline `node -e` breaks on shell quoting, and after a rebase git restores Windows line endings, so multi-line string matches fail unless you normalize `\r\n`.
+- wtop10.com (Bluehost, mod_security) returns 406 to `curl` unless it sends browser-style User-Agent and Accept headers.
+- Panopto returns HTTP 429 to rapid repeated builds; the build spaces folders 400 ms apart, and a failed folder keeps its last good data.
