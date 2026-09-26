@@ -3,17 +3,7 @@
 window.WTOP_EPISODES = [
   {
     "show": "morning-news",
-    "date": "2026-09-25",
-    "title": "",
-    "panoptoId": "6b836038-eba8-43f0-b7cf-b4d00114b24c",
-    "thumb": "thumbs/6b836038-eba8-43f0-b7cf-b4d00114b24c.jpg",
-    "duration": 1826,
-    "season": "Fall 2026",
-    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
-  },
-  {
-    "show": "morning-news",
-    "date": "2026-09-25",
+    "date": "2026-09-24",
     "title": "",
     "panoptoId": "ac83a713-c8e2-4195-a3c4-b4d000f7e9e2",
     "thumb": "thumbs/ac83a713-c8e2-4195-a3c4-b4d000f7e9e2.jpg",
@@ -114,6 +104,18 @@ window.WTOP_EPISODES = [
     "episode": 3
   },
   {
+    "show": "unofficial-sports-show",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "0d52abb5-bf31-4152-8f8e-b48e017a1567",
+    "thumb": "thumbs/0d52abb5-bf31-4152-8f8e-b48e017a1567.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "794b1d5e-6733-4211-bbed-b48e0015f828",
+    "undated": true,
+    "episode": 1
+  },
+  {
     "show": "entertainment-breach",
     "date": "2026-07-21",
     "title": "",
@@ -172,6 +174,42 @@ window.WTOP_EPISODES = [
     "folder": "86493e33-edad-416d-8a2e-b48e000748e6",
     "undated": true,
     "episode": 2
+  },
+  {
+    "show": "this-or-that",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "7de04dbe-435e-4854-a4f8-b48e017c7883",
+    "thumb": "thumbs/7de04dbe-435e-4854-a4f8-b48e017c7883.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "c8b455bf-08de-4d24-80c1-b48e0015e024",
+    "undated": true,
+    "episode": 1
+  },
+  {
+    "show": "unofficial-sports-show",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "877daed8-f646-4007-b4fd-b48e0179f003",
+    "thumb": "thumbs/877daed8-f646-4007-b4fd-b48e0179f003.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "794b1d5e-6733-4211-bbed-b48e0015f828",
+    "undated": true,
+    "episode": 2
+  },
+  {
+    "show": "unofficial-sports-show",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "a0242a23-a4bd-47ac-8370-b48e0179d7f3",
+    "thumb": "thumbs/a0242a23-a4bd-47ac-8370-b48e0179d7f3.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "794b1d5e-6733-4211-bbed-b48e0015f828",
+    "undated": true,
+    "episode": 3
   },
   {
     "show": "oh-boy",
@@ -246,6 +284,18 @@ window.WTOP_EPISODES = [
     "episode": 1
   },
   {
+    "show": "this-or-that",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "e2f485aa-2c12-42a2-b465-b48e017c617d",
+    "thumb": "thumbs/e2f485aa-2c12-42a2-b465-b48e017c617d.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "c8b455bf-08de-4d24-80c1-b48e0015e024",
+    "undated": true,
+    "episode": 2
+  },
+  {
     "show": "stick-to-sports",
     "date": "2026-07-21",
     "title": "",
@@ -256,6 +306,18 @@ window.WTOP_EPISODES = [
     "folder": "f42527d9-9be2-4581-a235-b48e0015cbc4",
     "undated": true,
     "episode": 2
+  },
+  {
+    "show": "this-or-that",
+    "date": "2026-07-21",
+    "title": "",
+    "panoptoId": "fed265ad-df5e-46db-8d14-b48e017c448a",
+    "thumb": "thumbs/fed265ad-df5e-46db-8d14-b48e017c448a.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "c8b455bf-08de-4d24-80c1-b48e0015e024",
+    "undated": true,
+    "episode": 3
   },
   {
     "show": "laker-connections",
@@ -352,6 +414,18 @@ window.WTOP_EPISODES = [
     "episode": 5
   },
   {
+    "show": "unofficial-sports-show",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "3e6b296a-e5e9-4b89-87b6-b48e0011e670",
+    "thumb": "thumbs/3e6b296a-e5e9-4b89-87b6-b48e0011e670.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "794b1d5e-6733-4211-bbed-b48e0015f828",
+    "undated": true,
+    "episode": 5
+  },
+  {
     "show": "laker-connections",
     "date": "2026-07-20",
     "title": "",
@@ -408,6 +482,18 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Season 2",
     "folder": "5f417599-7dcc-4c9f-b42b-b48e001ba19e",
+    "undated": true,
+    "episode": 4
+  },
+  {
+    "show": "unofficial-sports-show",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "5b4035ea-6d31-4983-89ba-b48e0019e0a9",
+    "thumb": "thumbs/5b4035ea-6d31-4983-89ba-b48e0019e0a9.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "794b1d5e-6733-4211-bbed-b48e0015f828",
     "undated": true,
     "episode": 4
   },
@@ -610,6 +696,30 @@ window.WTOP_EPISODES = [
     "season": "Season 1",
     "folder": "7ad4485e-20da-4e0a-be43-b48e0010de55",
     "undated": true
+  },
+  {
+    "show": "this-or-that",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "d85e2319-a8ba-4bdc-8636-b48e00120ef8",
+    "thumb": "thumbs/d85e2319-a8ba-4bdc-8636-b48e00120ef8.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "c8b455bf-08de-4d24-80c1-b48e0015e024",
+    "undated": true,
+    "episode": 5
+  },
+  {
+    "show": "this-or-that",
+    "date": "2026-07-20",
+    "title": "",
+    "panoptoId": "eba60574-3368-4b70-8ad1-b48e001c8025",
+    "thumb": "thumbs/eba60574-3368-4b70-8ad1-b48e001c8025.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "c8b455bf-08de-4d24-80c1-b48e0015e024",
+    "undated": true,
+    "episode": 4
   },
   {
     "show": "late-night-lebones",

@@ -44,7 +44,9 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7ac2fa0c-2643-4b09-b440-b48e006e9dea", // Oswego Men's Hockey
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=d2e779ca-e891-4d85-bee0-b48e006ea6d1", // Oswego Women's Hockey
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=05ed34a2-3407-4837-890c-b48e006f4c47", // Oswego Men's Basketball
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=a8a301be-88c9-4bf2-a055-b48e006f5672"  // Oswego Women's Basketball
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=a8a301be-88c9-4bf2-a055-b48e006f5672", // Oswego Women's Basketball
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=c8b455bf-08de-4d24-80c1-b48e0015e024", // This or That: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=794b1d5e-6733-4211-bbed-b48e0015f828"  // The Unofficial Sports Show: Season 1
   ],
 
   /* ---------- LIVE ----------
@@ -225,7 +227,7 @@ window.WTOP = {
       tagline: "Lorenz Guzman and Logan Weingartener take on all kinds of sports.",
       still: "",
       trailer: "",
-      match: ["Unofficial Sports"],
+      match: ["Unofficial Sports", "The Unofficial Sport Show", "The Unoffical Sports Show", "Unofficial Sport Show", "Unoffical Sports Show"],
       airs: { day: "Thursday", time: "7:00 PM", weeks: "A" }
     },
     {
