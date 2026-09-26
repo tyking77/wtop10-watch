@@ -198,6 +198,16 @@ window.WTOP_EPISODES = [
     "folder": "1e73e07c-c0ca-4209-b858-b4c60140a69f"
   },
   {
+    "show": "field-hockey",
+    "date": "2026-09-15",
+    "title": "vs. Brockport",
+    "panoptoId": "67fc1f4e-dfb8-458c-bb1f-b4d100363987",
+    "thumb": "thumbs/67fc1f4e-dfb8-458c-bb1f-b4d100363987.jpg",
+    "duration": 6359,
+    "season": "2026–27",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-15",
     "title": "",
