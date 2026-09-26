@@ -92,6 +92,16 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "oswegolazo",
+    "date": "2026-09-17",
+    "title": "FINAL",
+    "panoptoId": "ef09227a-132c-4921-93f6-b4d10038a93b",
+    "thumb": "thumbs/ef09227a-132c-4921-93f6-b4d10038a93b.jpg",
+    "duration": 1802,
+    "season": "Season 3",
+    "folder": "a4fec54b-f8df-43eb-a7cb-b4d000f215df"
+  },
+  {
     "show": "storm-team-10",
     "date": "2026-09-15",
     "title": "",
@@ -1989,12 +1999,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 1",
     "name": "Oswego Taskmaster: Season 1",
     "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
-  },
-  {
-    "show": "oswegolazo",
-    "season": "Season 3",
-    "name": "Oswegolazo: Season 3",
-    "folder": "a4fec54b-f8df-43eb-a7cb-b4d000f215df"
   },
   {
     "show": "stick-to-sports",
