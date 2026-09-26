@@ -1967,12 +1967,6 @@ window.WTOP_COMING_SEASONS = [
     "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
   },
   {
-    "show": "hockey-talk",
-    "season": "Season 4",
-    "name": "Hockey Talk: Season 4",
-    "folder": "db3569fc-3f8e-4fed-81dc-b4d000f361d3"
-  },
-  {
     "show": "joepardy",
     "season": "Season 3",
     "name": "Joepardy: Season 3",
@@ -2003,12 +1997,6 @@ window.WTOP_COMING_SEASONS = [
     "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
   },
   {
-    "show": "stick-to-sports",
-    "season": "Season 11",
-    "name": "Stick to Sports: Season 11",
-    "folder": "6ad79145-8032-4c80-84d6-b4d000f1b6af"
-  },
-  {
     "show": "tapped-out",
     "season": "Season 1",
     "name": "Tapped Out: Season 1",
@@ -2019,11 +2007,5 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 2",
     "name": "This or That: Season 2",
     "folder": "fd444489-5b8e-4567-a1f1-b4d10043437f"
-  },
-  {
-    "show": "unofficial-sports-show",
-    "season": "Season 2",
-    "name": "Unofficial Sports Show: Season 2",
-    "folder": "46caddae-a9f3-4e5f-8953-b4d000f1289d"
   }
 ];
