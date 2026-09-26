@@ -110,7 +110,8 @@ window.WTOP = {
       still: "",
       trailer: "",
       match: ["Morning News"],
-      thumbAt: 90
+      thumbAt: 90,
+      airs: { day: "Friday", time: "9:30 AM" }
     },
     {
       id: "storm-team-10",
@@ -128,6 +129,8 @@ window.WTOP = {
     },
     /* Game broadcasts. Each sport has one Panopto folder per season; put
        the years in the folder name, e.g. "Oswego Men's Hockey 2026-27".
+       A folder with "Classics" in its name (e.g. "Hockey Night in Oswego
+       Classics") becomes a Classics season, listed after the others.
        thumbFind: "game" picks a frame of the rink or court. */
     {
       id: "hockey-night",
@@ -170,6 +173,39 @@ window.WTOP = {
       still: "",
       trailer: "",
       match: ["Women's Basketball"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "volleyball",
+      title: "Oswego Volleyball",
+      category: "Sports",
+      tagline: "Laker volleyball on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Volleyball"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "mens-soccer",
+      title: "Oswego Men's Soccer",
+      category: "Sports",
+      tagline: "Laker men's soccer on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Men's Soccer"],
+      thumbAt: 1800,
+      thumbFind: "game"
+    },
+    {
+      id: "womens-soccer",
+      title: "Oswego Women's Soccer",
+      category: "Sports",
+      tagline: "Laker women's soccer on WTOP-10.",
+      still: "",
+      trailer: "",
+      match: ["Women's Soccer"],
       thumbAt: 1800,
       thumbFind: "game"
     },

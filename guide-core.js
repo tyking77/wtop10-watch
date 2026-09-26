@@ -54,6 +54,7 @@
     { match: /oswegolazo/i, cat: 'sports' },
     { match: /\b(volleyball|basketball|soccer|lacrosse|hockey|baseball|softball|football|tennis|swimming|track)\b/i, cat: 'sports' },
     { match: /wtop-10 news/i, cat: 'news' },
+    { match: /^nightly news/i, cat: 'news' },
     { match: /^morning news/i, cat: 'news' },
     { match: /storm team/i, cat: 'news' },
     { match: /regular scheduled programming will return soon/i, cat: 'community' },
@@ -318,7 +319,8 @@
   }
   // Pull a trailing air date off the title. Greedy, so the LAST date wins.
   function splitTrailingDate(t){
-    var m = t.match(/^(.*)\s+(\d{1,2}[\/\-?]\d{1,2}[\/\-?]\d{2,4})\s*$/);
+    // The date can follow a space or a hyphen ("...vs Plattsburgh-11-4-2022")
+    var m = t.match(/^(.*?)(?:\s+|\s*-\s*)(\d{1,2}[\/\-?]\d{1,2}[\/\-?]\d{2,4})\s*$/);
     if(!m) return { title:t, date:null };
     var d = parseLooseDate(m[2]);
     if(!d) return { title:t, date:null };
@@ -468,6 +470,11 @@
       }
 
       var n = normalizeTitle(rawTitle);
+      // Cablecast lists every newscast as "WTOP-10 NEWS". They're Nightly
+      // News (and its reruns), except Friday 9:30 AM, which is Morning News.
+      if(n.title === 'WTOP-10 News'){
+        n.title = (weekdayOfIso(isoDate(d.y, d.m, d.d)) === 5 && sMin === 570) ? 'Morning News' : 'Nightly News';
+      }
       var cat = categoryFor(n.title);
       if(cat === null){
         cat = DEFAULT_CAT;

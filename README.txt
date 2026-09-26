@@ -110,8 +110,16 @@ GAME BROADCASTS
   comes from the game dates: August to July.)
   Game titles drop the school and sport, since the show name says it:
   "vs. Cortland: SUNYAC Semifinal".
+  Shows so far: Hockey Night in Oswego, Hockey Night in Oswego (W),
+  Oswego Men's Basketball, Oswego Women's Basketball, Oswego Volleyball,
+  Oswego Men's Soccer and Oswego Women's Soccer. Each stays hidden until
+  its folder is added.
   A new sport: copy one of these show blocks in data.js and change the
   id, title, tagline and match, e.g. match: ["Women's Lacrosse"].
+  Older games go in a folder with "Classics" in its name, e.g.
+  "Hockey Night in Oswego Classics". It becomes a Classics season in the
+  dropdown, after the current seasons. One Classics folder can hold both
+  men's and women's games; the titles sort them.
   For the hero, a proper 1920x1080 still in the stills/ folder looks
   sharpest, e.g. still: "stills/morning-news.jpg"
 
@@ -135,6 +143,8 @@ UPDATING THE PROGRAM GUIDE
   any rows it skipped and any show it didn't know the category of.
   A show in the wrong category, or spelled two ways? Fix it once in
   guide-core.js (CATEGORY_RULES and CANONICAL_TITLES).
+  Cablecast calls every newscast "WTOP-10 NEWS". The guide shows them as
+  Nightly News, except Friday at 9:30 AM, which is Morning News.
 
 LIVE
   The Live tab plays the 24/7 YouTube stream with the program guide

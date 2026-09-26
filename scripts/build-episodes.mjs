@@ -172,6 +172,8 @@ function seasonOf(folderName, iso) {
   if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() + " " + m[2];
   m = f.match(/\bseason\s*(\d+)\b/i);
   if (m) return "Season " + m[1];
+  // "Hockey Night in Oswego Classics": older games, one season of their own
+  if (/\bclassics?\b/i.test(f)) return "Classics";
   m = f.match(/\b(20\d\d)\s*[-–\/]\s*(\d{2}|20\d\d)\b/);
   if (m) return m[1] + "–" + m[2].slice(-2);
   const y = +String(iso).slice(0, 4), mo = +String(iso).slice(5, 7);
@@ -228,6 +230,7 @@ function cleanTitle(raw, show, cut) {
   // Game broadcasts: "SUNY Oswego Men's Ice Hockey vs ..." -- the school name
   // goes; the sport goes with the show's match words
   t = t.replace(/^\s*SUNY\s+Oswego\s+(?=(Men|Women)[’']s\b)/i, "");
+  if (show.thumbFind) t = t.replace(/^\s*(SUNY\s+)?Oswego\s+(State\s+)?/i, "");
   for (const c of cut) if (c) t = t.replace(c, " ");
   const phrases = [show.title].concat(show.match || [], ["WTOP-10TV", "WTOP-10", "WTOP 10", "WTOP"])
     .map((p) => words(p)).filter(Boolean).sort((a, b) => b.length - a.length);
@@ -243,6 +246,8 @@ function cleanTitle(raw, show, cut) {
   t = t.replace(/(^|\s)@\s+/g, "$1at ").replace(/\bvs\b\.?/gi, "vs.");
   const parts = t.split(/\s*_\s*/).map((x) => x.trim()).filter(Boolean);
   t = parts.length > 1 ? parts[0] + ": " + parts.slice(1).join(", ") : parts[0] || "";
+  // An event, not an opponent: "vs. Alfred Invitational" -> "Alfred Invitational"
+  t = t.replace(/^vs\.\s+(?=[^:]*\b(invitational|tournament|tourney|classic|showcase|championships?|meet|open)\b)/i, "");
   return sportLabel(t);
 }
 

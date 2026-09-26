@@ -578,7 +578,11 @@
     var list = [];
     epsFor(showId).forEach(function (e) { if (e.season && list.indexOf(e.season) < 0) list.push(e.season); });
     return list.map(function (name, i) { return { name: name, i: i, n: seasonNum(name) }; })
-      .sort(function (a, b) { return a.n != null && b.n != null ? b.n - a.n : a.i - b.i; })
+      .sort(function (a, b) {
+        var ca = a.name === "Classics", cb = b.name === "Classics";   // Classics always last
+        if (ca !== cb) return ca ? 1 : -1;
+        return a.n != null && b.n != null ? b.n - a.n : a.i - b.i;
+      })
       .map(function (x) { return x.name; });
   }
   // One season of a show, newest first. Numbered episodes run 3, 2, 1, with
