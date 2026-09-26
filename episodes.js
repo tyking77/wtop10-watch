@@ -23,6 +23,17 @@ window.WTOP_EPISODES = [
     "episode": 1
   },
   {
+    "show": "game-night",
+    "date": "2026-09-24",
+    "title": "finalcut",
+    "panoptoId": "11b0fe84-75f2-4360-b136-b4d1003aa521",
+    "thumb": "thumbs/11b0fe84-75f2-4360-b136-b4d1003aa521.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "51e803cd-5e18-4ee6-875c-b4d000f3994c",
+    "episode": 1
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-24",
     "title": "",
@@ -2018,12 +2029,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 6",
     "name": "Entertainment Breach: Season 6",
     "folder": "32f3e4ba-8f55-486a-bad3-b4d000f3bec7"
-  },
-  {
-    "show": "game-night",
-    "season": "Season 1",
-    "name": "Game Night: Season 1",
-    "folder": "51e803cd-5e18-4ee6-875c-b4d000f3994c"
   },
   {
     "show": "girls-night-out",
