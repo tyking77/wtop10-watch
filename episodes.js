@@ -12,6 +12,17 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "oh-boy",
+    "date": "2026-09-25",
+    "title": "",
+    "panoptoId": "fa46d274-37b4-44cd-aa2a-b4d1003b2530",
+    "thumb": "thumbs/fa46d274-37b4-44cd-aa2a-b4d1003b2530.jpg",
+    "duration": 1444,
+    "season": "Season 5",
+    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b",
+    "episode": 1
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-24",
     "title": "",
@@ -52,6 +63,17 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "late-night-lebones",
+    "date": "2026-09-19",
+    "title": "",
+    "panoptoId": "238c6392-deda-47ba-b4ab-b4d10039eade",
+    "thumb": "thumbs/238c6392-deda-47ba-b4ab-b4d10039eade.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "3a972c24-934f-4f72-9554-b4d000f2c7cb",
+    "episode": 1
+  },
+  {
     "show": "volleyball",
     "date": "2026-09-19",
     "title": "Invitational Day 2",
@@ -60,6 +82,16 @@ window.WTOP_EPISODES = [
     "duration": 27960,
     "season": "2026–27",
     "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "hockey-talk",
+    "date": "2026-09-18",
+    "title": "",
+    "panoptoId": "87cd5b48-6e3c-45f2-8f92-b4d1003a822c",
+    "thumb": "thumbs/87cd5b48-6e3c-45f2-8f92-b4d1003a822c.jpg",
+    "duration": 1800,
+    "season": "Season 4",
+    "folder": "db3569fc-3f8e-4fed-81dc-b4d000f361d3"
   },
   {
     "show": "volleyball",
@@ -82,6 +114,28 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "unofficial-sports-show",
+    "date": "2026-09-17",
+    "title": "",
+    "panoptoId": "261adc7f-7dcd-48b3-b8b0-b4d10039444f",
+    "thumb": "thumbs/261adc7f-7dcd-48b3-b8b0-b4d10039444f.jpg",
+    "duration": 1801,
+    "season": "Season 2",
+    "folder": "46caddae-a9f3-4e5f-8953-b4d000f1289d",
+    "episode": 1
+  },
+  {
+    "show": "oswego-taskmaster",
+    "date": "2026-09-17",
+    "title": "",
+    "panoptoId": "58923529-9002-4c45-a449-b4d10038bd11",
+    "thumb": "thumbs/58923529-9002-4c45-a449-b4d10038bd11.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e",
+    "episode": 1
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-17",
     "title": "",
@@ -94,12 +148,23 @@ window.WTOP_EPISODES = [
   {
     "show": "oswegolazo",
     "date": "2026-09-17",
-    "title": "FINAL",
+    "title": "",
     "panoptoId": "ef09227a-132c-4921-93f6-b4d10038a93b",
     "thumb": "thumbs/ef09227a-132c-4921-93f6-b4d10038a93b.jpg",
     "duration": 1802,
     "season": "Season 3",
     "folder": "a4fec54b-f8df-43eb-a7cb-b4d000f215df"
+  },
+  {
+    "show": "stick-to-sports",
+    "date": "2026-09-17",
+    "title": "",
+    "panoptoId": "f7dafde3-3b79-4738-9989-b4d1003984b0",
+    "thumb": "thumbs/f7dafde3-3b79-4738-9989-b4d1003984b0.jpg",
+    "duration": 1787,
+    "season": "Season 11",
+    "folder": "6ad79145-8032-4c80-84d6-b4d000f1b6af",
+    "episode": 2
   },
   {
     "show": "be-kind-and-rewind",
@@ -1977,18 +2042,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 5",
     "name": "Laker Showdown: Season 5",
     "folder": "1b64f645-6cba-424a-b565-b4d000f2e6c4"
-  },
-  {
-    "show": "late-night-lebones",
-    "season": "Season 2",
-    "name": "Late Night W/Lebones: Season 2",
-    "folder": "3a972c24-934f-4f72-9554-b4d000f2c7cb"
-  },
-  {
-    "show": "oh-boy",
-    "season": "Season 5",
-    "name": "Oh Boy: Season 5",
-    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
   },
   {
     "show": "oswego-foodies",

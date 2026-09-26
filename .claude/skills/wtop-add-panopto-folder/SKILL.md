@@ -20,7 +20,10 @@ For each folder note: its name (works even when empty), its parent, and every
 title, length and upload date. Then decide, per folder:
 
 - **Which show?** Titles route by the show's `title` or `match` words; the
-  longest phrase wins (`showFor` in `scripts/build-episodes.mjs`). Check every
+  longest phrase wins (`showFor` in `scripts/build-episodes.mjs`). A title that
+  matches nothing (a raw file name like "hockeytalk9-18-26l") falls back to the
+  show named by its folder, and then shows as "Episode N" or its date. That
+  only works for one-show folders, so shared folders (News) still need match words. Check every
   title will match, including typos ("Unoffical", "Womens Soccer", "Stick 2
   Sports", "W/"). Missing variants go in that show's `match` array; include the
   full misspelled title (e.g. "The Unoffical Sports Show") so the cleanup strips

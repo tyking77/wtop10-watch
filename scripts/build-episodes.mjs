@@ -202,9 +202,11 @@ function sportLabel(t) {
 }
 
 // Episode number from "S5 Ep.1", "S5E1", "Ep 3" or "Episode 3"
+// ...and file-name styles: "s1_e1", "S2.EP.1", "s5 ep 1", "episode 2"
 function episodeOf(t) {
-  const m = t.match(/\bS\d+\s*E(?:p|pisode)?\.?\s*(\d+)\b/i) || t.match(/\bEp(?:isode)?\.?\s*(\d+)\b/i);
-  return m ? { n: +m[1], text: m[0] } : null;
+  const m = t.match(/(?:^|[^a-z0-9])(S\d+[\s._-]*E(?:p|pisode)?[\s._-]*(\d+))(?!\d)/i) ||
+    t.match(/(?:^|[^a-z0-9])(Ep(?:isode)?[\s._-]*(\d+))(?!\d)/i);
+  return m ? { n: +m[2], text: m[1] } : null;
 }
 
 // Air date from the title. Handles "September 23, 2026", "Sept. 24th 2026",
@@ -212,7 +214,9 @@ function episodeOf(t) {
 function dateFromTitle(t, upload) {
   let m = t.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b/i);
   if (m) return { iso: m[3] + "-" + pad(MONTHS.findIndex((x) => x.startsWith(m[1].toLowerCase())) + 1) + "-" + pad(m[2]), text: m[0] };
-  m = t.match(/\b(\d{1,2})[\/-](\d{1,2})[\/-](\d{2}|\d{4})\b/);
+  // Digits only need to stop at other digits, so a date stuck to letters
+  // still counts ("hockeytalk9-18-26l")
+  m = t.match(/(?<!\d)(\d{1,2})[\/-](\d{1,2})[\/-](\d{4}|\d{2})(?!\d)/);
   if (m && +m[1] <= 12 && +m[2] <= 31) {
     const y = m[3].length === 2 ? "20" + m[3] : m[3];
     return { iso: y + "-" + pad(m[1]) + "-" + pad(m[2]), text: m[0] };
@@ -282,6 +286,10 @@ function cleanTitle(raw, show, cut) {
   t = t.replace(/^vs\.\s+(?=[^:]*\b(invitational|tournament|tourney|classic|showcase|championships?|meet|open)\b)/i, "");
   // "Invitational: Day 1" -> "Invitational Day 1", to match "Invitational Day 2"
   t = t.replace(/:\s+(Day\s+\d+)\b/i, " $1");
+  // File-version notes aren't titles: "OSWEGOLAZO FINAL 9-17-26" leaves
+  // "FINAL". Drop a trailing all-caps note, or a note that's all that's left.
+  t = t.replace(/\s+\(?(FINAL( CUT)?|EXPORT|RENDER|MASTER|V\d+)\)?$/, "");
+  if (/^\(?(final( cut)?|final export|export|render|master|v\d+|edit)\)?$/i.test(t)) t = "";
   return sportLabel(t);
 }
 
@@ -323,7 +331,10 @@ for (const folder of folders) {
   console.log(`Folder ${folder}: ${rows.length} sessions (${rows[0] ? rows[0].FolderName : "empty"})`);
   for (const row of rows) {
     if (!row.DeliveryID) continue;
-    const show = showFor(row.SessionName);
+    // The title names the show; failing that (a raw file name like
+    // "hockeytalk9-18-26l"), the folder does: "Hockey Talk: Season 4"
+    let show = showFor(row.SessionName), byFolder = false;
+    if (!show && (show = showFor(row.FolderName || ""))) byFolder = true;
     if (!show) {
       console.warn(`! No show matches "${row.SessionName}". Add a match word to a show in data.js.`);
       report.push([row.SessionName, "(no show: skipped)", "", ""]);
@@ -334,7 +345,8 @@ for (const folder of folders) {
     const ep = {
       show: show.id,
       date: d ? d.iso : uploadDate(row),
-      title: cleanTitle(row.SessionName, show, [d && d.text, num && num.text]),
+      // A file-name title is no title: show "Episode 1" or the date instead
+      title: byFolder ? "" : cleanTitle(row.SessionName, show, [d && d.text, num && num.text]),
       panoptoId: row.DeliveryID,
       thumb: await thumbFor(row, show),
       duration: Math.round(row.Duration || 0),
