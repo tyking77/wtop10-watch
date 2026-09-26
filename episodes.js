@@ -52,6 +52,26 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "volleyball",
+    "date": "2026-09-19",
+    "title": "Invitational Day 2",
+    "panoptoId": "4f50c675-2651-4139-9172-b4ca0168f745",
+    "thumb": "thumbs/4f50c675-2651-4139-9172-b4ca0168f745.jpg",
+    "duration": 27960,
+    "season": "2026–27",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "volleyball",
+    "date": "2026-09-18",
+    "title": "Invitational Day 1",
+    "panoptoId": "ba17665d-1cc4-4a4e-bfd9-b4ca0168ece9",
+    "thumb": "thumbs/ba17665d-1cc4-4a4e-bfd9-b4ca0168ece9.jpg",
+    "duration": 22560,
+    "season": "2026–27",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
     "show": "morning-news",
     "date": "2026-09-18",
     "title": "",
@@ -90,6 +110,26 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Fall 2026",
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2026-09-08",
+    "title": "vs. Geneseo",
+    "panoptoId": "5b78651d-faa9-4948-b2cc-b4c1013ae10c",
+    "thumb": "thumbs/5b78651d-faa9-4948-b2cc-b4c1013ae10c.jpg",
+    "duration": 8261,
+    "season": "2026–27",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2026-09-01",
+    "title": "vs. Brockport",
+    "panoptoId": "eeb06c4d-aa9b-4667-ad65-b4b9015ed0e0",
+    "thumb": "thumbs/eeb06c4d-aa9b-4667-ad65-b4b9015ed0e0.jpg",
+    "duration": 9359,
+    "season": "2026–27",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
   },
   {
     "show": "entertainment-breach",
@@ -1588,5 +1628,195 @@ window.WTOP_EPISODES = [
     "duration": 9455,
     "season": "2025–26",
     "folder": "7ac2fa0c-2643-4b09-b440-b48e006e9dea"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-10-28",
+    "title": "vs. Canton",
+    "panoptoId": "37a0d650-61e6-4935-a8c6-b49c001abdc9",
+    "thumb": "thumbs/37a0d650-61e6-4935-a8c6-b49c001abdc9.jpg",
+    "duration": 5314,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-10-24",
+    "title": "vs. Morrisville",
+    "panoptoId": "9963a77b-abc5-46fd-b11f-b49c001a7cf9",
+    "thumb": "thumbs/9963a77b-abc5-46fd-b11f-b49c001a7cf9.jpg",
+    "duration": 8550,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "mens-soccer",
+    "date": "2025-10-22",
+    "title": "vs. Buffalo State",
+    "panoptoId": "3afcd6b8-5b7c-4db0-9e82-b499006b9715",
+    "thumb": "thumbs/3afcd6b8-5b7c-4db0-9e82-b499006b9715.jpg",
+    "duration": 7325,
+    "season": "2025–26",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-10-11",
+    "title": "vs. New Paltz",
+    "panoptoId": "a802ed4e-752f-49f0-b844-b49b01127fa5",
+    "thumb": "thumbs/a802ed4e-752f-49f0-b844-b49b01127fa5.jpg",
+    "duration": 8005,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-10-08",
+    "title": "vs. Cortland",
+    "panoptoId": "c83c0f32-364b-470e-8086-b49b0111b171",
+    "thumb": "thumbs/c83c0f32-364b-470e-8086-b49b0111b171.jpg",
+    "duration": 7870,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-10-07",
+    "title": "vs. Nazareth",
+    "panoptoId": "431d57fa-0f62-4a93-b78b-b49c0017a5ec",
+    "thumb": "thumbs/431d57fa-0f62-4a93-b78b-b49c0017a5ec.jpg",
+    "duration": 6665,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-10-04",
+    "title": "vs. Oneonta",
+    "panoptoId": "9e47b64b-04d7-4088-a88b-b49c0016975f",
+    "thumb": "thumbs/9e47b64b-04d7-4088-a88b-b49c0016975f.jpg",
+    "duration": 9635,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-10-03",
+    "title": "vs. New Paltz",
+    "panoptoId": "c0061edd-503e-48f4-b212-b49c0016975b",
+    "thumb": "thumbs/c0061edd-503e-48f4-b212-b49c0016975b.jpg",
+    "duration": 5710,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-10-01",
+    "title": "vs. Canton",
+    "panoptoId": "eeed4cb5-f82f-4284-ba79-b49b01113a32",
+    "thumb": "thumbs/eeed4cb5-f82f-4284-ba79-b49b01113a32.jpg",
+    "duration": 7855,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "mens-soccer",
+    "date": "2025-09-27",
+    "title": "vs. Oneonta",
+    "panoptoId": "a29505e5-6569-4f98-80ba-b499006a93f1",
+    "thumb": "thumbs/a29505e5-6569-4f98-80ba-b499006a93f1.jpg",
+    "duration": 8050,
+    "season": "2025–26",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-09-20",
+    "title": "Invitational Day 2",
+    "panoptoId": "9ec773ce-ad4f-4f80-aa19-b49c001680c9",
+    "thumb": "thumbs/9ec773ce-ad4f-4f80-aa19-b49c001680c9.jpg",
+    "duration": 33685,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "volleyball",
+    "date": "2025-09-19",
+    "title": "Invitational Day 1",
+    "panoptoId": "87c334c3-3a00-49ce-994a-b49c001680c7",
+    "thumb": "thumbs/87c334c3-3a00-49ce-994a-b49c001680c7.jpg",
+    "duration": 32678,
+    "season": "2025–26",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-09-17",
+    "title": "vs. Marywood",
+    "panoptoId": "511909b5-db27-4342-9d34-b49b0111260e",
+    "thumb": "thumbs/511909b5-db27-4342-9d34-b49b0111260e.jpg",
+    "duration": 8060,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-09-13",
+    "title": "vs. St. Lawrence",
+    "panoptoId": "f9b825a5-ff27-4138-85e0-b49b01111ef5",
+    "thumb": "thumbs/f9b825a5-ff27-4138-85e0-b49b01111ef5.jpg",
+    "duration": 16110,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "mens-soccer",
+    "date": "2025-09-10",
+    "title": "vs. Rochester",
+    "panoptoId": "7a2519d5-631c-4c5d-986e-b499006a8ce6",
+    "thumb": "thumbs/7a2519d5-631c-4c5d-986e-b499006a8ce6.jpg",
+    "duration": 8605,
+    "season": "2025–26",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-09-09",
+    "title": "vs. Hamilton",
+    "panoptoId": "42c59285-7f5e-41a3-ab75-b49b011114d7",
+    "thumb": "thumbs/42c59285-7f5e-41a3-ab75-b49b011114d7.jpg",
+    "duration": 8175,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "mens-soccer",
+    "date": "2025-09-02",
+    "title": "vs. Hamilton",
+    "panoptoId": "0602b6ed-db60-44ec-991c-b499006a84d9",
+    "thumb": "thumbs/0602b6ed-db60-44ec-991c-b499006a84d9.jpg",
+    "duration": 8920,
+    "season": "2025–26",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
+  },
+  {
+    "show": "womens-soccer",
+    "date": "2025-08-30",
+    "title": "vs. Wilkes",
+    "panoptoId": "2ef285e0-a67b-4b30-b3a6-b49b01110b63",
+    "thumb": "thumbs/2ef285e0-a67b-4b30-b3a6-b49b01110b63.jpg",
+    "duration": 7390,
+    "season": "2025–26",
+    "folder": "869d2ffd-7a9b-4e1d-a9da-b48e006ed868"
+  },
+  {
+    "show": "mens-soccer",
+    "date": "2025-08-29",
+    "title": "vs. Clarkson",
+    "panoptoId": "c81529d7-5631-41e8-aa14-b499006a84e1",
+    "thumb": "thumbs/c81529d7-5631-41e8-aa14-b499006a84e1.jpg",
+    "duration": 870,
+    "season": "2025–26",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
   }
 ];

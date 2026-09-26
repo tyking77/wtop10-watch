@@ -193,14 +193,31 @@ function episodeOf(t) {
 }
 
 // Air date from the title. Handles "September 23, 2026", "Sept. 24th 2026",
-// "9/17/26" and "2-16-26".
-function dateFromTitle(t) {
+// "9/17/26", "2-16-26" and a trailing "91926".
+function dateFromTitle(t, upload) {
   let m = t.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b/i);
   if (m) return { iso: m[3] + "-" + pad(MONTHS.findIndex((x) => x.startsWith(m[1].toLowerCase())) + 1) + "-" + pad(m[2]), text: m[0] };
   m = t.match(/\b(\d{1,2})[\/-](\d{1,2})[\/-](\d{2}|\d{4})\b/);
   if (m && +m[1] <= 12 && +m[2] <= 31) {
     const y = m[3].length === 2 ? "20" + m[3] : m[3];
     return { iso: y + "-" + pad(m[1]) + "-" + pad(m[2]), text: m[0] };
+  }
+  // A date code with no separators at the end of the title: "9826" (9/8/26),
+  // "91926" (9/19/26), "112125" (11/21/25). A 5-digit code can read two ways
+  // ("11126": 1/11/26 or 11/1/26), so take the reading closest before the
+  // upload date.
+  m = t.match(/(?:^|\s)(\d{4,6})\s*$/);
+  if (m) {
+    const c = m[1], yy = c.slice(-2), md = c.slice(0, -2);
+    const splits = md.length === 2 ? [[1, 1]] : md.length === 3 ? [[1, 2], [2, 1]] : [[2, 2]];
+    const iso = splits.map(([a, b]) => [+md.slice(0, a), +md.slice(a, a + b)])
+      .filter(([mo, dd]) => mo >= 1 && mo <= 12 && dd >= 1 && dd <= 31)
+      .map(([mo, dd]) => "20" + yy + "-" + pad(mo) + "-" + pad(dd))
+      .sort((a, b) => {
+        const score = (x) => (upload && x > upload ? 1e6 : 0) + Math.abs(Date.parse(upload || x) - Date.parse(x)) / 864e5;
+        return score(a) - score(b);
+      })[0];
+    if (iso) return { iso, text: m[1] };
   }
   return null;
 }
@@ -248,6 +265,8 @@ function cleanTitle(raw, show, cut) {
   t = parts.length > 1 ? parts[0] + ": " + parts.slice(1).join(", ") : parts[0] || "";
   // An event, not an opponent: "vs. Alfred Invitational" -> "Alfred Invitational"
   t = t.replace(/^vs\.\s+(?=[^:]*\b(invitational|tournament|tourney|classic|showcase|championships?|meet|open)\b)/i, "");
+  // "Invitational: Day 1" -> "Invitational Day 1", to match "Invitational Day 2"
+  t = t.replace(/:\s+(Day\s+\d+)\b/i, " $1");
   return sportLabel(t);
 }
 
@@ -279,7 +298,7 @@ for (const folder of folders) {
       report.push([row.SessionName, "(no show: skipped)", "", ""]);
       continue;
     }
-    const d = dateFromTitle(row.SessionName);
+    const d = dateFromTitle(row.SessionName, uploadDate(row));
     const num = episodeOf(row.SessionName);
     const ep = {
       show: show.id,

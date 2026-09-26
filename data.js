@@ -46,7 +46,10 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=05ed34a2-3407-4837-890c-b48e006f4c47", // Oswego Men's Basketball
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=a8a301be-88c9-4bf2-a055-b48e006f5672", // Oswego Women's Basketball
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=c8b455bf-08de-4d24-80c1-b48e0015e024", // This or That: Season 1
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=794b1d5e-6733-4211-bbed-b48e0015f828"  // The Unofficial Sports Show: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=794b1d5e-6733-4211-bbed-b48e0015f828", // The Unofficial Sports Show: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=869d2ffd-7a9b-4e1d-a9da-b48e006ed868", // Oswego Women's Soccer
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=d27d5f75-c551-4e8a-9392-b48e006eb10c", // Oswego Men's Soccer
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=47c62cbd-20c5-4834-a9cc-b48e006f21fb"  // Oswego Women's Volleyball
   ],
 
   /* ---------- LIVE ----------
@@ -183,7 +186,7 @@ window.WTOP = {
       tagline: "Laker volleyball on WTOP-10.",
       still: "",
       trailer: "",
-      match: ["Volleyball"],
+      match: ["Women's Volleyball", "Volleyball"],
       thumbAt: 1800,
       thumbFind: "game"
     },
@@ -205,7 +208,7 @@ window.WTOP = {
       tagline: "Laker women's soccer on WTOP-10.",
       still: "",
       trailer: "",
-      match: ["Women's Soccer"],
+      match: ["Women's Soccer", "Womens Soccer"],
       thumbAt: 1800,
       thumbFind: "game"
     },
