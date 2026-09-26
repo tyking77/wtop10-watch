@@ -92,6 +92,16 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "storm-team-10",
+    "date": "2026-09-15",
+    "title": "",
+    "panoptoId": "50f7b3dd-585b-408c-b871-b4c60140b130",
+    "thumb": "thumbs/50f7b3dd-585b-408c-b871-b4c60140b130.jpg",
+    "duration": 1800,
+    "season": "Season 1",
+    "folder": "1e73e07c-c0ca-4209-b858-b4c60140a69f"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-15",
     "title": "",

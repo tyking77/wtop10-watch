@@ -50,7 +50,26 @@ window.WTOP = {
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=869d2ffd-7a9b-4e1d-a9da-b48e006ed868", // Oswego Women's Soccer
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=d27d5f75-c551-4e8a-9392-b48e006eb10c", // Oswego Men's Soccer
     "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=47c62cbd-20c5-4834-a9cc-b48e006f21fb", // Oswego Women's Volleyball
-    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=78eac15f-827e-488b-b53b-b48e006f0602"  // Oswego Field Hockey
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=78eac15f-827e-488b-b53b-b48e006f0602", // Oswego Field Hockey
+    // Fall 2026 shows
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=ebe16db1-5d10-44b2-8040-b4d000f3ed94", // Batting Practice: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=b4dc8820-6464-4f03-bbd2-b4d000f3dc4d", // Be Kind and Rewind: Season 5
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=32f3e4ba-8f55-486a-bad3-b4d000f3bec7", // Entertainment Breach: Season 6
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=51e803cd-5e18-4ee6-875c-b4d000f3994c", // Game Night: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=55e8a4c8-a887-4bef-a821-b4d000f3744b", // Girls Night Out: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=db3569fc-3f8e-4fed-81dc-b4d000f361d3", // Hockey Talk: Season 4
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=3d435d54-2c74-433b-9b3e-b4d000f30f5e", // Joepardy: Season 3
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7f652fa1-ee4e-4b3f-aa2f-b4ac01319277", // Laker Connections: Season 26
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=1b64f645-6cba-424a-b565-b4d000f2e6c4", // Laker Showdown: Season 5
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=3a972c24-934f-4f72-9554-b4d000f2c7cb", // Late Night W/Lebones: Season 2
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=21c482ac-7abc-438b-9d35-b4d000f2767b", // Oh Boy: Season 5
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=537ae8ca-2dfd-4954-94c7-b4d000f25345", // Oswego Foodies: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=3301e5cc-8f2a-4f7e-8603-b4d000f2324e", // Oswego Taskmaster: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=a4fec54b-f8df-43eb-a7cb-b4d000f215df", // Oswegolazo: Season 3
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=6ad79145-8032-4c80-84d6-b4d000f1b6af", // Stick to Sports: Season 11
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=1e73e07c-c0ca-4209-b858-b4c60140a69f", // Storm Team 10 Live: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=9e017f78-68e8-4772-bdc2-b4d000f15909", // Tapped Out: Season 1
+    "https://oswego.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=46caddae-a9f3-4e5f-8953-b4d000f1289d"  // Unofficial Sports Show: Season 2
   ],
 
   /* ---------- LIVE ----------
@@ -564,13 +583,6 @@ window.WTOP = {
      date:      YYYY-MM-DD (newest episodes show first automatically)
      title:     optional; leave empty to use the date                     */
   episodes: [
-    {
-      show: "storm-team-10",
-      title: "",
-      date: "2026-09-15",
-      panoptoId: "50f7b3dd-585b-408c-b871-b4c60140b130",
-      thumb: ""
-    }
   ],
 
   /* ---------- OVERRIDES ----------

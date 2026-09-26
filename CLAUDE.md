@@ -55,6 +55,8 @@ Newscasts in the guide: Cablecast lists them all as "WTOP-10 NEWS". `parseStatio
 
 ## Panopto source
 
+`Data.svc/GetFolderInfo` (POST `{folderID}`) returns a folder's `Name` and `ParentName` without a login, even when the folder is empty (GetSessions only reveals `FolderName` through its sessions). Fall 2026 show folders sit under a parent folder named "Fall 2026" (4ed201f6-30de-40c4-a4c5-b48e0005d56a); listing its subfolders still needs a login, so each folder link is listed in `panoptoFolders`. An empty public folder and a private one look the same from outside (0 sessions). There are no hand-entered episodes left: Storm Team 10 Live's 9/15/26 episode now comes from its folder.
+
 Panopto retired folder RSS (the podcast URL returns 403). The build POSTs to `/Panopto/Services/Data.svc/GetSessions` with a `folderID`, the same undocumented JSON the folder page uses. It works without a login for public folders; listing a folder's subfolders does not, so every semester folder must be listed. Use `DeliveryID` as the panoptoId (it is what Embed.aspx takes), not `SessionID`. `StartTime` is the upload time, so the air date is parsed from the title. `ThumbUrl` redirects to a CloudFront JPG; a pure-black first frame is about 2 KB, so the build drops thumbs under 4 KB. If a folder fails, its episodes from the previous `episodes.js` are kept. When every folder loads, frames in `thumbs/` that no episode uses are deleted. A video being renamed or reprocessed can vanish from the folder listing for a few minutes (seen with Sept 24, 2026); it comes back on the next run with the same ID. Panopto's own frame grabber ignores timestamp parameters, which is why the build uses ffmpeg on the MP4.
 
 ## Live tab
