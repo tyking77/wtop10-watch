@@ -142,6 +142,16 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "laker-connections",
+    "date": "2026-09-10",
+    "title": "",
+    "panoptoId": "b8d43730-7f0b-4d63-876e-b4d1003970f0",
+    "thumb": "thumbs/b8d43730-7f0b-4d63-876e-b4d1003970f0.jpg",
+    "duration": 1800,
+    "season": "Season 26",
+    "folder": "7f652fa1-ee4e-4b3f-aa2f-b4ac01319277"
+  },
+  {
     "show": "field-hockey",
     "date": "2026-09-09",
     "title": "vs. Keuka",
@@ -1967,12 +1977,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 3",
     "name": "Joepardy: Season 3",
     "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
-  },
-  {
-    "show": "laker-connections",
-    "season": "Season 26",
-    "name": "Laker Connections: Season 26",
-    "folder": "7f652fa1-ee4e-4b3f-aa2f-b4ac01319277"
   },
   {
     "show": "laker-showdown",
