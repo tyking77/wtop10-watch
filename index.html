@@ -323,6 +323,10 @@
     padding-inline: var(--gutter); margin-bottom: 12px;
   }
   .row-head h2 { margin: 0; font: 700 clamp(22px, 2vw, 28px)/1 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+  .row-link { color: inherit; text-decoration: none; }
+  .row-link span { display: inline-block; color: var(--red); transition: transform .15s; }
+  .row-link:hover, .row-link:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .row-link:hover span { transform: translateX(3px); }
   .row-head span { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
   .season {
     appearance: none; -webkit-appearance: none; cursor: pointer;
@@ -1067,6 +1071,21 @@
         head.textContent = seasons[0];
       }
       var sec = addRow(s.title, seasonEps(s.id, seasons[0]).map(function (e) { return episodeCard(e, false); }), "", head);
+      // The row's heading links to the show's page (a real link, so it can
+      // open in a new tab; a plain click stays in the page)
+      if (sec) {
+        var h2 = sec.querySelector("h2"), a = document.createElement("a");
+        a.className = "row-link";
+        a.href = "?show=" + encodeURIComponent(s.id);
+        a.innerHTML = esc(s.title) + ' <span aria-hidden="true">›</span>';
+        a.addEventListener("click", function (ev) {
+          if (ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+          ev.preventDefault();
+          setFilter("show", s.id);
+        });
+        h2.textContent = "";
+        h2.appendChild(a);
+      }
       if (sec && seasons.length > 1) head.addEventListener("change", function () {
         var track = sec.querySelector(".track");
         track.innerHTML = "";
