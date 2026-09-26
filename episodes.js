@@ -102,6 +102,16 @@ window.WTOP_EPISODES = [
     "folder": "a4fec54b-f8df-43eb-a7cb-b4d000f215df"
   },
   {
+    "show": "be-kind-and-rewind",
+    "date": "2026-09-16",
+    "title": "",
+    "panoptoId": "e9da4d22-51c3-478f-9207-b4d100388cd9",
+    "thumb": "thumbs/e9da4d22-51c3-478f-9207-b4d100388cd9.jpg",
+    "duration": 1800,
+    "season": "Season 5",
+    "folder": "b4dc8820-6464-4f03-bbd2-b4d000f3dc4d"
+  },
+  {
     "show": "storm-team-10",
     "date": "2026-09-15",
     "title": "",
@@ -1929,12 +1939,6 @@ window.WTOP_COMING_SEASONS = [
     "folder": "ebe16db1-5d10-44b2-8040-b4d000f3ed94"
   },
   {
-    "show": "be-kind-and-rewind",
-    "season": "Season 5",
-    "name": "Be Kind and Rewind: Season 5",
-    "folder": "b4dc8820-6464-4f03-bbd2-b4d000f3dc4d"
-  },
-  {
     "show": "entertainment-breach",
     "season": "Season 6",
     "name": "Entertainment Breach: Season 6",
@@ -1993,12 +1997,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 1",
     "name": "Oswego Foodies: Season 1",
     "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
-  },
-  {
-    "show": "oswego-taskmaster",
-    "season": "Season 1",
-    "name": "Oswego Taskmaster: Season 1",
-    "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
   },
   {
     "show": "stick-to-sports",
