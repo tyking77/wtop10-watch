@@ -2,6 +2,26 @@
    Do not edit: changes are overwritten. Fix an episode with "overrides" in data.js. */
 window.WTOP_EPISODES = [
   {
+    "show": "nightly-news",
+    "date": "2026-09-28",
+    "title": "",
+    "panoptoId": "9e35c38e-a3cb-4a60-9c17-b4d4002e83f1",
+    "thumb": "thumbs/9e35c38e-a3cb-4a60-9c17-b4d4002e83f1.jpg",
+    "duration": 1800,
+    "season": "Season 5",
+    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
+  },
+  {
+    "show": "nightly-news",
+    "date": "2026-09-28",
+    "title": "",
+    "panoptoId": "f3e6dc20-b102-4e9e-b889-b4d4002f1ee3",
+    "thumb": "thumbs/f3e6dc20-b102-4e9e-b889-b4d4002f1ee3.jpg",
+    "duration": 1800,
+    "season": "Season 5",
+    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
+  },
+  {
     "show": "rise-and-shine",
     "date": "2026-09-25",
     "title": "",
