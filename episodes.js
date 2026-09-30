@@ -8,18 +8,8 @@ window.WTOP_EPISODES = [
     "panoptoId": "9e35c38e-a3cb-4a60-9c17-b4d4002e83f1",
     "thumb": "thumbs/9e35c38e-a3cb-4a60-9c17-b4d4002e83f1.jpg",
     "duration": 1800,
-    "season": "Season 5",
-    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
-  },
-  {
-    "show": "nightly-news",
-    "date": "2026-09-28",
-    "title": "",
-    "panoptoId": "f3e6dc20-b102-4e9e-b889-b4d4002f1ee3",
-    "thumb": "thumbs/f3e6dc20-b102-4e9e-b889-b4d4002f1ee3.jpg",
-    "duration": 1800,
-    "season": "Season 5",
-    "folder": "21c482ac-7abc-438b-9d35-b4d000f2767b"
+    "season": "Fall 2026",
+    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
     "show": "rise-and-shine",
