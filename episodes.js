@@ -2,6 +2,16 @@
    Do not edit: changes are overwritten. Fix an episode with "overrides" in data.js. */
 window.WTOP_EPISODES = [
   {
+    "show": "oswego-foodies",
+    "date": "2026-10-02",
+    "title": "",
+    "panoptoId": "02c5d360-3c05-4799-90e1-b4d901625e80",
+    "thumb": "thumbs/02c5d360-3c05-4799-90e1-b4d901625e80.jpg",
+    "duration": 782,
+    "season": "Season 1",
+    "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-29",
     "title": "",
@@ -2077,12 +2087,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 5",
     "name": "Laker Showdown: Season 5",
     "folder": "1b64f645-6cba-424a-b565-b4d000f2e6c4"
-  },
-  {
-    "show": "oswego-foodies",
-    "season": "Season 1",
-    "name": "Oswego Foodies: Season 1",
-    "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
   },
   {
     "show": "tapped-out",
