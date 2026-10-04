@@ -2,6 +2,16 @@
    Do not edit: changes are overwritten. Fix an episode with "overrides" in data.js. */
 window.WTOP_EPISODES = [
   {
+    "show": "joepardy",
+    "date": "2026-10-05",
+    "title": "",
+    "panoptoId": "f51303f1-61a7-44fc-97d0-b4d90160cb35",
+    "thumb": "thumbs/f51303f1-61a7-44fc-97d0-b4d90160cb35.jpg",
+    "duration": 1800,
+    "season": "Season 3",
+    "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
+  },
+  {
     "show": "oswego-foodies",
     "date": "2026-10-02",
     "title": "",
@@ -10,6 +20,16 @@ window.WTOP_EPISODES = [
     "duration": 782,
     "season": "Season 1",
     "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
+  },
+  {
+    "show": "oswego-taskmaster",
+    "date": "2026-10-01",
+    "title": "",
+    "panoptoId": "957c98cd-1f86-45f3-af75-b4d901628188",
+    "thumb": "thumbs/957c98cd-1f86-45f3-af75-b4d901628188.jpg",
+    "duration": 1802,
+    "season": "Season 1",
+    "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
   },
   {
     "show": "nightly-news",
@@ -30,6 +50,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Fall 2026",
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
+  },
+  {
+    "show": "joepardy",
+    "date": "2026-09-28",
+    "title": "",
+    "panoptoId": "d43d94fe-ba17-4833-b3a3-b4d90160c09e",
+    "thumb": "thumbs/d43d94fe-ba17-4833-b3a3-b4d90160c09e.jpg",
+    "duration": 1800,
+    "season": "Season 3",
+    "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
   },
   {
     "show": "rise-and-shine",
@@ -2075,12 +2105,6 @@ window.WTOP_COMING_SEASONS = [
     "season": "Season 1",
     "name": "Girls Night Out: Season 1",
     "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
-  },
-  {
-    "show": "joepardy",
-    "season": "Season 3",
-    "name": "Joepardy: Season 3",
-    "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
   },
   {
     "show": "laker-showdown",
