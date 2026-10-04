@@ -2,6 +2,16 @@
    Do not edit: changes are overwritten. Fix an episode with "overrides" in data.js. */
 window.WTOP_EPISODES = [
   {
+    "show": "late-night-lebones",
+    "date": "2026-10-05",
+    "title": "",
+    "panoptoId": "90222585-85f9-4a9e-a504-b4d90160edee",
+    "thumb": "thumbs/90222585-85f9-4a9e-a504-b4d90160edee.jpg",
+    "duration": 1800,
+    "season": "Season 2",
+    "folder": "3a972c24-934f-4f72-9554-b4d000f2c7cb"
+  },
+  {
     "show": "joepardy",
     "date": "2026-10-05",
     "title": "",
@@ -12,6 +22,28 @@ window.WTOP_EPISODES = [
     "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
   },
   {
+    "show": "nightly-news",
+    "date": "2026-10-04",
+    "title": "10: 1",
+    "panoptoId": "0ef7f19a-6702-40d5-83ae-b4d901657d84",
+    "thumb": "thumbs/0ef7f19a-6702-40d5-83ae-b4d901657d84.jpg",
+    "duration": 1800,
+    "season": "Fall 2026",
+    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8",
+    "undated": true
+  },
+  {
+    "show": "nightly-news",
+    "date": "2026-10-04",
+    "title": "930",
+    "panoptoId": "d390d447-0c26-411f-a152-b4d90165e86a",
+    "thumb": "thumbs/d390d447-0c26-411f-a152-b4d90165e86a.jpg",
+    "duration": 1800,
+    "season": "Fall 2026",
+    "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8",
+    "undated": true
+  },
+  {
     "show": "oswego-foodies",
     "date": "2026-10-02",
     "title": "",
@@ -20,6 +52,46 @@ window.WTOP_EPISODES = [
     "duration": 782,
     "season": "Season 1",
     "folder": "537ae8ca-2dfd-4954-94c7-b4d000f25345"
+  },
+  {
+    "show": "girls-night-out",
+    "date": "2026-10-02",
+    "title": "",
+    "panoptoId": "6d29ccad-aab1-49a7-ac21-b4d901638d00",
+    "thumb": "thumbs/6d29ccad-aab1-49a7-ac21-b4d901638d00.jpg",
+    "duration": 1802,
+    "season": "Season 1",
+    "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
+  },
+  {
+    "show": "tapped-out",
+    "date": "2026-10-02",
+    "title": "",
+    "panoptoId": "fa8655ce-510d-4084-af3a-b4d90162e2ba",
+    "thumb": "thumbs/fa8655ce-510d-4084-af3a-b4d90162e2ba.jpg",
+    "duration": 900,
+    "season": "Season 1",
+    "folder": "9e017f78-68e8-4772-bdc2-b4d000f15909"
+  },
+  {
+    "show": "stick-to-sports",
+    "date": "2026-10-01",
+    "title": "",
+    "panoptoId": "7f8ecc24-2348-4427-8f48-b4d90162c4ac",
+    "thumb": "thumbs/7f8ecc24-2348-4427-8f48-b4d90162c4ac.jpg",
+    "duration": 1787,
+    "season": "Season 11",
+    "folder": "6ad79145-8032-4c80-84d6-b4d000f1b6af"
+  },
+  {
+    "show": "laker-connections",
+    "date": "2026-10-01",
+    "title": "",
+    "panoptoId": "862f1dca-8021-482b-9b5a-b4d901651d7a",
+    "thumb": "thumbs/862f1dca-8021-482b-9b5a-b4d901651d7a.jpg",
+    "duration": 1800,
+    "season": "Season 26",
+    "folder": "7f652fa1-ee4e-4b3f-aa2f-b4ac01319277"
   },
   {
     "show": "oswego-taskmaster",
@@ -42,6 +114,16 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "tapped-out",
+    "date": "2026-09-29",
+    "title": "",
+    "panoptoId": "b62a968b-093a-404c-a08b-b4d90162dcbc",
+    "thumb": "thumbs/b62a968b-093a-404c-a08b-b4d90162dcbc.jpg",
+    "duration": 901,
+    "season": "Season 1",
+    "folder": "9e017f78-68e8-4772-bdc2-b4d000f15909"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-28",
     "title": "",
@@ -52,6 +134,16 @@ window.WTOP_EPISODES = [
     "folder": "e07377de-feb9-4d66-8296-b4ac012d34b8"
   },
   {
+    "show": "be-kind-and-rewind",
+    "date": "2026-09-28",
+    "title": "",
+    "panoptoId": "c1dd6c36-42cf-45be-a6d2-b4d90164542f",
+    "thumb": "thumbs/c1dd6c36-42cf-45be-a6d2-b4d90164542f.jpg",
+    "duration": 1802,
+    "season": "Season 5",
+    "folder": "b4dc8820-6464-4f03-bbd2-b4d000f3dc4d"
+  },
+  {
     "show": "joepardy",
     "date": "2026-09-28",
     "title": "",
@@ -60,6 +152,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Season 3",
     "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
+  },
+  {
+    "show": "girls-night-out",
+    "date": "2026-09-25",
+    "title": "",
+    "panoptoId": "50af618c-58d7-47ac-880c-b4d901631086",
+    "thumb": "thumbs/50af618c-58d7-47ac-880c-b4d901631086.jpg",
+    "duration": 1590,
+    "season": "Season 1",
+    "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
   },
   {
     "show": "rise-and-shine",
@@ -2101,22 +2203,10 @@ window.WTOP_COMING_SEASONS = [
     "folder": "32f3e4ba-8f55-486a-bad3-b4d000f3bec7"
   },
   {
-    "show": "girls-night-out",
-    "season": "Season 1",
-    "name": "Girls Night Out: Season 1",
-    "folder": "55e8a4c8-a887-4bef-a821-b4d000f3744b"
-  },
-  {
     "show": "laker-showdown",
     "season": "Season 5",
     "name": "Laker Showdown: Season 5",
     "folder": "1b64f645-6cba-424a-b565-b4d000f2e6c4"
-  },
-  {
-    "show": "tapped-out",
-    "season": "Season 1",
-    "name": "Tapped Out: Season 1",
-    "folder": "9e017f78-68e8-4772-bdc2-b4d000f15909"
   },
   {
     "show": "this-or-that",
