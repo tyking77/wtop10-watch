@@ -44,6 +44,16 @@ window.WTOP_EPISODES = [
     "undated": true
   },
   {
+    "show": "field-hockey",
+    "date": "2026-10-03",
+    "title": "vs. Salisbury University",
+    "panoptoId": "5437aaa5-4ab3-4464-bc70-b4d90166623e",
+    "thumb": "thumbs/5437aaa5-4ab3-4464-bc70-b4d90166623e.jpg",
+    "duration": 9060,
+    "season": "2026–27",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
+  },
+  {
     "show": "oswego-foodies",
     "date": "2026-10-02",
     "title": "",
@@ -104,6 +114,16 @@ window.WTOP_EPISODES = [
     "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
   },
   {
+    "show": "mens-soccer",
+    "date": "2026-09-30",
+    "title": "",
+    "panoptoId": "8470b8b9-518f-4519-b85c-b4d9016682f7",
+    "thumb": "thumbs/8470b8b9-518f-4519-b85c-b4d9016682f7.jpg",
+    "duration": 9060,
+    "season": "2026–27",
+    "folder": "d27d5f75-c551-4e8a-9392-b48e006eb10c"
+  },
+  {
     "show": "volleyball",
     "date": "2026-09-29",
     "title": "vs. SUNY Poly",
@@ -162,6 +182,16 @@ window.WTOP_EPISODES = [
     "duration": 1800,
     "season": "Season 3",
     "folder": "3d435d54-2c74-433b-9b3e-b4d000f30f5e"
+  },
+  {
+    "show": "field-hockey",
+    "date": "2026-09-26",
+    "title": "vs. Houghton",
+    "panoptoId": "a801af7c-26a1-4705-845c-b4d90166a342",
+    "thumb": "thumbs/a801af7c-26a1-4705-845c-b4d90166a342.jpg",
+    "duration": 9060,
+    "season": "2026–27",
+    "folder": "78eac15f-827e-488b-b53b-b48e006f0602"
   },
   {
     "show": "girls-night-out",
