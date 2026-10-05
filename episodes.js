@@ -104,6 +104,16 @@ window.WTOP_EPISODES = [
     "folder": "3301e5cc-8f2a-4f7e-8603-b4d000f2324e"
   },
   {
+    "show": "volleyball",
+    "date": "2026-09-29",
+    "title": "vs. SUNY Poly",
+    "panoptoId": "53607262-c600-4541-a02d-b4d90166c5d3",
+    "thumb": "thumbs/53607262-c600-4541-a02d-b4d90166c5d3.jpg",
+    "duration": 5879,
+    "season": "2026–27",
+    "folder": "47c62cbd-20c5-4834-a9cc-b48e006f21fb"
+  },
+  {
     "show": "nightly-news",
     "date": "2026-09-29",
     "title": "",
